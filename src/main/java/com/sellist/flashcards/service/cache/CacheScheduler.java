@@ -1,6 +1,5 @@
 package com.sellist.flashcards.service.cache;
 
-import com.sellist.flashcards.data.yaml.YamlCacheInitializer;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,11 +8,11 @@ import org.springframework.stereotype.Component;
 public class CacheScheduler {
     //    schedule cache updates and on startup
     @Autowired
-    YamlCacheInitializer yamlCacheInitializer;
+    CacheInitializer cacheInitializer;
 
     @PostConstruct
     public void init() {
-        yamlCacheInitializer.loadCaches();
+        cacheInitializer.loadCaches();
     }
 
 }

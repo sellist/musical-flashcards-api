@@ -16,9 +16,9 @@ public class NoteValidationUtil {
         return isNoteValid(note.getNote());
     }
 
-    public boolean isNoteValid(String note) {
-        return isNoteValid(MidiNoteUtil.convertNoteStringToMidi(note));
-    }
+//    public boolean isNoteValid(String note) {
+//        return isNoteValid(MidiNoteUtil.convertNoteStringToMidi(note));
+//    }
 
     public boolean isNoteValid(Integer note) {
         return note >= 21 && note <= 127;

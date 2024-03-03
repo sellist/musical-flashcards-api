@@ -1,21 +1,56 @@
 package com.sellist.flashcards.util;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-@Service
+import java.util.Map;
+
+@Component
 public class MidiNoteUtil {
-    public static Integer convertNoteStringToMidi(String note) {
-        String[] parts = note.split("");
-        String noteName = parts[0];
-        String octave = parts[parts.length - 1];
-        String modifier = parts.length == 3 ? parts[1] : "";
+    String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+    String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
 
+    private Map<String, Integer> sharpNoteMap;
 
+    private Map<String, Integer> flatNoteMap;
 
-        NoteValidationUtil noteValidationUtil = new NoteValidationUtil();
+    public MidiNoteUtil(@Qualifier("sharpsNameToMidiMap") Map<String, Integer> sharpNoteMap,
+                        @Qualifier("flatsNameToMidiMap") Map<String, Integer> flatNoteMap) {
+        this.sharpNoteMap = sharpNoteMap;
+        this.flatNoteMap = flatNoteMap;
+        System.out.println(midiToFlatNoteName(40));
+    }
 
+    public String midiToSharpNoteName(int midiValue) {
 
+        int noteIndex = (midiValue) % 12;
+        int octave = (midiValue) / 12 - 1;
 
-        return 0;
+        return sharpNoteNames[noteIndex] + octave;
+    }
+
+    public String midiToFlatNoteName(int midiValue) {
+
+        int noteIndex = (midiValue) % 12;
+        int octave = (midiValue) / 12 - 1;
+
+        return flatNoteNames[noteIndex] + octave;
+    }
+
+    public int getMidiValue(String note) {
+        if (note.contains("#")) {
+            return sharpNoteToMidi(note);
+        } else {
+            return flatNoteToMidi(note);
+        }
+    }
+
+    private int flatNoteToMidi(String note) {
+        return flatNoteMap.get(note);
+    }
+
+    private int sharpNoteToMidi(String note) {
+        return sharpNoteMap.get(note);
     }
 }
