@@ -1,24 +1,26 @@
 package com.sellist.flashcards.util;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-@Component
+@Configuration
 public class MidiNoteUtil {
     String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
 
-    private Map<String, Integer> sharpNoteMap;
+    @Autowired
+    @Qualifier("sharpsNameToMidiMap")
+    private Map<String, Integer> sharpsNameToMidiMap;
 
-    private Map<String, Integer> flatNoteMap;
+    @Autowired
+    @Qualifier("flatsNameToMidiMap")
+    private Map<String, Integer> flatsNameToMidiMap;
 
-    public MidiNoteUtil(@Qualifier("sharpsNameToMidiMap") Map<String, Integer> sharpNoteMap,
-                        @Qualifier("flatsNameToMidiMap") Map<String, Integer> flatNoteMap) {
-        this.sharpNoteMap = sharpNoteMap;
-        this.flatNoteMap = flatNoteMap;
+    public MidiNoteUtil() {
         System.out.println(midiToFlatNoteName(40));
     }
 
@@ -47,10 +49,10 @@ public class MidiNoteUtil {
     }
 
     private int flatNoteToMidi(String note) {
-        return flatNoteMap.get(note);
+        return flatsNameToMidiMap.get(note);
     }
 
     private int sharpNoteToMidi(String note) {
-        return sharpNoteMap.get(note);
+        return sharpsNameToMidiMap.get(note);
     }
 }

@@ -4,43 +4,39 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sellist.flashcards.model.Instrument;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class CacheInitializer {
+public class MemoryCacheInitializer {
 
     private ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
-    @Value("${midi.base.notes.flat}")
-    private String[] flatNotes;
-
+    private static final Map<String, Integer> flatsNameToMidiMap = flatsNameToMidiMap();
 
     @PostConstruct
     public void loadCaches() {
         objectMapper.findAndRegisterModules();
-//        loadInstrumentsCache();
-//        createFullNoteMidiMap();
     }
 
-    public void loadInstrumentsCache() {
+    @Bean(name = "instrumentMap")
+    public Map<String, Instrument> instrumentsCache() {
+        Map<String,Instrument> instrumentMap = new HashMap<>();
 
         File directory = new File("src/main/resources/static/instruments");
         File[] files = directory.listFiles((pathname) -> pathname.getName().endsWith(".yaml"));
         for (File file : files) {
             try {
                 Instrument instrument = objectMapper.readValue(file, Instrument.class);
-//                System.out.println(instrument);
+                instrumentMap.put(instrument.getName(), instrument);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }   return instrumentMap;
     }
 
     @Bean(name = "sharpsNameToMidiMap")

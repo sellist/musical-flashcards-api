@@ -1,6 +1,5 @@
 package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.model.Instrument;
 import com.sellist.flashcards.model.NoteData;
 
 public class NoteService {

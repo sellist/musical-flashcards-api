@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 public class CacheScheduler {
     //    schedule cache updates and on startup
     @Autowired
-    CacheInitializer cacheInitializer;
+    MemoryCacheInitializer memoryCacheInitializer;
 
     @PostConstruct
     public void init() {
-        cacheInitializer.loadCaches();
+        memoryCacheInitializer.loadCaches();
     }
 
 }
