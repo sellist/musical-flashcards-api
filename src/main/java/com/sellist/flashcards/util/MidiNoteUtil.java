@@ -1,13 +1,15 @@
 package com.sellist.flashcards.util;
 
-import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Configuration
+@Component
 public class MidiNoteUtil {
     String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
@@ -19,10 +21,6 @@ public class MidiNoteUtil {
     @Autowired
     @Qualifier("flatsNameToMidiMap")
     private Map<String, Integer> flatsNameToMidiMap;
-
-    public MidiNoteUtil() {
-        System.out.println(midiToFlatNoteName(40));
-    }
 
     public String midiToSharpNoteName(int midiValue) {
 
@@ -41,6 +39,10 @@ public class MidiNoteUtil {
     }
 
     public int getMidiValue(String note) {
+        boolean isNumberAtEnd = note.matches("\\d+$");
+        if (!isNumberAtEnd) {
+            return -1;
+        }
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
         } else {
@@ -49,6 +51,7 @@ public class MidiNoteUtil {
     }
 
     private int flatNoteToMidi(String note) {
+        System.out.println(note);
         return flatsNameToMidiMap.get(note);
     }
 

@@ -3,6 +3,7 @@ package com.sellist.flashcards.service;
 import com.sellist.flashcards.model.NoteData;
 import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.util.MidiNoteUtil;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 @Service
-public class  ScaleService {
+public class ScaleService {
 
     @Autowired
     private MidiNoteUtil midiNoteUtil;
@@ -27,6 +28,11 @@ public class  ScaleService {
 
     public List<NoteData> getScaleNotes(Scale scale, NoteData tonic, Integer octaves) {
         return null;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println(generateScale("WWHWWWH", "C", 1));
     }
 
     private List<String> generateSharpScale(String scalePattern, String startingNote, int numOctaves) {
