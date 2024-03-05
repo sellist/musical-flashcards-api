@@ -14,20 +14,28 @@ public class MidiNoteUtilTest {
     @Test
     public void testMidiToSharpNoteName() {
         assertEquals("C4",sut.midiToSharpNoteName(60));
-        assertEquals("B#4",sut.midiToSharpNoteName(60));
         assertEquals("G4",sut.midiToSharpNoteName(67));
-        assertEquals("E#4",sut.midiToSharpNoteName(65));
         assertEquals("C5",sut.midiToSharpNoteName(72));
         assertEquals("C1",sut.midiToSharpNoteName(24));
+        assertEquals("B0",sut.midiToSharpNoteName(23));
     }
 
     @Test
     public void testMidiToFlatNoteName() {
         assertEquals("C4",sut.midiToFlatNoteName(60));
-        assertEquals("Bb4",sut.midiToFlatNoteName(58));
+        assertEquals("Bb3",sut.midiToFlatNoteName(58));
         assertEquals("G4",sut.midiToFlatNoteName(67));
         assertEquals("C5",sut.midiToFlatNoteName(72));
         assertEquals("C1",sut.midiToFlatNoteName(24));
-        assertEquals("Cb1",sut.midiToFlatNoteName(23));
+        assertEquals("B0",sut.midiToFlatNoteName(23));
+    }
+
+    @Test
+    public void testNoteNameToMidi() {
+        assertEquals(60,sut.getMidiValue("C4"));
+        assertEquals(58,sut.getMidiValue("Bb3"));
+        assertEquals(67,sut.getMidiValue("G4"));
+        assertEquals(72,sut.getMidiValue("C5"));
+        assertEquals(24,sut.getMidiValue("C1"));
     }
 }

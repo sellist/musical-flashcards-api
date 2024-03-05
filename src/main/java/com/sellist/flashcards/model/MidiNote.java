@@ -1,5 +1,6 @@
 package com.sellist.flashcards.model;
 
+import com.sellist.flashcards.util.MidiNoteUtil;
 import lombok.Data;
 
 @Data

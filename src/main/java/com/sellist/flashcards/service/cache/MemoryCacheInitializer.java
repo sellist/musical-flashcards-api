@@ -47,6 +47,9 @@ public class MemoryCacheInitializer {
         for (int i = 24; i <= 120; i++) {
             String noteName = noteNames[i % 12];
             int octave = (i / 12) - 1;
+            if (noteName.equals("B") || noteName.equals("E")) {
+                midiNoteMap.put(noteName +"#"+ octave,i+1);
+            }
             midiNoteMap.put(noteName + octave,i);
         }
 
@@ -55,17 +58,20 @@ public class MemoryCacheInitializer {
 
     @Bean(name = "flatsNameToMidiMap")
     public static Map<String, Integer> flatsNameToMidiMap() {
-        String[] noteNamesWithFlats = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
-        Map<String, Integer> noteMidiMap = new HashMap<>();
+        String[] noteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
+        Map<String, Integer> midiNoteMap = new HashMap<>();
 
         for (int i = 24; i <= 120; i++) {
+            String noteName = noteNames[i % 12];
             int octave = (i / 12) - 1;
-            String noteNameWithFlat = noteNamesWithFlats[i % 12] + octave;
 
-            noteMidiMap.put(noteNameWithFlat, i);
+            if (noteName.equals("C") || noteName.equals("F")) {
+                midiNoteMap.put(noteName +"b"+ octave,i-1);
+            }
+            midiNoteMap.put(noteName + octave,i);
         }
 
-        return noteMidiMap;
+        return midiNoteMap;
     }
 
 }

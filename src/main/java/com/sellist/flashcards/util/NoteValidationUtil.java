@@ -7,14 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteValidationUtil {
 
-    public boolean isNoteInInstrumentRange(ABCNoteData note, Instrument instrument) {
-        return true;
-    }
-
-    public boolean isNoteValid(ABCNoteData note) {
-        return isNoteValid(note.getNote());
-    }
-
     public boolean isNoteValid(Integer note) {
         return note >= 21 && note <= 127;
     }
