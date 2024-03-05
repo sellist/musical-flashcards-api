@@ -1,10 +1,8 @@
 package com.sellist.flashcards.util;
 
+import com.sellist.flashcards.model.MidiNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -39,10 +37,6 @@ public class MidiNoteUtil {
     }
 
     public int getMidiValue(String note) {
-        boolean isNumberAtEnd = note.matches("\\d+$");
-        if (!isNumberAtEnd) {
-            return -1;
-        }
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
         } else {
@@ -51,11 +45,14 @@ public class MidiNoteUtil {
     }
 
     private int flatNoteToMidi(String note) {
-        System.out.println(note);
         return flatsNameToMidiMap.get(note);
     }
 
     private int sharpNoteToMidi(String note) {
         return sharpsNameToMidiMap.get(note);
+    }
+
+    public MidiNote getMidiNoteFromString(String note) {
+        return new MidiNote(note);
     }
 }
