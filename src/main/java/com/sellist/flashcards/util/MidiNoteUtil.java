@@ -20,6 +20,10 @@ public class MidiNoteUtil {
     @Qualifier("flatsNameToMidiMap")
     private Map<String, Integer> flatsNameToMidiMap;
 
+    @Autowired
+    @Qualifier("naturalNameToMidiMap")
+    private Map<String, Integer> naturalNameToMidiMap;
+
     public String midiToSharpNoteName(int midiValue) {
 
         int noteIndex = (midiValue) % 12;
@@ -39,8 +43,10 @@ public class MidiNoteUtil {
     public int getMidiValue(String note) {
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
-        } else {
+        } else if (note.contains("b")) {
             return flatNoteToMidi(note);
+        } else {
+            return naturalNoteToMidi(note);
         }
     }
 
@@ -50,6 +56,10 @@ public class MidiNoteUtil {
 
     private int sharpNoteToMidi(String note) {
         return sharpsNameToMidiMap.get(note);
+    }
+
+    private int naturalNoteToMidi(String note) {
+        return naturalNameToMidiMap.get(note);
     }
 
     public MidiNote getMidiNoteFromString(String note) {
