@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class MidiNoteUtilTest {
+public class NoteUtilTest {
     @Autowired
-    private MidiNoteUtil sut;
+    private NoteUtil sut;
 
     @Test
     void testMidiToSharpNoteName() {

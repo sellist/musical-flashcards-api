@@ -1,6 +1,6 @@
 package com.sellist.flashcards.util;
 
-import com.sellist.flashcards.model.MidiNote;
+import com.sellist.flashcards.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class MidiNoteUtil {
+public class NoteUtil {
     String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
 
@@ -62,7 +62,4 @@ public class MidiNoteUtil {
         return naturalNameToMidiMap.get(note);
     }
 
-    public MidiNote getMidiNoteFromString(String note) {
-        return new MidiNote(note);
-    }
 }

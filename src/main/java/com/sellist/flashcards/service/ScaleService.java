@@ -1,7 +1,7 @@
 package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.model.MidiNote;
-import com.sellist.flashcards.util.MidiNoteUtil;
+import com.sellist.flashcards.model.Note;
+import com.sellist.flashcards.util.NoteUtil;
 import com.sellist.flashcards.util.StepStrToIntUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,39 +19,39 @@ public class ScaleService {
     private final Set<String> flatKeys = Set.of("F", "Bb", "Eb", "Ab", "Db", "Gb", "Cb");
 
     @Autowired
-    private MidiNoteUtil midiNoteUtil;
+    private NoteUtil noteUtil;
 
-    private List<MidiNote> generateSharpScale(String scalePattern, String startingNote, int numOctaves) {
-        List<MidiNote> scale = new ArrayList<>();
-        int currentMidiValue = midiNoteUtil.getMidiValue(startingNote);
+    private List<Note> generateSharpScale(String scalePattern, String startingNote, int numOctaves) {
+        List<Note> scale = new ArrayList<>();
+        int currentMidiValue = noteUtil.getMidiValue(startingNote);
 
-        scale.add(new MidiNote(midiNoteUtil.midiToSharpNoteName(currentMidiValue)));
+        scale.add(new Note(noteUtil.midiToSharpNoteName(currentMidiValue)));
         for (int octave = 0; octave < numOctaves; octave++) {
             for (int i = 0; i < scalePattern.length(); i++) {
                 currentMidiValue += StepStrToIntUtil.stepStrToInt(String.valueOf(scalePattern.charAt(i)));
-                scale.add(new MidiNote(midiNoteUtil.midiToSharpNoteName(currentMidiValue)));
+                scale.add(new Note(noteUtil.midiToSharpNoteName(currentMidiValue)));
             }
         }
 
         return scale;
     }
 
-    private List<MidiNote> generateFlatScale(String scalePattern, String startingNote, int numOctaves) {
-        List<MidiNote> scale = new ArrayList<>();
-        int currentMidiValue = midiNoteUtil.getMidiValue(startingNote);
+    private List<Note> generateFlatScale(String scalePattern, String startingNote, int numOctaves) {
+        List<Note> scale = new ArrayList<>();
+        int currentMidiValue = noteUtil.getMidiValue(startingNote);
 
-        scale.add(new MidiNote(midiNoteUtil.midiToFlatNoteName(currentMidiValue)));
+        scale.add(new Note(noteUtil.midiToFlatNoteName(currentMidiValue)));
         for (int octave = 0; octave < numOctaves; octave++) {
             for (int i = 0; i < scalePattern.length(); i++) {
                 currentMidiValue += StepStrToIntUtil.stepStrToInt(String.valueOf(scalePattern.charAt(i)));
-                scale.add(new MidiNote(midiNoteUtil.midiToFlatNoteName(currentMidiValue)));
+                scale.add(new Note(noteUtil.midiToFlatNoteName(currentMidiValue)));
             }
         }
 
         return scale;
     }
 
-    public List<MidiNote> generateScale(String scalePattern, String startingNote, int numOctaves) {
+    public List<Note> generateScale(String scalePattern, String startingNote, int numOctaves) {
         String[] startingNoteSplit = startingNote.split("(?<=\\D)(?=\\d)");
         String startingNoteName = startingNoteSplit[0];
 
@@ -64,7 +64,7 @@ public class ScaleService {
         }
     }
 
-    public List<MidiNote> generateScale(String scalePattern, MidiNote startingNote, int numOctaves) {
+    public List<Note> generateScale(String scalePattern, Note startingNote, int numOctaves) {
         return generateScale(scalePattern, startingNote.getNoteName(), numOctaves);
     }
 

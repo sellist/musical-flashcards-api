@@ -1,6 +1,6 @@
 package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.model.MidiNote;
+import com.sellist.flashcards.model.Note;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,38 +16,38 @@ public class ScaleServiceTest {
 
     @Test
     void testGetScale() {
-        List<MidiNote> expected = List.of(
-                new MidiNote("C4"),
-                new MidiNote("D4"),
-                new MidiNote("E4"),
-                new MidiNote("F4"),
-                new MidiNote("G4"),
-                new MidiNote("A4"),
-                new MidiNote("B4"),
-                new MidiNote("C5")
+        List<Note> expected = List.of(
+                new Note("C4"),
+                new Note("D4"),
+                new Note("E4"),
+                new Note("F4"),
+                new Note("G4"),
+                new Note("A4"),
+                new Note("B4"),
+                new Note("C5")
         );
-        List<MidiNote> data = sut.generateScale("WWHWWWH", "C4", 1);
+        List<Note> data = sut.generateScale("WWHWWWH", "C4", 1);
         Assertions.assertEquals(expected, data);
     }
 
     @Test
     void testGetChromaticScale() {
-        List<MidiNote> expected = List.of(
-                new MidiNote("C4"),
-                new MidiNote("C#4"),
-                new MidiNote("D4"),
-                new MidiNote("D#4"),
-                new MidiNote("E4"),
-                new MidiNote("F4"),
-                new MidiNote("F#4"),
-                new MidiNote("G4"),
-                new MidiNote("G#4"),
-                new MidiNote("A4"),
-                new MidiNote("A#4"),
-                new MidiNote("B4"),
-                new MidiNote("C5")
+        List<Note> expected = List.of(
+                new Note("C4"),
+                new Note("C#4"),
+                new Note("D4"),
+                new Note("D#4"),
+                new Note("E4"),
+                new Note("F4"),
+                new Note("F#4"),
+                new Note("G4"),
+                new Note("G#4"),
+                new Note("A4"),
+                new Note("A#4"),
+                new Note("B4"),
+                new Note("C5")
         );
-        List<MidiNote> data = sut.generateScale("HHHHHHHHHHHH", "C4", 1);
+        List<Note> data = sut.generateScale("HHHHHHHHHHHH", "C4", 1);
         Assertions.assertEquals(expected, data);
     }
 

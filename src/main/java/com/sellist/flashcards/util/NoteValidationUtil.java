@@ -1,7 +1,6 @@
 package com.sellist.flashcards.util;
 
-import com.sellist.flashcards.model.Instrument;
-import com.sellist.flashcards.model.MidiNote;
+import com.sellist.flashcards.model.Note;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,11 +10,11 @@ public class NoteValidationUtil {
         return note >= 21 && note <= 127;
     }
 
-    public boolean isNoteValid(MidiNote note) {
+    public boolean isNoteValid(Note note) {
         return isNoteValid(note.getMidiValue());
     }
 
     public boolean isNoteValid(String note) {
-        return isNoteValid(new MidiNote(note));
+        return isNoteValid(new Note(note));
     }
 }

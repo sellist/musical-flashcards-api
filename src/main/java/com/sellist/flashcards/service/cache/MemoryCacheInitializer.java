@@ -2,9 +2,9 @@ package com.sellist.flashcards.service.cache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.sellist.flashcards.constants.StepsConstants;
 import com.sellist.flashcards.model.Instrument;
-import com.sellist.flashcards.model.MidiNote;
-import com.sellist.flashcards.service.ScaleService;
+import com.sellist.flashcards.model.Step;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +46,7 @@ public class MemoryCacheInitializer {
     public static Map<String, Integer> sharpsNameToMidiMap() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
 
         int noteIndex = 4;
         int i = 20;
@@ -56,15 +57,15 @@ public class MemoryCacheInitializer {
             switch (noteName) {
                 case "C#","D#","F#","G#","A#" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 2;
+                    i += sc.WHOLE_STEP.getSize();
                 }
                 case "E#" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 1;
+                    i += sc.HALF_STEP.getSize();
                 }
                 case "B#" -> {
-                    midiNoteMap.put(noteName + octave, i+12);
-                    i += 1;
+                    midiNoteMap.put(noteName + octave, i+sc.PERFECT_OCTAVE.getSize());
+                    i += sc.HALF_STEP.getSize();
                 }
             }
             noteIndex++;
@@ -76,6 +77,7 @@ public class MemoryCacheInitializer {
     public static Map<String, Integer> flatsNameToMidiMap() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
 
         int noteIndex = 5;
         int i = 20;
@@ -86,15 +88,15 @@ public class MemoryCacheInitializer {
             switch (noteName) {
                 case "Cb" -> {
                     midiNoteMap.put(noteName + octave, i-12);
-                    i += 2;
+                    i += sc.WHOLE_STEP.getSize();
                 }
                 case "Ab","Gb","Fb","Db" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 2;
+                    i += sc.WHOLE_STEP.getSize();
                 }
                 case "Eb","Bb" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 1;
+                    i += sc.HALF_STEP.getSize();
                 }
             }
             noteIndex++;
@@ -106,6 +108,7 @@ public class MemoryCacheInitializer {
     public static Map<String, Integer> naturalsNameToMidiMap() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
 
         int noteIndex = 5;
         int i = 21;
@@ -116,15 +119,27 @@ public class MemoryCacheInitializer {
             switch (noteName) {
                 case "C", "A", "G", "F", "D" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 2;
+                    i += sc.WHOLE_STEP.getSize();
                 }
                 case "E","B" -> {
                     midiNoteMap.put(noteName + octave, i);
-                    i += 1;
+                    i += sc.HALF_STEP.getSize();
                 }
             }
             noteIndex++;
         }
         return midiNoteMap;
+    }
+
+    @Bean(name = "intervalNameToSizeMap")
+    public static Map<String, Integer> intervalNameToSizeMap() {
+        List<Step> steps = new StepsConstants().getSteps();
+        Map<String, Integer> stepNameToSizeMap = new HashMap<>();
+        for (Step step : steps) {
+            stepNameToSizeMap.put(step.getShortName(), step.getSize());
+            stepNameToSizeMap.put(step.getStepName(), step.getSize());
+        }
+        System.out.println(stepNameToSizeMap);
+        return stepNameToSizeMap;
     }
 }
