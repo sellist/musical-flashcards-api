@@ -17,9 +17,7 @@ import java.util.Map;
 @Configuration
 public class MemoryCacheInitializer {
 
-    private ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-
-    private static final Map<String, Integer> flatsNameToMidiMap = flatsNameToMidiMap();
+    private final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
     @PostConstruct
     public void loadCaches() {
@@ -32,6 +30,7 @@ public class MemoryCacheInitializer {
 
         File directory = new File("src/main/resources/static/instruments");
         File[] files = directory.listFiles((pathname) -> pathname.getName().endsWith(".yaml"));
+        assert files != null;
         for (File file : files) {
             try {
                 Instrument instrument = objectMapper.readValue(file, Instrument.class);
@@ -42,8 +41,8 @@ public class MemoryCacheInitializer {
         }   return instrumentMap;
     }
 
-    @Bean(name = "sharpsNameToMidiMap")
-    public static Map<String, Integer> sharpsNameToMidiMap() {
+    @Bean(name = "sharpNameToMidiMap")
+    public static Map<String, Integer> sharpNameToMidiMap() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -73,8 +72,8 @@ public class MemoryCacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "flatsNameToMidiMap")
-    public static Map<String, Integer> flatsNameToMidiMap() {
+    @Bean(name = "flatNameToMidiMap")
+    public static Map<String, Integer> flatNameToMidiMap() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -139,7 +138,17 @@ public class MemoryCacheInitializer {
             stepNameToSizeMap.put(step.getShortName(), step.getSize());
             stepNameToSizeMap.put(step.getStepName(), step.getSize());
         }
-        System.out.println(stepNameToSizeMap);
         return stepNameToSizeMap;
     }
+
+    @Bean(name = "intervalSizeToStepMap")
+    public static Map<Integer, Step> intervalSizeToStepMap() {
+        List<Step> steps = new StepsConstants().getStandardSteps();
+        Map<Integer, Step> stepSizeToNameMap = new HashMap<>();
+        for (Step step : steps) {
+            stepSizeToNameMap.put(step.getSize(), step);
+        }
+        return stepSizeToNameMap;
+    }
+
 }

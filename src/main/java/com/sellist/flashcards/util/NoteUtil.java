@@ -1,6 +1,7 @@
 package com.sellist.flashcards.util;
 
 import com.sellist.flashcards.model.Note;
+import com.sellist.flashcards.service.cache.CacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -12,17 +13,12 @@ public class NoteUtil {
     String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
 
-    @Autowired
-    @Qualifier("sharpsNameToMidiMap")
-    private Map<String, Integer> sharpsNameToMidiMap;
+    private final CacheProvider cache;
 
     @Autowired
-    @Qualifier("flatsNameToMidiMap")
-    private Map<String, Integer> flatsNameToMidiMap;
-
-    @Autowired
-    @Qualifier("naturalNameToMidiMap")
-    private Map<String, Integer> naturalNameToMidiMap;
+    public NoteUtil(CacheProvider cacheProvider) {
+        this.cache = cacheProvider;
+    }
 
     public String midiToSharpNoteName(int midiValue) {
 
@@ -50,16 +46,18 @@ public class NoteUtil {
         }
     }
 
+    public Note generateNote(String noteName) {
+        return new Note(getMidiValue(noteName), noteName);
+    }
+
     private int flatNoteToMidi(String note) {
-        return flatsNameToMidiMap.get(note);
+        return cache.flatNameToMidiMap.get(note);
     }
 
     private int sharpNoteToMidi(String note) {
-        return sharpsNameToMidiMap.get(note);
+        return cache.sharpNameToMidiMap.get(note);
     }
 
-    private int naturalNoteToMidi(String note) {
-        return naturalNameToMidiMap.get(note);
-    }
+    private int naturalNoteToMidi(String note) { return cache.naturalNameToMidiMap.get(note); }
 
 }

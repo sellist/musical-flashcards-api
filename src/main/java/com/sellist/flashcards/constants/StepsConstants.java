@@ -38,6 +38,9 @@ public class StepsConstants {
     public final Step PERFECT_TWELFTH = new Step("Perfect Twelfth", "P12", 19);
     public final Step MINOR_THIRTEENTH = new Step("Minor Thirteenth", "m13", 20);
     public final Step MAJOR_THIRTEENTH = new Step("Major Thirteenth", "M13", 21);
+    public final Step MINOR_FOURTEENTH = new Step("Minor Fourteenth", "m14", 22);
+    public final Step MAJOR_FOURTEENTH = new Step("Major Fourteenth", "M14", 23);
+    public final Step DOUBLE_OCTAVE = new Step("Double Octave", "P15", 24);
 
     public final Step AUGMENTED_UNISON = new Step("Augmented Unison", "A1", 1);
     public final Step DIMINISHED_SECOND = new Step("Diminished Second", "d2", 0);
@@ -67,4 +70,11 @@ public class StepsConstants {
         return steps;
     }
 
+    public List<Step> getStandardSteps() {
+        return Arrays.asList(PERFECT_UNISON, MINOR_SECOND, MAJOR_SECOND, MINOR_THIRD,
+                MAJOR_THIRD, PERFECT_FOURTH, TRITONE, PERFECT_FIFTH, MINOR_SIXTH, MAJOR_SIXTH, MINOR_SEVENTH,
+                MAJOR_SEVENTH, PERFECT_OCTAVE, MINOR_NINTH, MAJOR_NINTH, MINOR_TENTH, MAJOR_TENTH, PERFECT_ELEVENTH,
+                AUGMENTED_ELEVENTH, PERFECT_TWELFTH, MINOR_THIRTEENTH, MAJOR_THIRTEENTH, MINOR_FOURTEENTH,
+                MAJOR_FOURTEENTH, DOUBLE_OCTAVE);
+    }
 }
