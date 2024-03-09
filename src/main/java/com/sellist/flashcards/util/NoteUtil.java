@@ -50,6 +50,16 @@ public class NoteUtil {
         return new Note(getMidiValue(noteName), noteName);
     }
 
+    public Note generateNoteByMidiValue(int midiValue, String accidental) {
+        if (accidental.equals("b")) {
+            return new Note(midiValue, midiToFlatNoteName(midiValue));
+        } else if (accidental.equals("#")) {
+            return new Note(midiValue, midiToSharpNoteName(midiValue));
+        } else {
+            return new Note(midiValue, midiToSharpNoteName(midiValue));
+        }
+    }
+
     private int flatNoteToMidi(String note) {
         return cache.flatNameToMidiMap.get(note);
     }

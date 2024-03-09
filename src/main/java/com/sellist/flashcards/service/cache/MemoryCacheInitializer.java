@@ -132,7 +132,7 @@ public class MemoryCacheInitializer {
 
     @Bean(name = "intervalNameToSizeMap")
     public static Map<String, Integer> intervalNameToSizeMap() {
-        List<Step> steps = new StepsConstants().getSteps();
+        List<Step> steps = new StepsConstants().getAllSteps();
         Map<String, Integer> stepNameToSizeMap = new HashMap<>();
         for (Step step : steps) {
             stepNameToSizeMap.put(step.getShortName(), step.getSize());
@@ -151,4 +151,25 @@ public class MemoryCacheInitializer {
         return stepSizeToNameMap;
     }
 
+    @Bean(name = "majorSizeToStepMap")
+    public static Map<Integer, Step> majorSizeToStepMap() {
+        Map<Integer, Step> majorStepsMap = new HashMap<>();
+        for (Step step : new StepsConstants().getAllSteps()) {
+            if (step.getMod() == 0) {
+                majorStepsMap.put(step.getSize(), step);
+            }
+        }
+        return majorStepsMap;
+    }
+
+    @Bean(name = "minorSizeToStepMap")
+    public static Map<Integer, Step> minorSizeToStepMap() {
+        Map<Integer, Step> minorStepsMap = new HashMap<>();
+        for (Step step : new StepsConstants().getAllSteps()) {
+            if (step.getMod() == -1) {
+                minorStepsMap.put(step.getSize(), step);
+            }
+        }
+        return minorStepsMap;
+    }
 }
