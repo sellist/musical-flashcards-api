@@ -151,11 +151,21 @@ public class MemoryCacheInitializer {
         return stepSizeToNameMap;
     }
 
+    @Bean(name = "stepNameToStepMap")
+    public static Map<String, Step> stepNameToStepMap() {
+        Map<String, Step> stepNameToStepMap = new HashMap<>();
+        for (Step step : new StepsConstants().getAllSteps()) {
+            stepNameToStepMap.put(step.getStepName(), step);
+            stepNameToStepMap.put(step.getShortName(), step);
+        }
+        return stepNameToStepMap;
+    }
+
     @Bean(name = "majorSizeToStepMap")
     public static Map<Integer, Step> majorSizeToStepMap() {
         Map<Integer, Step> majorStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
-            if (step.getMod() == 0) {
+            if (step.getQuality().equals("M") || step.getQuality().equals("P")) {
                 majorStepsMap.put(step.getSize(), step);
             }
         }
@@ -166,10 +176,32 @@ public class MemoryCacheInitializer {
     public static Map<Integer, Step> minorSizeToStepMap() {
         Map<Integer, Step> minorStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
-            if (step.getMod() == -1) {
+            if (step.getQuality().equals("m")) {
                 minorStepsMap.put(step.getSize(), step);
             }
         }
         return minorStepsMap;
+    }
+
+    @Bean(name = "diminishedSizeToStepMap")
+    public static Map<Integer, Step> diminishedSizeToStepMap() {
+        Map<Integer, Step> diminishedStepsMap = new HashMap<>();
+        for (Step step : new StepsConstants().getAllSteps()) {
+            if (step.getQuality().equals("d")) {
+                diminishedStepsMap.put(step.getSize(), step);
+            }
+        }
+        return diminishedStepsMap;
+    }
+
+    @Bean(name = "augmentedSizeToStepMap")
+    public static Map<Integer, Step> augmentedSizeToStepMap() {
+        Map<Integer, Step> augmentedStepsMap = new HashMap<>();
+        for (Step step : new StepsConstants().getAllSteps()) {
+            if (step.getQuality().equals("A")) {
+                augmentedStepsMap.put(step.getSize(), step);
+            }
+        }
+        return augmentedStepsMap;
     }
 }

@@ -15,6 +15,9 @@ public class CacheProvider {
     public final Map<Integer, Step> intervalSizeToStepMap;
     public final Map<Integer, Step> majorSizeToStepMap;
     public final Map<Integer, Step> minorSizeToStepMap;
+    public final Map<Integer, Step> diminishedSizeToStepMap;
+    public final Map<Integer, Step> augmentedSizeToStepMap;
+    public final Map<String, Step> stepNameToStepMap;
 
     public CacheProvider(Map<String, Integer> naturalNameToMidiMap,
                          Map<String, Integer> flatNameToMidiMap,
@@ -22,7 +25,10 @@ public class CacheProvider {
                          Map<String, Integer> intervalNameToSizeMap,
                          Map<Integer, Step> intervalSizeToStepMap,
                          Map<Integer, Step> majorSizeToStepMap,
-                         Map<Integer, Step> minorSizeToStepMap) {
+                         Map<Integer, Step> minorSizeToStepMap,
+                         Map<Integer, Step> diminishedSizeToStepMap,
+                         Map<Integer, Step> augmentedSizeToStepMap,
+                         Map<String, Step> stepNameToStepMap) {
         this.naturalNameToMidiMap = naturalNameToMidiMap;
         this.flatNameToMidiMap = flatNameToMidiMap;
         this.sharpNameToMidiMap = sharpNameToMidiMap;
@@ -30,5 +36,8 @@ public class CacheProvider {
         this.intervalSizeToStepMap = intervalSizeToStepMap;
         this.majorSizeToStepMap = majorSizeToStepMap;
         this.minorSizeToStepMap = minorSizeToStepMap;
+        this.diminishedSizeToStepMap = diminishedSizeToStepMap;
+        this.augmentedSizeToStepMap = augmentedSizeToStepMap;
+        this.stepNameToStepMap = stepNameToStepMap;
     }
 }
