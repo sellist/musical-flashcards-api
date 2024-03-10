@@ -29,18 +29,20 @@ public class StepUtil {
         return cacheProvider.intervalSizeToStepMap.get(difference);
     }
 
-    public Note getNoteByStep(Note note, String stepName) {
-        Integer size = cacheProvider.intervalNameToSizeMap.get(stepName);
-        if (stepName.startsWith("M") || stepName.startsWith("P")) {
-            Step step = cacheProvider.majorSizeToStepMap.get(size);
-        } else if (stepName.startsWith("m")) {
-            Step step = cacheProvider.minorSizeToStepMap.get(size);
-        } else if  (stepName.startsWith("A")) {
-            Step step = cacheProvider.intervalSizeToStepMap.get(size);
+    public Note getNoteByStepUp(Note note, String stepName) {
+        Step step = getStep(stepName);
+        int newMidiValue = note.getMidiValue() + step.getSize();
+        if (note.getNoteName().contains("b")) {
+            return noteUtil.generateNoteByMidiValue(newMidiValue, "b");
+        } else if (note.getNoteName().contains("#")) {
+            return noteUtil.generateNoteByMidiValue(newMidiValue, "#");
+        } else {
+            return noteUtil.generateNoteByMidiValue(newMidiValue, "");
         }
 
-        // todo
-        return new Note(note.getMidiValue() + size, noteUtil.midiToSharpNoteName(note.getMidiValue() + size));
+    }
 
+    private Step getStep(String stepName) {
+        return cacheProvider.stepNameToStepMap.get(stepName);
     }
 }

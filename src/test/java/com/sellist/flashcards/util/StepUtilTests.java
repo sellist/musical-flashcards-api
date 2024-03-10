@@ -61,4 +61,23 @@ public class StepUtilTests {
                 stepUtil.getDifference( noteUtil.generateNote("C4"),
                                         noteUtil.generateNote("C5")));
     }
+
+    @Test
+    public void testGetNoteByStepUp() {
+        Assertions.assertEquals(noteUtil.generateNote("D4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M2"));
+        Assertions.assertEquals(noteUtil.generateNote("E4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M3"));
+        Assertions.assertEquals(noteUtil.generateNote("F4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P4"));
+        Assertions.assertEquals(noteUtil.generateNote("G4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P5"));
+        Assertions.assertEquals(noteUtil.generateNote("A4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M6"));
+        Assertions.assertEquals(noteUtil.generateNote("B4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M7"));
+        Assertions.assertEquals(noteUtil.generateNote("C5"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P8"));
+
+    }
 }
