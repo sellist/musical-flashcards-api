@@ -59,8 +59,13 @@ public class StepUtil {
      * @param step
      * @return
      */
-    private Note handleStep(Note note, Step step) {
+    private Note handleStep(Note note, Step step, boolean down) {
+//        todo
         return null;
+    }
+
+    private Note handleStep(Note note, Step step) {
+        return handleStep(note, step, false);
     }
 
     private Step getStep(String stepName) {
