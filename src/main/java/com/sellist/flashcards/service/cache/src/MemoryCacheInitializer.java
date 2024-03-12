@@ -1,4 +1,4 @@
-package com.sellist.flashcards.service.cache;
+package com.sellist.flashcards.service.cache.src;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -41,14 +41,103 @@ public class MemoryCacheInitializer {
         }   return instrumentMap;
     }
 
+    @Bean(name = "midiToNaturalNameMap")
+    public static Map<Integer, String> midiToNaturalNameMap() {
+        String[] noteNames = {"C", "D", "E","F", "G","A","B"};
+        Map<Integer, String> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
+
+        int noteIndex = 5;
+        int i = 21;
+        while (i < 120) {
+            String noteName = noteNames[noteIndex % 7];
+            int octave = (i / 12) - 1;
+
+            switch (noteName) {
+                case "C", "A", "G", "F", "D" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "E","B" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.HALF_STEP.getSize();
+                }
+            }
+            noteIndex++;
+        }
+        return midiNoteMap;
+    }
+
+    @Bean(name = "midiToFlatNameMap")
+    public static Map<Integer, String> midiToFlatNameMap() {
+        String[] noteNames = {"C", "Db", "Eb","Fb", "Gb","Ab","Bb"};
+        Map<Integer, String> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
+
+        int noteIndex = 5;
+        int i = 20;
+        while (i < 120) {
+            String noteName = noteNames[noteIndex % 7];
+            int octave = (i / 12) - 1;
+
+            switch (noteName) {
+                case "Cb" -> {
+                    midiNoteMap.put(i-12, noteName + octave);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "Ab","Gb","Fb","Db" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "Eb","Bb" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.HALF_STEP.getSize();
+                }
+            }
+            noteIndex++;
+        }
+        return midiNoteMap;
+    }
+
+    @Bean(name = "midiToSharpNameMap")
+    public static Map<Integer, String> midiToSharpNameMap() {
+        String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
+        Map<Integer, String> midiNoteMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
+
+        int noteIndex = 4;
+        int i = 13;
+        while (i < 120) {
+            String noteName = noteNames[noteIndex % 7];
+            int octave = (i / 12) - 1;
+
+            switch (noteName) {
+                case "C#","D#","F#","G#","A#" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "E#" -> {
+                    midiNoteMap.put(i, noteName + octave);
+                    i += sc.HALF_STEP.getSize();
+                }
+                case "B#" -> {
+                    midiNoteMap.put(i+sc.PERFECT_OCTAVE.getSize(), noteName + octave);
+                    i += sc.HALF_STEP.getSize();
+                }
+            }
+            noteIndex++;
+        }
+        return midiNoteMap;
+    }
+
     @Bean(name = "sharpNameToMidiMap")
     public static Map<String, Integer> sharpNameToMidiMap() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
 
-        int noteIndex = 4;
-        int i = 20;
+        int noteIndex = 0;
+        int i = 13;
         while (i < 120) {
             String noteName = noteNames[noteIndex % 7];
             int octave = (i / 12) - 1;

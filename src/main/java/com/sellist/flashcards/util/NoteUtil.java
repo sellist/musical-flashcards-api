@@ -1,12 +1,9 @@
 package com.sellist.flashcards.util;
 
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.service.cache.CacheProvider;
+import com.sellist.flashcards.service.cache.src.CacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class NoteUtil {
@@ -21,19 +18,15 @@ public class NoteUtil {
     }
 
     public String midiToSharpNoteName(int midiValue) {
-
-        int noteIndex = (midiValue) % 12;
-        int octave = (midiValue) / 12 - 1;
-
-        return sharpNoteNames[noteIndex] + octave;
+        return cache.noteCache.midiToSharpNameMap.get(midiValue);
     }
 
     public String midiToFlatNoteName(int midiValue) {
+        return cache.noteCache.midiToFlatNameMap.get(midiValue);
+    }
 
-        int noteIndex = (midiValue) % 12;
-        int octave = (midiValue) / 12 - 1;
-
-        return flatNoteNames[noteIndex] + octave;
+    public String midiToNaturalNoteName(int midiValue) {
+        return cache.noteCache.midiToNaturalNameMap.get(midiValue);
     }
 
     public int getMidiValue(String note) {
@@ -47,27 +40,29 @@ public class NoteUtil {
     }
 
     public Note generateNote(String noteName) {
-        return new Note(getMidiValue(noteName), noteName);
+        return new Note(noteName);
     }
 
     public Note generateNoteByMidiValue(int midiValue, String accidental) {
         if (accidental.equals("b")) {
-            return new Note(midiValue, midiToFlatNoteName(midiValue));
+            return new Note(midiToFlatNoteName(midiValue));
         } else if (accidental.equals("#")) {
-            return new Note(midiValue, midiToSharpNoteName(midiValue));
+            return new Note(midiToSharpNoteName(midiValue));
         } else {
-            return new Note(midiValue, midiToSharpNoteName(midiValue));
+            return new Note(midiToSharpNoteName(midiValue));
         }
     }
 
     private int flatNoteToMidi(String note) {
-        return cache.flatNameToMidiMap.get(note);
+        return cache.noteCache.flatNameToMidiMap.get(note);
     }
 
     private int sharpNoteToMidi(String note) {
-        return cache.sharpNameToMidiMap.get(note);
+        return cache.noteCache.sharpNameToMidiMap.get(note);
     }
 
-    private int naturalNoteToMidi(String note) { return cache.naturalNameToMidiMap.get(note); }
+    private int naturalNoteToMidi(String note) {
+        return cache.noteCache.naturalNameToMidiMap.get(note);
+    }
 
 }

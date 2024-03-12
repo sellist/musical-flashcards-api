@@ -15,7 +15,7 @@ public class NoteUtilTest {
     void testMidiToSharpNoteName() {
         assertEquals("C#4",sut.midiToSharpNoteName(61));
         assertEquals("D#4",sut.midiToSharpNoteName(63));
-        assertEquals("E#4",sut.midiToSharpNoteName(64));
+        assertEquals("E#4",sut.midiToSharpNoteName(65));
         assertEquals("F#4",sut.midiToSharpNoteName(66));
         assertEquals("G#4",sut.midiToSharpNoteName(68));
         assertEquals("A#4",sut.midiToSharpNoteName(70));

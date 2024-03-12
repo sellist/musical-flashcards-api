@@ -1,8 +1,7 @@
 package com.sellist.flashcards.util;
 
 import com.sellist.flashcards.constants.StepsConstants;
-import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.service.cache.CacheProvider;
+import com.sellist.flashcards.service.cache.src.CacheProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class StepUtilTests {
     }
 
     @Test
-    public void testGetNoteByStepUp() {
+    public void testGetNaturalNoteByStepUp() {
         Assertions.assertEquals(noteUtil.generateNote("D4"),
                 stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M2"));
         Assertions.assertEquals(noteUtil.generateNote("E4"),
@@ -78,6 +77,42 @@ public class StepUtilTests {
                 stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M7"));
         Assertions.assertEquals(noteUtil.generateNote("C5"),
                 stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P8"));
-
     }
+
+    @Test
+    public void testGetSharpNoteByStepUp() {
+        Assertions.assertEquals(noteUtil.generateNote("D#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "M2"));
+        Assertions.assertEquals(noteUtil.generateNote("E#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "M3"));
+        Assertions.assertEquals(noteUtil.generateNote("F#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "P4"));
+        Assertions.assertEquals(noteUtil.generateNote("G#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "P5"));
+        Assertions.assertEquals(noteUtil.generateNote("A#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "M6"));
+        Assertions.assertEquals(noteUtil.generateNote("B#4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "M7"));
+        Assertions.assertEquals(noteUtil.generateNote("C#5"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C#4"), "P8"));
+    }
+
+    @Test
+    public void testGetFlatNoteByStepUp() {
+        Assertions.assertEquals(noteUtil.generateNote("Db4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M2"));
+        Assertions.assertEquals(noteUtil.generateNote("Eb4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M3"));
+        Assertions.assertEquals(noteUtil.generateNote("Fb4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P4"));
+        Assertions.assertEquals(noteUtil.generateNote("Gb4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P5"));
+        Assertions.assertEquals(noteUtil.generateNote("Ab4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M6"));
+        Assertions.assertEquals(noteUtil.generateNote("Bb4"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "M7"));
+        Assertions.assertEquals(noteUtil.generateNote("Cb5"),
+                stepUtil.getNoteByStepUp(noteUtil.generateNote("C4"), "P8"));
+    }
+
 }

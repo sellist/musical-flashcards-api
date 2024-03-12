@@ -10,11 +10,4 @@ public class NoteValidationUtil {
         return note >= 21 && note <= 127;
     }
 
-    public boolean isNoteValid(Note note) {
-        return isNoteValid(note.getMidiValue());
-    }
-
-    public boolean isNoteValid(String note) {
-        return isNoteValid(new Note(note));
-    }
 }
