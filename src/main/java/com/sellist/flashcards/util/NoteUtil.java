@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NoteUtil {
-    String[] sharpNoteNames = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-    String[] flatNoteNames = {"C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"};
 
     private final CacheProvider cache;
 
@@ -21,14 +19,6 @@ public class NoteUtil {
         return cache.noteCache.midiToSharpNameMap.get(midiValue);
     }
 
-    public String midiToFlatNoteName(int midiValue) {
-        return cache.noteCache.midiToFlatNameMap.get(midiValue);
-    }
-
-    public String midiToNaturalNoteName(int midiValue) {
-        return cache.noteCache.midiToNaturalNameMap.get(midiValue);
-    }
-
     public int getMidiValue(String note) {
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
@@ -39,18 +29,30 @@ public class NoteUtil {
         }
     }
 
+    public int getOctaveFromMidi(int midi) {
+        return (midi / 12) - 1;
+    }
+
     public Note generateNote(String noteName) {
-        return new Note(noteName);
+        return new Note(noteName, getMidiValue(noteName));
     }
 
     public Note generateNoteByMidiValue(int midiValue, String accidental) {
         if (accidental.equals("b")) {
-            return new Note(midiToFlatNoteName(midiValue));
+            return new Note(midiToFlatNoteName(midiValue),midiValue);
         } else if (accidental.equals("#")) {
-            return new Note(midiToSharpNoteName(midiValue));
+            return new Note(midiToSharpNoteName(midiValue),midiValue);
         } else {
-            return new Note(midiToSharpNoteName(midiValue));
+            return new Note(midiToNaturalNoteName(midiValue),midiValue);
         }
+    }
+
+    public String midiToFlatNoteName(int midiValue) {
+        return cache.noteCache.midiToFlatNameMap.get(midiValue);
+    }
+
+    public String midiToNaturalNoteName(int midiValue) {
+        return cache.noteCache.midiToNaturalNameMap.get(midiValue);
     }
 
     private int flatNoteToMidi(String note) {

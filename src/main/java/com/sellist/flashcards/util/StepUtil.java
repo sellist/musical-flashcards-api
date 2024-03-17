@@ -7,11 +7,10 @@ import com.sellist.flashcards.service.cache.src.CacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class StepUtil {
-
-    //    Empty string offsets indexes to match scale degrees
-    private String[] baseNotes = {"","C", "D", "E", "F", "G", "A", "B"};
 
     @Autowired
     private NoteUtil noteUtil;
@@ -29,46 +28,63 @@ public class StepUtil {
         return cacheProvider.stepCache.intervalSizeToStepMap.get(difference);
     }
 
-    public Note getNoteByStepUp(Note note, String stepName) {
-        Step step = getStep(stepName);
-        int newMidiValue = note.getMidiValue() + step.getSize();
-        if (note.getNoteName().contains("b")) {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "b");
-        } else if (note.getNoteName().contains("#")) {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "#");
-        } else {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "");
-        }
-    }
-
-    public Note getNoteByStepDown(Note note, String stepName) {
-        Step step = getStep(stepName);
-        int newMidiValue = note.getMidiValue() - step.getSize();
-        if (note.getNoteName().contains("b")) {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "b");
-        } else if (note.getNoteName().contains("#")) {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "#");
-        } else {
-            return noteUtil.generateNoteByMidiValue(newMidiValue, "");
-        }
-    }
-
     /**
      * Business logic for taking in a note and step, and returning the note after that step
      * @param note
      * @param step
      * @return
      */
-    private Note handleStep(Note note, Step step, boolean down) {
-//        todo
-        return null;
+    public Note handleStep(Note note, Step step, boolean down) {
+        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
+        // could cache this
+        int inputNoteIndex = Arrays.binarySearch(baseNotes, note.getNoteName().substring(0, 1));
+        int targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
+
+
+        String targetNote = baseNotes[targetNoteIndex];
+        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+
+        if (down) {
+            targetNoteIndex = (inputNoteIndex - step.getDegree()) % baseNotes.length;
+            targetNote = baseNotes[targetNoteIndex];
+            targetOctave = note.getOctave() - step.getSize();
+        }
+
+        int targetModifier = note.getModifier() + step.getModifier();
+
+        String targetModifierString = "";
+        if (targetModifier > 0) {
+            targetModifierString = "#";
+        } else if (targetModifier < 0) {
+            targetModifierString = "b";
+        }
+        StringBuilder targetNoteBuilder = new StringBuilder();
+        targetNoteBuilder.append(targetNote);
+        targetNoteBuilder.append(new String(new char[Math.abs(targetModifier)]).replace("\0", targetModifierString));
+
+        if (targetNote.equals("C") && targetModifier < 0) {
+            targetOctave++;
+        } else if (targetNote.equals("B") && targetModifier > 0) {
+            targetOctave--;
+        }
+        targetNoteBuilder.append(targetOctave);
+
+        Note target = noteUtil.generateNote(targetNoteBuilder.toString());
+
+        System.out.println(target);
+
+        return target;
     }
 
-    private Note handleStep(Note note, Step step) {
-        return handleStep(note, step, false);
+    public Note stepDown(Note note, String step) {
+        return handleStep(note, getStep(step), true);
     }
 
-    private Step getStep(String stepName) {
+    public Note stepUp(Note note, String step) {
+        return handleStep(note, getStep(step), false);
+    }
+
+    public Step getStep(String stepName) {
         return cacheProvider.stepCache.stepNameToStepMap.get(stepName);
     }
 }
