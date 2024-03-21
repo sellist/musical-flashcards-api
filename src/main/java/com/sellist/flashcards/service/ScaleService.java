@@ -1,7 +1,9 @@
 package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Note;
+import com.sellist.flashcards.model.Step;
 import com.sellist.flashcards.util.NoteUtil;
+import com.sellist.flashcards.util.StepUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +18,22 @@ public class ScaleService {
     @Autowired
     private NoteUtil noteUtil;
 
-    public List<Note> generateMidiScale(String scalePattern, String startingNote, int numOctaves) {
+    @Autowired
+    private StepUtil stepUtil;
+
+    public List<Note> generateScale(String scalePattern, String startingNote, int numOctaves) {
+        Note startNote = noteUtil.generateNote(startingNote);
         List<Note> scale = new ArrayList<>();
-        List<Integer> midiValues = new ArrayList<>();
+        List<Step> steps = stepUtil.getStepsFromPattern(scalePattern);
 
-        int currentMidiValue = noteUtil.getMidiValue(startingNote);
-
-        midiValues.add(currentMidiValue);
-        for (int octave = 0; octave < numOctaves; octave++) {
-            for (int i = 0; i < scalePattern.length(); i++) {
-                midiValues.add(currentMidiValue);
-            }
+        Note lastNote = startNote;
+        for (Step step : steps) {
+            scale.add(lastNote);
+            lastNote = stepUtil.stepUp(lastNote, step);
         }
+        scale.add(lastNote);
+
+        System.out.println("scale: " + scale);
 
         return scale;
     }

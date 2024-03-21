@@ -7,7 +7,9 @@ import com.sellist.flashcards.service.cache.src.CacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class StepUtil {
@@ -84,12 +86,13 @@ public class StepUtil {
     private Note handleStepUp(Note note, Step step) {
         String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
 
-        int inputNoteIndex = Arrays.binarySearch(baseNotes, note.getNoteName().substring(0, 1));
+        int inputNoteIndex = Arrays.asList(baseNotes).indexOf(note.getNoteName().substring(0, 1));
 
         int targetNoteIndex;
         String targetNote;
         int targetOctave;
 
+        // todo fix this!
         targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
         targetNote = baseNotes[targetNoteIndex];
         targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
@@ -129,11 +132,28 @@ public class StepUtil {
         return handleStepDown(note, getStep(step));
     }
 
+    public Note stepDown(Note note, Step step) {
+        return handleStepDown(note, step);
+    }
+
     public Note stepUp(Note note, String step) {
         return handleStepUp(note, getStep(step));
     }
 
+    public Note stepUp(Note note, Step step) {
+        return handleStepUp(note, step);
+    }
+
     public Step getStep(String stepName) {
         return cacheProvider.stepCache.stepNameToStepMap.get(stepName);
+    }
+
+    public List<Step> getStepsFromPattern(String pattern) {
+        List<Step> steps = new ArrayList<>();
+        for (String stepName : pattern.split(",")) {
+            steps.add(getStep(stepName));
+        }
+        System.out.println(steps);
+        return steps;
     }
 }
