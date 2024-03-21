@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class StepUtilTests {
+class StepUtilTests {
     @Autowired
     private StepUtil stepUtil;
 
@@ -23,7 +23,7 @@ public class StepUtilTests {
     private CacheProvider cacheProvider;
 
     @Test
-    public void testStandardSteps() {
+    void standardSteps() {
         Assertions.assertEquals(stepsConstants.MINOR_SECOND,
                 stepUtil.getDifference( noteUtil.generateNote("C4"),
                                         noteUtil.generateNote("C#4")));
@@ -63,7 +63,7 @@ public class StepUtilTests {
     }
 
     @Test
-    public void testGetNaturalNoteByStepUp() {
+    void naturalNoteByStepUp() {
         Assertions.assertEquals(noteUtil.generateNote("D4"),
                 stepUtil.stepUp(noteUtil.generateNote("C4"), "M2"));
         Assertions.assertEquals(noteUtil.generateNote("E4"),
@@ -81,7 +81,34 @@ public class StepUtilTests {
     }
 
     @Test
-    public void testGetSharpNoteByStepUp() {
+    void minorNoteByStepUp() {
+        Assertions.assertEquals(noteUtil.generateNote("Db4"),
+                stepUtil.stepUp(noteUtil.generateNote("C4"), "m2"));
+        Assertions.assertEquals(noteUtil.generateNote("Eb4"),
+                stepUtil.stepUp(noteUtil.generateNote("C4"), "m3"));
+        Assertions.assertEquals(noteUtil.generateNote("F4"),
+                stepUtil.stepUp(noteUtil.generateNote("D4"), "m3"));
+    }
+
+    @Test
+    void naturalByStepDown() {
+        Assertions.assertEquals(noteUtil.generateNote("B3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "m2"));
+        Assertions.assertEquals(noteUtil.generateNote("A3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "m3"));
+        Assertions.assertEquals(noteUtil.generateNote("G3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "P4"));
+        Assertions.assertEquals(noteUtil.generateNote("F3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "P5"));
+        Assertions.assertEquals(noteUtil.generateNote("E3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "m6"));
+        Assertions.assertEquals(noteUtil.generateNote("D3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "m7"));
+        Assertions.assertEquals(noteUtil.generateNote("C3"),
+                stepUtil.stepDown(noteUtil.generateNote("C4"), "P8"));
+    }
+    @Test
+    void sharpNoteByStepUp() {
         Assertions.assertEquals(noteUtil.generateNote("D#4"),
                 stepUtil.stepUp(noteUtil.generateNote("C#4"), "M2"));
         Assertions.assertEquals("D#4",
@@ -98,6 +125,19 @@ public class StepUtilTests {
                 stepUtil.stepUp(noteUtil.generateNote("C#4"), "M7"));
         Assertions.assertEquals(noteUtil.generateNote("C#5"),
                 stepUtil.stepUp(noteUtil.generateNote("C#4"), "P8"));
+    }
+
+    @Test
+    void getSharpFromNatural() {
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepUp(noteUtil.generateNote("C4"), "A1"));
+        Assertions.assertEquals(noteUtil.generateNote("D#4"),
+                stepUtil.stepUp(noteUtil.generateNote("C4"), "A2"));
+        Assertions.assertEquals(noteUtil.generateNote("F#4"),
+                stepUtil.stepUp(noteUtil.generateNote("D4"), "M3"));
+        Assertions.assertEquals(noteUtil.generateNote("F#5"),
+                stepUtil.stepUp(noteUtil.generateNote("G4"), "M7"));
+
     }
 
     @Test

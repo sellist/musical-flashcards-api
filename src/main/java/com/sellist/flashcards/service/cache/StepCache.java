@@ -1,8 +1,6 @@
 package com.sellist.flashcards.service.cache;
 
 import com.sellist.flashcards.model.Step;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

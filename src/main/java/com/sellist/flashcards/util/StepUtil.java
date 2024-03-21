@@ -34,23 +34,28 @@ public class StepUtil {
      * @param step
      * @return
      */
-    public Note handleStep(Note note, Step step, boolean down) {
+    private Note handleStepDown(Note note, Step step) {
         String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
+        String[] baseNotesReverse = {"B", "A", "G", "F", "E", "D", "C"};
+
         // could cache this
         int inputNoteIndex = Arrays.binarySearch(baseNotes, note.getNoteName().substring(0, 1));
-        int targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
 
+        int targetNoteIndex;
+        String targetNote;
+        int targetOctave;
 
-        String targetNote = baseNotes[targetNoteIndex];
-        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
+        targetNote = baseNotesReverse[targetNoteIndex];
+        targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() - step.getSize());
 
-        if (down) {
-            targetNoteIndex = (inputNoteIndex - step.getDegree()) % baseNotes.length;
-            targetNote = baseNotes[targetNoteIndex];
-            targetOctave = note.getOctave() - step.getSize();
-        }
+        System.out.println("step: " + step);
+        System.out.println("inputNote: " + note.getDebugString());
+        System.out.println("targetNote: " + targetNote);
+        System.out.println("targetOctave: " + targetOctave);
 
         int targetModifier = note.getModifier() + step.getModifier();
+
 
         String targetModifierString = "";
         if (targetModifier > 0) {
@@ -76,12 +81,58 @@ public class StepUtil {
         return target;
     }
 
+    private Note handleStepUp(Note note, Step step) {
+        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
+
+        int inputNoteIndex = Arrays.binarySearch(baseNotes, note.getNoteName().substring(0, 1));
+
+        int targetNoteIndex;
+        String targetNote;
+        int targetOctave;
+
+        int inputModifier = note.getModifier();
+
+        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
+        targetNote = baseNotes[targetNoteIndex];
+        targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+
+        System.out.println("inputNote: " + note.getDebugString());
+
+        int targetModifier = note.getModifier() + step.getModifier();
+
+        String targetModifierString = "";
+        if (targetModifier > 0) {
+            targetModifierString = "#";
+        } else if (targetModifier < 0) {
+            targetModifierString = "b";
+        }
+
+        StringBuilder targetNoteBuilder = new StringBuilder();
+
+        targetNoteBuilder.append(targetNote);
+        targetNoteBuilder.append(new String(new char[Math.abs(targetModifier)]).replace("\0", targetModifierString));
+
+        if (targetNote.equals("C") && targetModifier < 0) {
+            targetOctave++;
+        } else if (targetNote.equals("B") && targetModifier > 0) {
+            targetOctave--;
+        }
+        targetNoteBuilder.append(targetOctave);
+
+        System.out.println(targetNoteBuilder.toString());
+        Note target = noteUtil.generateNote(targetNoteBuilder.toString());
+        System.out.println("outputNote" + target.getDebugString());
+
+
+        return target;
+    }
+
     public Note stepDown(Note note, String step) {
-        return handleStep(note, getStep(step), true);
+        return handleStepDown(note, getStep(step));
     }
 
     public Note stepUp(Note note, String step) {
-        return handleStep(note, getStep(step), false);
+        return handleStepUp(note, getStep(step));
     }
 
     public Step getStep(String stepName) {

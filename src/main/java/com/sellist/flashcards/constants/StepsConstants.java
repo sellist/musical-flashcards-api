@@ -43,8 +43,8 @@ public class StepsConstants {
     public final Step DOUBLE_OCTAVE = new Step("Double Octave", "P15", 24, 0 ,14);
 
     // uncommon steps
-    public final Step AUGMENTED_UNISON = new Step("Augmented Unison", "A1", 1, 2,0);
-    public final Step DIMINISHED_SECOND = new Step("Diminished Second", "d2", 0, -2,1);
+    public final Step AUGMENTED_UNISON = new Step("Augmented Unison", "A1", 1, 1,0);
+    public final Step DIMINISHED_SECOND = new Step("Diminished Second", "d2", 0, -1,1);
     public final Step AUGMENTED_SECOND = new Step("Augmented Second", "A2", 3,1,1);
     public final Step DIMINISHED_THIRD = new Step("Diminished Third", "d3", 2, -2,2);
     public final Step AUGMENTED_THIRD = new Step("Augmented Third", "A3", 5, 1,2);
@@ -55,7 +55,7 @@ public class StepsConstants {
     public final Step DIMINISHED_SIXTH = new Step("Diminished Sixth", "d6", 7, -2,5);
     public final Step AUGMENTED_SIXTH = new Step("Augmented Sixth", "A6", 9, 1,5);
     public final Step DIMINISHED_SEVENTH = new Step("Diminished Seventh", "d7", 9, -2,6);
-    public final Step AUGMENTED_SEVENTH = new Step("Augmented Seventh", "A7", 12, 7,6);
+    public final Step AUGMENTED_SEVENTH = new Step("Augmented Seventh", "A7", 12, 1,6);
     public final Step DIMINISHED_OCTAVE = new Step("Diminished Octave", "d8", 11, -1,7);
 
 

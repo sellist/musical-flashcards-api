@@ -24,6 +24,15 @@ public class Note {
         this.midiValue = midiValue;
     }
 
+    public String getDebugString() {
+        return "Note{" +
+                "octave=" + octave +
+                ", noteName='" + noteName + '\'' +
+                ", modifier=" + modifier +
+                ", midiValue=" + midiValue +
+                '}';
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
