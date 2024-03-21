@@ -90,8 +90,6 @@ public class StepUtil {
         String targetNote;
         int targetOctave;
 
-        int inputModifier = note.getModifier();
-
         targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
         targetNote = baseNotes[targetNoteIndex];
         targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
