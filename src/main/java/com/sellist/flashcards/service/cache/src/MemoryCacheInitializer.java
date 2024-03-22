@@ -74,8 +74,8 @@ public class MemoryCacheInitializer {
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
 
-        int noteIndex = 5;
-        int i = 20;
+        int noteIndex = 0;
+        int i = 13;
         while (i < 120) {
             String noteName = noteNames[noteIndex % 7];
             int octave = (i / 12) - 1;
@@ -105,7 +105,7 @@ public class MemoryCacheInitializer {
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
 
-        int noteIndex = 4;
+        int noteIndex = 0;
         int i = 13;
         while (i < 120) {
             String noteName = noteNames[noteIndex % 7];

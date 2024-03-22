@@ -15,10 +15,6 @@ public class NoteUtil {
         this.cache = cacheProvider;
     }
 
-    public String midiToSharpNoteName(int midiValue) {
-        return cache.noteCache.midiToSharpNameMap.get(midiValue);
-    }
-
     public int getMidiValue(String note) {
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
@@ -40,15 +36,29 @@ public class NoteUtil {
     public Note generateNoteByMidiValue(int midiValue, String accidental) {
         if (accidental.equals("b")) {
             return new Note(midiToFlatNoteName(midiValue),midiValue);
-        } else if (accidental.equals("#")) {
-            return new Note(midiToSharpNoteName(midiValue),midiValue);
         } else {
-            return new Note(midiToNaturalNoteName(midiValue),midiValue);
+            return new Note(midiToSharpNoteName(midiValue),midiValue);
         }
     }
 
+    public String midiToSharpNoteName(int midiValue) {
+        String output;
+        output = cache.noteCache.midiToSharpNameMap.get(midiValue);
+        if (output == null) {
+            output = midiToNaturalNoteName(midiValue);
+        }
+
+        return output;
+    }
+
     public String midiToFlatNoteName(int midiValue) {
-        return cache.noteCache.midiToFlatNameMap.get(midiValue);
+        String output;
+        output = cache.noteCache.midiToFlatNameMap.get(midiValue);
+        if (output == null) {
+            output = midiToNaturalNoteName(midiValue);
+        }
+
+        return output;
     }
 
     public String midiToNaturalNoteName(int midiValue) {

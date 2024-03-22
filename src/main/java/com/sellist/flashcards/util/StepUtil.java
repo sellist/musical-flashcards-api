@@ -97,35 +97,43 @@ public class StepUtil {
         targetNote = baseNotes[targetNoteIndex];
         targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
 
+        Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
+
+        System.out.println("baseDegreeNote: " + baseDegreeNote.getDebugString());
         System.out.println("inputNote: " + note.getDebugString());
 
-        int targetModifier = note.getModifier() + step.getModifier();
+        Note t = noteUtil.generateNoteByMidiValue(note.getMidiValue() + step.getSize(), "");
 
-        String targetModifierString = "";
-        if (targetModifier > 0) {
-            targetModifierString = "#";
-        } else if (targetModifier < 0) {
-            targetModifierString = "b";
-        }
+        System.out.println("new note:" + t);
 
-        StringBuilder targetNoteBuilder = new StringBuilder();
-
-        targetNoteBuilder.append(targetNote);
-        targetNoteBuilder.append(new String(new char[Math.abs(targetModifier)]).replace("\0", targetModifierString));
-
-        if (targetNote.equals("C") && targetModifier < 0) {
-            targetOctave++;
-        } else if (targetNote.equals("B") && targetModifier > 0) {
-            targetOctave--;
-        }
-        targetNoteBuilder.append(targetOctave);
-
-        System.out.println(targetNoteBuilder.toString());
-        Note target = noteUtil.generateNote(targetNoteBuilder.toString());
-        System.out.println("outputNote" + target.getDebugString());
-
-
-        return target;
+        return t;
+//        int targetModifier = note.getModifier() + step.getModifier();
+//
+//        String targetModifierString = "";
+//        if (targetModifier > 0) {
+//            targetModifierString = "#";
+//        } else if (targetModifier < 0) {
+//            targetModifierString = "b";
+//        }
+//
+//        StringBuilder targetNoteBuilder = new StringBuilder();
+//
+//        targetNoteBuilder.append(targetNote);
+//        targetNoteBuilder.append(new String(new char[Math.abs(targetModifier)]).replace("\0", targetModifierString));
+//
+//        if (targetNote.equals("C") && targetModifier < 0) {
+//            targetOctave++;
+//        } else if (targetNote.equals("B") && targetModifier > 0) {
+//            targetOctave--;
+//        }
+//        targetNoteBuilder.append(targetOctave);
+//
+//        System.out.println(targetNoteBuilder.toString());
+//        Note target = noteUtil.generateNote(targetNoteBuilder.toString());
+//        System.out.println("outputNote" + target.getDebugString());
+//
+//
+//        return target;
     }
 
     public Note stepDown(Note note, String step) {
