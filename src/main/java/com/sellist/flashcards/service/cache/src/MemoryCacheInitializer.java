@@ -70,7 +70,7 @@ public class MemoryCacheInitializer {
 
     @Bean(name = "midiToFlatNameMap")
     public static Map<Integer, String> midiToFlatNameMap() {
-        String[] noteNames = {"C", "Db", "Eb","Fb", "Gb","Ab","Bb"};
+        String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
 
