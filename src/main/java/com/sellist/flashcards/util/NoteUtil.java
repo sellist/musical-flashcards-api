@@ -33,11 +33,14 @@ public class NoteUtil {
         return new Note(noteName, getMidiValue(noteName));
     }
 
-    public Note generateNoteByMidiValue(int midiValue, String accidental) {
-        if (accidental.equals("b")) {
-            return new Note(midiToFlatNoteName(midiValue),midiValue);
-        } else {
+    public Note generateNoteByMidiValue(int midiValue, int modifier) {
+        //        Currently does not support double sharps or flats
+        if (modifier >= 1) {
             return new Note(midiToSharpNoteName(midiValue),midiValue);
+        } else if (modifier <= -1) {
+            return new Note(midiToSharpNoteName(midiValue),midiValue);
+        } else {
+            return new Note(midiToNaturalNoteName(midiValue),midiValue);
         }
     }
 

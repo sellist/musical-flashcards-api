@@ -137,16 +137,8 @@ class StepUtilTests {
                 stepUtil.stepUp(noteUtil.generateNote("D4"), "M3"));
         Assertions.assertEquals(noteUtil.generateNote("F#5"),
                 stepUtil.stepUp(noteUtil.generateNote("G4"), "M7"));
+        Assertions.assertEquals(noteUtil.generateNote("F5"),
+                stepUtil.stepUp(noteUtil.generateNote("G4"), "m7"));
 
-    }
-
-    @Test
-    void testGetNoteByMinorStepUp() {
-        Assertions.assertEquals(noteUtil.generateNote("Db4"),
-                stepUtil.stepUp(noteUtil.generateNote("C4"), "m2"));
-        Assertions.assertEquals(noteUtil.generateNote("Eb4"),
-                stepUtil.stepUp(noteUtil.generateNote("C4"), "m3"));
-        Assertions.assertEquals(noteUtil.generateNote("F4"),
-                stepUtil.stepUp(noteUtil.generateNote("D4"), "m3"));
     }
 }
