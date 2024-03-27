@@ -37,69 +37,22 @@ public class StepUtil {
      * @return
      */
     private Note handleStepDown(Note note, Step step) {
-        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
         String[] baseNotesReverse = {"B", "A", "G", "F", "E", "D", "C"};
 
-        // could cache this
-        int inputNoteIndex = Arrays.binarySearch(baseNotes, note.getNoteName().substring(0, 1));
+        int inputNoteIndex = Arrays.asList(baseNotesReverse).indexOf(note.getNoteName().substring(0, 1));
 
         int targetNoteIndex;
         String targetNote;
         int targetOctave;
 
-        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
+        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotesReverse.length;
         targetNote = baseNotesReverse[targetNoteIndex];
         targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() - step.getSize());
-
-        System.out.println("step: " + step);
-        System.out.println("inputNote: " + note.getDebugString());
-        System.out.println("targetNote: " + targetNote);
-        System.out.println("targetOctave: " + targetOctave);
-
-        int targetModifier = note.getModifier() + step.getModifier();
-
-
-        String targetModifierString = "";
-        if (targetModifier > 0) {
-            targetModifierString = "#";
-        } else if (targetModifier < 0) {
-            targetModifierString = "b";
-        }
-        StringBuilder targetNoteBuilder = new StringBuilder();
-        targetNoteBuilder.append(targetNote);
-        targetNoteBuilder.append(new String(new char[Math.abs(targetModifier)]).replace("\0", targetModifierString));
-
-        if (targetNote.equals("C") && targetModifier < 0) {
-            targetOctave++;
-        } else if (targetNote.equals("B") && targetModifier > 0) {
-            targetOctave--;
-        }
-        targetNoteBuilder.append(targetOctave);
-
-        Note target = noteUtil.generateNote(targetNoteBuilder.toString());
-
-        System.out.println(target);
-
-        return target;
-    }
-
-    private Note handleStepUp(Note note, Step step) {
-        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
-
-        int inputNoteIndex = Arrays.asList(baseNotes).indexOf(note.getNoteName().substring(0, 1));
-
-        int targetNoteIndex;
-        String targetNote;
-        int targetOctave;
-
-        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
-        targetNote = baseNotes[targetNoteIndex];
-        targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
 
         Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
 
 
-        int difference = (note.getMidiValue() + step.getSize()) - baseDegreeNote.getMidiValue();
+        int difference = (note.getMidiValue() - step.getSize()) - baseDegreeNote.getMidiValue();
         System.out.println("difference: " + difference);
 
 
@@ -112,6 +65,32 @@ public class StepUtil {
         System.out.println("new note:" + t);
 
         return t;
+    }
+
+    private Note handleStepUp(Note note, Step step) {
+        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
+
+        int inputNoteIndex = Arrays.asList(baseNotes).indexOf(note.getNoteName().substring(0, 1));
+
+        int targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
+        String targetNote = baseNotes[targetNoteIndex];
+        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+
+        Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
+
+
+        int difference = (note.getMidiValue() + step.getSize()) - baseDegreeNote.getMidiValue();
+
+        int octaveDiff = (targetOctave - note.getOctave()) * 12;
+
+        // handles octave differences when calculating scale degree difference
+        if (difference >= 10) {
+            difference = difference - octaveDiff;
+        } else if (difference <= -10) {
+            difference = difference + octaveDiff;
+        }
+
+        return noteUtil.generateNoteByMidiValue(note.getMidiValue() + step.getSize(), difference);
     }
 
     public Note stepDown(Note note, String step) {

@@ -38,10 +38,18 @@ public class NoteUtil {
         if (modifier >= 1) {
             return new Note(midiToSharpNoteName(midiValue),midiValue);
         } else if (modifier <= -1) {
-            return new Note(midiToSharpNoteName(midiValue),midiValue);
+            return new Note(midiToFlatNoteName(midiValue),midiValue);
         } else {
             return new Note(midiToNaturalNoteName(midiValue),midiValue);
         }
+    }
+
+    public Note getFlattenedNote(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), -1);
+    }
+
+    public Note getSharpenedNote(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), 1);
     }
 
     public String midiToSharpNoteName(int midiValue) {
