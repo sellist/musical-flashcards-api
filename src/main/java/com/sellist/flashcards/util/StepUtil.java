@@ -37,34 +37,28 @@ public class StepUtil {
      * @return
      */
     private Note handleStepDown(Note note, Step step) {
-        String[] baseNotesReverse = {"B", "A", "G", "F", "E", "D", "C"};
+        String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
 
-        int inputNoteIndex = Arrays.asList(baseNotesReverse).indexOf(note.getNoteName().substring(0, 1));
+        int inputNoteIndex = Arrays.asList(baseNotes).indexOf(note.getNoteName().substring(0, 1));
 
-        int targetNoteIndex;
-        String targetNote;
-        int targetOctave;
-
-        targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotesReverse.length;
-        targetNote = baseNotesReverse[targetNoteIndex];
-        targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() - step.getSize());
+        int targetNoteIndex = (inputNoteIndex - step.getDegree() + baseNotes.length) % baseNotes.length;
+        String targetNote = baseNotes[targetNoteIndex];
+        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() - step.getSize());
 
         Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
 
-
         int difference = (note.getMidiValue() - step.getSize()) - baseDegreeNote.getMidiValue();
-        System.out.println("difference: " + difference);
 
+        int octaveDiff = (targetOctave - note.getOctave()) * 12;
 
+        // handles octave differences when calculating scale degree difference
+        if (difference >= 10) {
+            difference = difference - octaveDiff;
+        } else if (difference <= -10) {
+            difference = difference + octaveDiff;
+        }
 
-        System.out.println("inputNote: " + note.getDebugString());
-        System.out.println("baseDegreeNote: " + baseDegreeNote.getDebugString());
-
-        Note t = noteUtil.generateNoteByMidiValue(note.getMidiValue() + step.getSize(), difference);
-
-        System.out.println("new note:" + t);
-
-        return t;
+        return noteUtil.generateNoteByMidiValue(note.getMidiValue() - step.getSize(), difference);
     }
 
     private Note handleStepUp(Note note, Step step) {

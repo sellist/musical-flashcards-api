@@ -107,6 +107,35 @@ class StepUtilTests {
         Assertions.assertEquals(noteUtil.generateNote("C3"),
                 stepUtil.stepDown(noteUtil.generateNote("C4"), "P8"));
     }
+
+    @Test
+    void sharpNoteByStepDown() {
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("D#4"), "M2"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("E#4"), "M3"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("F#4"), "P4"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("G#4"), "P5"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("A#4"), "M6"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("B#4"), "M7"));
+        Assertions.assertEquals(noteUtil.generateNote("C#4"),
+                stepUtil.stepDown(noteUtil.generateNote("C#5"), "P8"));
+    }
+
+    @Test
+    void minorNoteByStepDown() {
+        Assertions.assertEquals(noteUtil.generateNote("C4"),
+                stepUtil.stepDown(noteUtil.generateNote("Db4"), "m2"));
+        Assertions.assertEquals(noteUtil.generateNote("C4"),
+                stepUtil.stepDown(noteUtil.generateNote("Eb4"), "m3"));
+        Assertions.assertEquals(noteUtil.generateNote("D4"),
+                stepUtil.stepDown(noteUtil.generateNote("F4"), "m3"));
+    }
+
     @Test
     void sharpNoteByStepUp() {
         Assertions.assertEquals(noteUtil.generateNote("D#4"),
