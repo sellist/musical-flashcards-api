@@ -1,6 +1,6 @@
 package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.service.cache.src.CacheProvider;
+import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CacheTests {
 
     @Autowired
-    CacheProvider cacheProvider;
+    MemoryCacheProvider cacheProvider;
 
     @Test
     void testCacheProvider() {

@@ -1,17 +1,17 @@
-package com.sellist.flashcards.util;
+package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.service.cache.src.CacheProvider;
+import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NoteUtil {
+public class NoteService {
 
-    private final CacheProvider cache;
+    private final MemoryCacheProvider cache;
 
     @Autowired
-    public NoteUtil(CacheProvider cacheProvider) {
+    public NoteService(MemoryCacheProvider cacheProvider) {
         this.cache = cacheProvider;
     }
 
@@ -44,12 +44,12 @@ public class NoteUtil {
         }
     }
 
-    public Note getFlattenedNote(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), -1);
+    public Note flattenNote(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()-1);
     }
 
-    public Note getSharpenedNote(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), 1);
+    public Note sharpenNote(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()+1);
     }
 
     public String midiToSharpNoteName(int midiValue) {

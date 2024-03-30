@@ -2,8 +2,6 @@ package com.sellist.flashcards.model;
 
 import lombok.Data;
 
-import java.util.Objects;
-
 @Data
 public class Step {
     private String stepName;
@@ -27,16 +25,4 @@ public class Step {
         return shortName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Step step = (Step) o;
-        return size == step.size && modifier == step.modifier && degree == step.degree && Objects.equals(stepName, step.stepName) && Objects.equals(shortName, step.shortName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(stepName, shortName, size, modifier, degree);
-    }
 }

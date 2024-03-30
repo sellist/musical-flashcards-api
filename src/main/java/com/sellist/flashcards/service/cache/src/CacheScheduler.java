@@ -6,13 +6,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CacheScheduler {
-    //    schedule cache updates and on startup
+    private final CacheInitializer cacheInitializer;
+
     @Autowired
-    MemoryCacheInitializer memoryCacheInitializer;
+    public CacheScheduler(CacheInitializer cacheInitializer) {
+        this.cacheInitializer = cacheInitializer;
+    }
 
     @PostConstruct
     public void init() {
-        memoryCacheInitializer.loadCaches();
+        cacheInitializer.loadCaches();
     }
 
 }

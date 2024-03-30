@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-public class MemoryCacheInitializer {
+public class CacheInitializer {
 
     private final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 

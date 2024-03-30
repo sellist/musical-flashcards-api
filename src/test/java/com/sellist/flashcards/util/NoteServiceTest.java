@@ -1,5 +1,6 @@
 package com.sellist.flashcards.util;
 
+import com.sellist.flashcards.service.NoteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class NoteUtilTest {
+public class NoteServiceTest {
     @Autowired
-    private NoteUtil sut;
+    private NoteService sut;
 
     @Test
     void testMidiToSharpNoteName() {
@@ -19,7 +20,7 @@ public class NoteUtilTest {
         assertEquals("F#4",sut.midiToSharpNoteName(66));
         assertEquals("G#4",sut.midiToSharpNoteName(68));
         assertEquals("A#4",sut.midiToSharpNoteName(70));
-        assertEquals("B#4",sut.midiToSharpNoteName(71));
+        assertEquals("B#4",sut.midiToSharpNoteName(72));
         assertEquals("C#5",sut.midiToSharpNoteName(73));
     }
 

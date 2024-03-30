@@ -1,9 +1,8 @@
-package com.sellist.flashcards.util;
+package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.constants.StepsConstants;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Step;
-import com.sellist.flashcards.service.cache.src.CacheProvider;
+import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +11,17 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class StepUtil {
+public class StepService {
+
+    private final NoteService noteService;
+
+    private final MemoryCacheProvider cacheProvider;
 
     @Autowired
-    private NoteUtil noteUtil;
-
-    @Autowired
-    private CacheProvider cacheProvider;
-
-    @Autowired
-    private StepsConstants stepsConstants;
+    public StepService(NoteService noteService, MemoryCacheProvider cacheProvider) {
+        this.noteService = noteService;
+        this.cacheProvider = cacheProvider;
+    }
 
     public Step getDifference(Note note1, Note note2) {
         int midiValue1 = note1.getMidiValue();
@@ -30,12 +30,6 @@ public class StepUtil {
         return cacheProvider.stepCache.intervalSizeToStepMap.get(difference);
     }
 
-    /**
-     * Business logic for taking in a note and step, and returning the note after that step
-     * @param note
-     * @param step
-     * @return
-     */
     private Note handleStepDown(Note note, Step step) {
         String[] baseNotes = {"C", "D", "E", "F", "G", "A", "B"};
 
@@ -43,9 +37,9 @@ public class StepUtil {
 
         int targetNoteIndex = (inputNoteIndex - step.getDegree() + baseNotes.length) % baseNotes.length;
         String targetNote = baseNotes[targetNoteIndex];
-        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() - step.getSize());
+        int targetOctave = noteService.getOctaveFromMidi(note.getMidiValue() - step.getSize());
 
-        Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
+        Note baseDegreeNote = noteService.generateNote(targetNote + targetOctave);
 
         int difference = (note.getMidiValue() - step.getSize()) - baseDegreeNote.getMidiValue();
 
@@ -58,7 +52,7 @@ public class StepUtil {
             difference = difference + octaveDiff;
         }
 
-        return noteUtil.generateNoteByMidiValue(note.getMidiValue() - step.getSize(), difference);
+        return noteService.generateNoteByMidiValue(note.getMidiValue() - step.getSize(), difference);
     }
 
     private Note handleStepUp(Note note, Step step) {
@@ -68,9 +62,9 @@ public class StepUtil {
 
         int targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
         String targetNote = baseNotes[targetNoteIndex];
-        int targetOctave = noteUtil.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+        int targetOctave = noteService.getOctaveFromMidi(note.getMidiValue() + step.getSize());
 
-        Note baseDegreeNote = noteUtil.generateNote(targetNote + targetOctave);
+        Note baseDegreeNote = noteService.generateNote(targetNote + targetOctave);
 
 
         int difference = (note.getMidiValue() + step.getSize()) - baseDegreeNote.getMidiValue();
@@ -84,7 +78,7 @@ public class StepUtil {
             difference = difference + octaveDiff;
         }
 
-        return noteUtil.generateNoteByMidiValue(note.getMidiValue() + step.getSize(), difference);
+        return noteService.generateNoteByMidiValue(note.getMidiValue() + step.getSize(), difference);
     }
 
     public Note stepDown(Note note, String step) {
@@ -112,7 +106,6 @@ public class StepUtil {
         for (String stepName : pattern.split(",")) {
             steps.add(getStep(stepName));
         }
-        System.out.println(steps);
         return steps;
     }
 }
