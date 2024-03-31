@@ -16,6 +16,7 @@ public class NoteService {
     }
 
     public int getMidiValue(String note) {
+        System.out.println("Note: " + note);
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
         } else if (note.contains("b")) {
@@ -54,7 +55,7 @@ public class NoteService {
 
     public String midiToSharpNoteName(int midiValue) {
         String output;
-        output = cache.noteCache.midiToSharpNameMap.get(midiValue);
+        output = cache.noteCache.midiToSharpName.get(midiValue);
         if (output == null) {
             output = midiToNaturalNoteName(midiValue);
         }
@@ -64,7 +65,7 @@ public class NoteService {
 
     public String midiToFlatNoteName(int midiValue) {
         String output;
-        output = cache.noteCache.midiToFlatNameMap.get(midiValue);
+        output = cache.noteCache.midiToFlatName.get(midiValue);
         if (output == null) {
             output = midiToNaturalNoteName(midiValue);
         }
@@ -73,19 +74,19 @@ public class NoteService {
     }
 
     public String midiToNaturalNoteName(int midiValue) {
-        return cache.noteCache.midiToNaturalNameMap.get(midiValue);
+        return cache.noteCache.midiToNaturalName.get(midiValue);
     }
 
     private int flatNoteToMidi(String note) {
-        return cache.noteCache.flatNameToMidiMap.get(note);
+        return cache.noteCache.flatNameToMidi.get(note);
     }
 
     private int sharpNoteToMidi(String note) {
-        return cache.noteCache.sharpNameToMidiMap.get(note);
+        return cache.noteCache.sharpNameToMidi.get(note);
     }
 
     private int naturalNoteToMidi(String note) {
-        return cache.noteCache.naturalNameToMidiMap.get(note);
+        return cache.noteCache.naturalNameToMidi.get(note);
     }
 
 }

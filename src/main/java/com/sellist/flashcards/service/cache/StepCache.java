@@ -9,11 +9,11 @@ import java.util.Map;
 @AllArgsConstructor
 @Component
 public class StepCache {
-    public final Map<Integer, Step> augmentedSizeToStepMap;
-    public final Map<Integer, Step> diminishedSizeToStepMap;
-    public final Map<String, Integer> intervalNameToSizeMap;
-    public final Map<Integer, Step> intervalSizeToStepMap;
-    public final Map<Integer, Step> majorSizeToStepMap;
-    public final Map<Integer, Step> minorSizeToStepMap;
-    public final Map<String, Step> stepNameToStepMap;
+    public final Map<Integer, Step> augmentedSizeToStep;
+    public final Map<Integer, Step> diminishedSizeToStep;
+    public final Map<String, Integer> intervalNameToSize;
+    public final Map<Integer, Step> intervalSizeToStep;
+    public final Map<Integer, Step> majorSizeToStep;
+    public final Map<Integer, Step> minorSizeToStep;
+    public final Map<String, Step> stepNameToStep;
 }

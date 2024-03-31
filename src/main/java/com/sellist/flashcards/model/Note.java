@@ -1,13 +1,19 @@
 package com.sellist.flashcards.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
 
 @Data
+@NoArgsConstructor
 public class Note {
     private int octave;
     private String noteName;
     private int modifier;
     private int midiValue;
+    private Timestamp timestamp;
 
     public Note(String note, int midiValue) {
         String[] startingNoteSplit = note.split("(?<=^.)|(?=\\d)");
@@ -24,6 +30,7 @@ public class Note {
         this.midiValue = midiValue;
     }
 
+    @JsonIgnore
     public String getDebugString() {
         return "Note{" +
                 "octave=" + octave +

@@ -24,7 +24,7 @@ public class CacheInitializer {
         objectMapper.findAndRegisterModules();
     }
 
-    @Bean(name = "instrumentMap")
+    @Bean(name = "instrument")
     public Map<String, Instrument> instrumentsCache() {
         Map<String,Instrument> instrumentMap = new HashMap<>();
 
@@ -41,8 +41,8 @@ public class CacheInitializer {
         }   return instrumentMap;
     }
 
-    @Bean(name = "midiToNaturalNameMap")
-    public static Map<Integer, String> midiToNaturalNameMap() {
+    @Bean(name = "midiToNaturalName")
+    public static Map<Integer, String> midiToNaturalName() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -68,8 +68,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "midiToFlatNameMap")
-    public static Map<Integer, String> midiToFlatNameMap() {
+    @Bean(name = "midiToFlatName")
+    public static Map<Integer, String> midiToFlatName() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -99,8 +99,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "midiToSharpNameMap")
-    public static Map<Integer, String> midiToSharpNameMap() {
+    @Bean(name = "midiToSharpName")
+    public static Map<Integer, String> midiToSharpName() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -130,8 +130,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "sharpNameToMidiMap")
-    public static Map<String, Integer> sharpNameToMidiMap() {
+    @Bean(name = "sharpNameToMidi")
+    public static Map<String, Integer> sharpNameToMidi() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -161,8 +161,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "flatNameToMidiMap")
-    public static Map<String, Integer> flatNameToMidiMap() {
+    @Bean(name = "flatNameToMidi")
+    public static Map<String, Integer> flatNameToMidi() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -192,8 +192,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "naturalNameToMidiMap")
-    public static Map<String, Integer> naturalsNameToMidiMap() {
+    @Bean(name = "naturalNameToMidi")
+    public static Map<String, Integer> naturalsNameToMidi() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};
         Map<String, Integer> midiNoteMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
@@ -219,8 +219,8 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
-    @Bean(name = "intervalNameToSizeMap")
-    public static Map<String, Integer> intervalNameToSizeMap() {
+    @Bean(name = "intervalNameToSize")
+    public static Map<String, Integer> intervalNameToSize() {
         List<Step> steps = new StepsConstants().getAllSteps();
         Map<String, Integer> stepNameToSizeMap = new HashMap<>();
         for (Step step : steps) {
@@ -230,8 +230,8 @@ public class CacheInitializer {
         return stepNameToSizeMap;
     }
 
-    @Bean(name = "intervalSizeToStepMap")
-    public static Map<Integer, Step> intervalSizeToStepMap() {
+    @Bean(name = "intervalSizeToStep")
+    public static Map<Integer, Step> intervalSizeToStep() {
         List<Step> steps = new StepsConstants().getStandardSteps();
         Map<Integer, Step> stepSizeToNameMap = new HashMap<>();
         for (Step step : steps) {
@@ -240,8 +240,8 @@ public class CacheInitializer {
         return stepSizeToNameMap;
     }
 
-    @Bean(name = "stepNameToStepMap")
-    public static Map<String, Step> stepNameToStepMap() {
+    @Bean(name = "stepNameToStep")
+    public static Map<String, Step> stepNameToStep() {
         Map<String, Step> stepNameToStepMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
             stepNameToStepMap.put(step.getStepName(), step);
@@ -250,8 +250,8 @@ public class CacheInitializer {
         return stepNameToStepMap;
     }
 
-    @Bean(name = "majorSizeToStepMap")
-    public static Map<Integer, Step> majorSizeToStepMap() {
+    @Bean(name = "majorSizeToStep")
+    public static Map<Integer, Step> majorSizeToStep() {
         Map<Integer, Step> majorStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
             if (step.getQuality().equals("M") || step.getQuality().equals("P")) {
@@ -261,8 +261,8 @@ public class CacheInitializer {
         return majorStepsMap;
     }
 
-    @Bean(name = "minorSizeToStepMap")
-    public static Map<Integer, Step> minorSizeToStepMap() {
+    @Bean(name = "minorSizeToStep")
+    public static Map<Integer, Step> minorSizeToStep() {
         Map<Integer, Step> minorStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
             if (step.getQuality().equals("m")) {
@@ -272,8 +272,8 @@ public class CacheInitializer {
         return minorStepsMap;
     }
 
-    @Bean(name = "diminishedSizeToStepMap")
-    public static Map<Integer, Step> diminishedSizeToStepMap() {
+    @Bean(name = "diminishedSizeToStep")
+    public static Map<Integer, Step> diminishedSizeToStep() {
         Map<Integer, Step> diminishedStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
             if (step.getQuality().equals("d")) {
@@ -283,8 +283,8 @@ public class CacheInitializer {
         return diminishedStepsMap;
     }
 
-    @Bean(name = "augmentedSizeToStepMap")
-    public static Map<Integer, Step> augmentedSizeToStepMap() {
+    @Bean(name = "augmentedSizeToStep")
+    public static Map<Integer, Step> augmentedSizeToStep() {
         Map<Integer, Step> augmentedStepsMap = new HashMap<>();
         for (Step step : new StepsConstants().getAllSteps()) {
             if (step.getQuality().equals("A")) {

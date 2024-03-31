@@ -8,10 +8,10 @@ import java.util.Map;
 @AllArgsConstructor
 @Component
 public class NoteCache {
-    public final Map<String, Integer> naturalNameToMidiMap;
-    public final Map<String, Integer> flatNameToMidiMap;
-    public final Map<String, Integer> sharpNameToMidiMap;
-    public final Map<Integer, String> midiToSharpNameMap;
-    public final Map<Integer, String> midiToFlatNameMap;
-    public final Map<Integer, String> midiToNaturalNameMap;
+    public final Map<String, Integer> naturalNameToMidi;
+    public final Map<String, Integer> flatNameToMidi;
+    public final Map<String, Integer> sharpNameToMidi;
+    public final Map<Integer, String> midiToSharpName;
+    public final Map<Integer, String> midiToFlatName;
+    public final Map<Integer, String> midiToNaturalName;
 }

@@ -27,7 +27,7 @@ public class StepService {
         int midiValue1 = note1.getMidiValue();
         int midiValue2 = note2.getMidiValue();
         int difference = midiValue2 - midiValue1;
-        return cacheProvider.stepCache.intervalSizeToStepMap.get(difference);
+        return cacheProvider.stepCache.intervalSizeToStep.get(difference);
     }
 
     private Note handleStepDown(Note note, Step step) {
@@ -98,7 +98,7 @@ public class StepService {
     }
 
     public Step getStep(String stepName) {
-        return cacheProvider.stepCache.stepNameToStepMap.get(stepName);
+        return cacheProvider.stepCache.stepNameToStep.get(stepName);
     }
 
     public List<Step> getStepsFromPattern(String pattern) {

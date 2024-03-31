@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class MemoryCacheProvider {
-
     public final NoteCache noteCache;
     public final StepCache stepCache;
 }
