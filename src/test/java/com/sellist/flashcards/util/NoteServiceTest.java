@@ -61,7 +61,6 @@ public class NoteServiceTest {
 
     @Test
     void testSharpNoteNameToMidi() {
-        System.out.println(sut.getMidiValue("G#1"));
         assertEquals(61,sut.getMidiValue("C#4"));
         assertEquals(63,sut.getMidiValue("D#4"));
         assertEquals(65,sut.getMidiValue("E#4"));

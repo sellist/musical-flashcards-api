@@ -16,7 +16,6 @@ public class NoteService {
     }
 
     public int getMidiValue(String note) {
-        System.out.println("Note: " + note);
         if (note.contains("#")) {
             return sharpNoteToMidi(note);
         } else if (note.contains("b")) {
