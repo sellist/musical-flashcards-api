@@ -28,9 +28,7 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @PostMapping(
-            path = "/"
-    )
+    @PostMapping(path = "/notes", consumes = "application/json", produces = "application/json")
     public ApiResponse<List<Note>> getNotes(@RequestBody NotesRequest notes) {
         List<Note> notesList = new ArrayList<>();
         for (String note : notes.getNotes()) {
