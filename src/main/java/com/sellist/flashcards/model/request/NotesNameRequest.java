@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class NotesRequest {
+public class NotesNameRequest {
     List<String> notes;
 }

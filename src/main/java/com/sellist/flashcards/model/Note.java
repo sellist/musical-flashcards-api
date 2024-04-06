@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @NoArgsConstructor
 public class Note {
@@ -13,6 +11,7 @@ public class Note {
     private String noteName;
     private int modifier;
     private int midiValue;
+    private int transposition;
 
     public Note(String note, int midiValue) {
         String[] startingNoteSplit = note.split("(?<=^.)|(?=\\d)");
