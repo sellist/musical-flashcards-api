@@ -12,6 +12,7 @@ public class Note {
     private int modifier;
     private int midiValue;
     private int transposition;
+    private Note transposedNote;
 
     public Note(String note, int midiValue) {
         String[] startingNoteSplit = note.split("(?<=^.)|(?=\\d)");

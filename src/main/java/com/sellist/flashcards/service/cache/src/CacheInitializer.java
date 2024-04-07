@@ -24,8 +24,8 @@ public class CacheInitializer {
         objectMapper.findAndRegisterModules();
     }
 
-    @Bean(name = "instrument")
-    public Map<String, Instrument> instrumentsCache() {
+    @Bean(name = "nameToInstrument")
+    public Map<String, Instrument> nameToInstrument() {
         Map<String,Instrument> instrumentMap = new HashMap<>();
 
         File directory = new File("src/main/resources/static/instruments");

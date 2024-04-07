@@ -33,7 +33,7 @@ public class InstrumentsController {
                 .status("success")
                 .httpStatus(200)
                 .message("Notes adjusted successfully")
-                .data(instrumentService.applyInstrumentToNotes(notes.getInstrument(), notes.getNotes()))
+                .data(instrumentService.applyTranspositionToNotes(notes.getInstrument(), notes.getNotes()))
                 .build();
     }
 }

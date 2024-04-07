@@ -1,6 +1,6 @@
 name: Violin
 lowNote: G3
 highNote: G7
-transposition: 0
+transposition: C4
 clef: treble
 family: strings

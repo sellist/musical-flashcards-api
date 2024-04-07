@@ -1,4 +1,4 @@
-package com.sellist.flashcards.util;
+package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.service.NoteService;
 import org.junit.jupiter.api.Test;
