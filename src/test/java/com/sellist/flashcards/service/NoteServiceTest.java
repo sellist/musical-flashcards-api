@@ -82,4 +82,10 @@ public class NoteServiceTest {
         assertEquals(71,sut.getMidiValue("B4"));
         assertEquals(72,sut.getMidiValue("C5"));
     }
+
+    @Test
+    void testGetScalePattern() {
+        assertEquals("W,W,H,W,W,W,H",sut.scaleNameToPattern("major"));
+        assertEquals("W,H,W,W,H,A,H",sut.scaleNameToPattern("harmonic_minor"));
+    }
 }

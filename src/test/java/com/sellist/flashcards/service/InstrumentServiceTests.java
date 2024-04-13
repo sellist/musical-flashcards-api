@@ -18,6 +18,6 @@ public class InstrumentServiceTests {
         Instrument exp = new Instrument();
         exp.setName("cello");
         exp.setFamily("strings");
-        exp.setTransposition(0);
+        exp.setTransposition("C4");
     }
 }

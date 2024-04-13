@@ -25,7 +25,7 @@ public class ScaleController {
     }
 
     @PostMapping("/scale")
-    public ApiResponse<List<Note>> getScale(@RequestBody ScaleRequest notes) {
+    public ApiResponse<List<Note>> getScale(@RequestBody ScaleRequest req) {
         // todo
         return null;
     }

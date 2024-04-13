@@ -76,6 +76,10 @@ public class NoteService {
         return cache.noteCache.midiToNaturalName.get(midiValue);
     }
 
+    public String scaleNameToPattern(String scaleName) {
+        return cache.noteCache.scaleNameToPattern.get(scaleName);
+    }
+
     private int flatNoteToMidi(String note) {
         return cache.noteCache.flatNameToMidi.get(note);
     }
@@ -87,5 +91,6 @@ public class NoteService {
     private int naturalNoteToMidi(String note) {
         return cache.noteCache.naturalNameToMidi.get(note);
     }
+
 
 }

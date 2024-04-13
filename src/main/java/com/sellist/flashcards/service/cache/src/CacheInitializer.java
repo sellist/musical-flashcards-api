@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,8 @@ public class CacheInitializer {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }   return instrumentMap;
+        }
+        return instrumentMap;
     }
 
     @Bean(name = "midiToNaturalName")
@@ -292,5 +294,24 @@ public class CacheInitializer {
             }
         }
         return augmentedStepsMap;
+    }
+
+    @Bean(name = "scaleNameToPattern")
+    public Map<String, String> scaleNameToPattern() {
+        Map<String,String> rawMap = new HashMap<>();
+        Map<String, String> outputMap = new HashMap<>();
+
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("/static/scales.yaml");
+            rawMap = mapper.readValue(inputStream, Map.class);
+        } catch (Exception ignored) {
+            return outputMap;
+        }
+
+        for (Map.Entry<String, String> entry : rawMap.entrySet()) {
+            outputMap.put(entry.getKey().toLowerCase(), entry.getValue().trim());
+        }
+        return outputMap;
     }
 }
