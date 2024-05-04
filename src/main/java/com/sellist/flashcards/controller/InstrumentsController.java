@@ -21,7 +21,7 @@ public class InstrumentsController {
     public ApiResponse<List<Instrument>> getInstrumentsByFamily(@PathVariable String family) {
         return ApiResponse.<List<Instrument>>builder()
                 .status("success")
-                .httpStatus(200)
+                .code(200)
                 .message("Instruments fetched successfully")
                 .data(instrumentService.getInstrumentsByFamily(family))
                 .build();
@@ -31,7 +31,7 @@ public class InstrumentsController {
     public ApiResponse<List<Note>> getAdjustedNotes(AdjustedNotesRequest notes) {
         return ApiResponse.<List<Note>>builder()
                 .status("success")
-                .httpStatus(200)
+                .code(200)
                 .message("Notes adjusted successfully")
                 .data(instrumentService.applyTranspositionToNotes(notes.getInstrument(), notes.getNotes()))
                 .build();

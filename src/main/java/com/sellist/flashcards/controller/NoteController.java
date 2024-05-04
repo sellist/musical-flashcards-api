@@ -30,7 +30,7 @@ public class NoteController {
         }
         return ApiResponse.<List<Note>>builder()
                 .status("success")
-                .httpStatus(200)
+                .code(200)
                 .message("Notes generated successfully")
                 .data(notesList)
                 .build();

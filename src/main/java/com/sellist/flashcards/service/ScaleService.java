@@ -2,6 +2,7 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Step;
+import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class ScaleService {
     @Autowired
     private StepService stepService;
 
+    @Autowired
+    MemoryCacheProvider memoryCacheProvider;
+
     public List<Note> generateScale(String scalePattern, String startingNote, int numOctaves) {
         Note startNote = noteService.generateNote(startingNote);
         List<Note> scale = new ArrayList<>();
@@ -30,5 +34,9 @@ public class ScaleService {
         }
         scale.add(lastNote);
         return scale;
+    }
+
+    public String getScalePattern(String scaleName) {
+        return memoryCacheProvider.noteCache.scaleNameToPattern.get(scaleName.toLowerCase());
     }
 }

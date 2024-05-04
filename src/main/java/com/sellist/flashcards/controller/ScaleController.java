@@ -26,7 +26,13 @@ public class ScaleController {
 
     @PostMapping("/scale")
     public ApiResponse<List<Note>> getScale(@RequestBody ScaleRequest req) {
-        // todo
-        return null;
+        return ApiResponse.<List<Note>>builder()
+                .status("success")
+                .code(200)
+                .message("Scale fetched successfully")
+                .data(scaleService.generateScale(scaleService.getScalePattern(req.getScaleType()),
+                        req.getTonic(),
+                        req.getOctave()))
+                .build();
     }
 }
