@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/note")
+@RequestMapping()
 public class NoteController {
 
     private final NoteService noteService;
@@ -22,7 +22,7 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @PostMapping(path = "/notes/names", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/notes", consumes = "application/json", produces = "application/json")
     public ApiResponse<List<Note>> getNotes(@RequestBody NotesNameRequest notes) {
         List<Note> notesList = new ArrayList<>();
         for (String note : notes.getNotes()) {
