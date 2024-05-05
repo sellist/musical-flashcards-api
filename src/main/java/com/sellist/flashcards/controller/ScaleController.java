@@ -6,6 +6,7 @@ import com.sellist.flashcards.model.request.ScaleRequest;
 import com.sellist.flashcards.service.ScaleService;
 import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
+@CrossOrigin
 public class ScaleController {
 
     ScaleService scaleService;

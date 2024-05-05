@@ -4,6 +4,7 @@ import com.sellist.flashcards.model.ApiResponse;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.NotesNameRequest;
 import com.sellist.flashcards.service.NoteService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping()
+@CrossOrigin
 public class NoteController {
 
     private final NoteService noteService;

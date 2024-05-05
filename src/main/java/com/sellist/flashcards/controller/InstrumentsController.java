@@ -6,6 +6,7 @@ import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.AdjustedNotesRequest;
 import com.sellist.flashcards.service.InstrumentService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@CrossOrigin
 public class InstrumentsController {
 
     private InstrumentService instrumentService;
