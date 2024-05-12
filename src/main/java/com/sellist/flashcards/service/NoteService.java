@@ -92,5 +92,4 @@ public class NoteService {
         return cache.noteCache.naturalNameToMidi.get(note);
     }
 
-
 }
