@@ -5,8 +5,10 @@ import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class NoteService {
+public class NoteService implements ProvideInfo {
 
     private final MemoryCacheProvider cache;
 
@@ -92,4 +94,8 @@ public class NoteService {
         return cache.noteCache.naturalNameToMidi.get(note);
     }
 
+    @Override
+    public List<String> getAvailable() {
+        return cache.noteCache.naturalNameToMidi.keySet().stream().toList();
+    }
 }

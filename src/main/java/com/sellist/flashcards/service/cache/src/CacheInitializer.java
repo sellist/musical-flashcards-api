@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Configuration
 public class CacheInitializer {
@@ -27,7 +28,7 @@ public class CacheInitializer {
 
     @Bean(name = "nameToInstrument")
     public Map<String, Instrument> nameToInstrument() {
-        Map<String,Instrument> instrumentMap = new HashMap<>();
+        Map<String,Instrument> instrumentMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         File directory = new File("src/main/resources/static/instruments");
         File[] files = directory.listFiles((pathname) -> pathname.getName().endsWith(".yaml"));
@@ -135,7 +136,7 @@ public class CacheInitializer {
     @Bean(name = "sharpNameToMidi")
     public static Map<String, Integer> sharpNameToMidi() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
-        Map<String, Integer> midiNoteMap = new HashMap<>();
+        Map<String, Integer> midiNoteMap =  new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         StepsConstants sc = new StepsConstants();
 
         int noteIndex = 0;
@@ -166,7 +167,7 @@ public class CacheInitializer {
     @Bean(name = "flatNameToMidi")
     public static Map<String, Integer> flatNameToMidi() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
-        Map<String, Integer> midiNoteMap = new HashMap<>();
+        Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         StepsConstants sc = new StepsConstants();
 
         int noteIndex = 0;
@@ -197,7 +198,7 @@ public class CacheInitializer {
     @Bean(name = "naturalNameToMidi")
     public static Map<String, Integer> naturalsNameToMidi() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};
-        Map<String, Integer> midiNoteMap = new HashMap<>();
+        Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         StepsConstants sc = new StepsConstants();
 
         int noteIndex = 5;
@@ -298,8 +299,8 @@ public class CacheInitializer {
 
     @Bean(name = "scaleNameToPattern")
     public Map<String, String> scaleNameToPattern() {
-        Map<String,String> rawMap = new HashMap<>();
-        Map<String, String> outputMap = new HashMap<>();
+        Map<String,String> rawMap;
+        Map<String, String> outputMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {

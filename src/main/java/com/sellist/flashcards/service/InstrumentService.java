@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InstrumentService {
+public class InstrumentService implements ProvideInfo {
 
     private final MemoryCacheProvider memoryCacheProvider;
     private final NoteService noteService;
@@ -48,5 +48,10 @@ public class InstrumentService {
 
     public List<Instrument> getInstrumentsByFamily(String family) {
         return memoryCacheProvider.instrumentCache.nameToInstruments.values().stream().filter(instrument -> instrument.getFamily().equals(family)).toList();
+    }
+
+    @Override
+    public List<String> getAvailable() {
+        return memoryCacheProvider.instrumentCache.nameToInstruments.keySet().stream().toList();
     }
 }

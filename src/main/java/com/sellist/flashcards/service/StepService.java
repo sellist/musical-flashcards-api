@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class StepService {
+public class StepService implements ProvideInfo {
 
     private final NoteService noteService;
 
@@ -107,5 +107,11 @@ public class StepService {
             steps.add(getStep(stepName));
         }
         return steps;
+    }
+
+    @Override
+    public List<String> getAvailable() {
+        // Get full name of step
+        return cacheProvider.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();
     }
 }

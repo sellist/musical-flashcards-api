@@ -6,7 +6,6 @@ import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.AdjustedNotesRequest;
 import com.sellist.flashcards.service.InstrumentService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,19 +21,23 @@ import java.util.List;
 @RequestMapping("/instrument")
 public class InstrumentsController {
 
-    private InstrumentService instrumentService;
+    private final InstrumentService instrumentService;
 
-    @GetMapping("/instruments/{family}")
-    public ApiResponse<List<Instrument>> getInstrumentsByFamily(@PathVariable String family) {
-        return ApiResponse.<List<Instrument>>builder()
+    public InstrumentsController(InstrumentService instrumentService) {
+        this.instrumentService = instrumentService;
+    }
+
+    @GetMapping("/{name}")
+    public ApiResponse<Instrument> getInstrument(@PathVariable String name) {
+        return ApiResponse.<Instrument>builder()
                 .status("success")
                 .code(200)
-                .message("Instruments fetched successfully")
-                .data(instrumentService.getInstrumentsByFamily(family))
+                .message("Instrument fetched successfully")
+                .data(instrumentService.getInstrument(name))
                 .build();
     }
 
-    @PostMapping
+    @PostMapping("/adjust")
     public ApiResponse<List<Note>> getAdjustedNotes(AdjustedNotesRequest notes) {
         return ApiResponse.<List<Note>>builder()
                 .status("success")
