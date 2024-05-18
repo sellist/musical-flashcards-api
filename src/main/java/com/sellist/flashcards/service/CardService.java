@@ -3,6 +3,7 @@ package com.sellist.flashcards.service;
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.CardRequest;
+import com.sellist.flashcards.model.request.NotesNameRequest;
 import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,15 @@ public class CardService {
         return output;
     }
 
+    public List<Card> generateCards(NotesNameRequest notes) {
+        List<Card> output = new ArrayList<>();
+        for (String note : notes.getNotes()) {
+            output.add(generateCard(noteService.generateNote(note)));
+        }
+        return output;
+    }
+
     public Card generateCard(Note note) {
-        return new Card(abcJsService.generateAbcJs(note), note.getNoteName());
+        return new Card(abcJsService.generateAbcJs(note), note.toString());
     }
 }

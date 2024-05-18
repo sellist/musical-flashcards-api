@@ -5,14 +5,18 @@ import com.sellist.flashcards.service.InstrumentService;
 import com.sellist.flashcards.service.NoteService;
 import com.sellist.flashcards.service.ScaleService;
 import com.sellist.flashcards.service.StepService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("/info")
+@Log4j2
 @RestController
+@CrossOrigin
+@RequestMapping("/info")
 public class InformationController {
 
     private final NoteService noteService;
