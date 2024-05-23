@@ -25,9 +25,19 @@ public class ScaleService implements ProvideInfo {
     public List<Note> generateScale(String scalePattern, String startingNote, int numOctaves) {
         Note startNote = noteService.generateNote(startingNote);
         List<Note> scale = new ArrayList<>();
-        List<Step> steps = stepService.getStepsFromPattern(scalePattern);
 
+        List<String> scalePatternList = List.of(scalePattern.split(","));
+        List<String> modifiedScalePattern = new ArrayList<>();
+        for (int i = 0; i < numOctaves; i++) {
+            modifiedScalePattern.addAll(scalePatternList);
+        }
+
+        List<Step> steps = stepService.getStepsFromPattern(modifiedScalePattern);
+        System.out.println(modifiedScalePattern);
+
+        System.out.println(steps);
         Note lastNote = startNote;
+
         for (Step step : steps) {
             scale.add(lastNote);
             lastNote = stepService.stepUp(lastNote, step);

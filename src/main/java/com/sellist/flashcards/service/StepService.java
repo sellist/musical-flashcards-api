@@ -101,13 +101,14 @@ public class StepService implements ProvideInfo {
         return cacheProvider.stepCache.stepNameToStep.get(stepName);
     }
 
-    public List<Step> getStepsFromPattern(String pattern) {
+    public List<Step> getStepsFromPattern(List<String> pattern) {
         List<Step> steps = new ArrayList<>();
-        for (String stepName : pattern.split(",")) {
+        for (String stepName : pattern) {
             steps.add(getStep(stepName));
         }
         return steps;
     }
+
 
     @Override
     public List<String> getAvailable() {

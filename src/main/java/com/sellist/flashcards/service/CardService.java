@@ -2,9 +2,8 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.model.request.CardRequest;
+import com.sellist.flashcards.model.request.CardsRequest;
 import com.sellist.flashcards.model.request.NotesNameRequest;
-import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +13,26 @@ import java.util.List;
 @Service
 public class CardService {
 
-    private final MemoryCacheProvider cache;
     private final NoteService noteService;
     private final AbcJsService abcJsService;
+    private final ScaleService scaleService;
 
     @Autowired
-    public CardService(NoteService noteService, MemoryCacheProvider cacheProvider, AbcJsService abcJsService) {
-        this.cache = cacheProvider;
+    public CardService(NoteService noteService, AbcJsService abcJsService, ScaleService scaleService) {
         this.noteService = noteService;
         this.abcJsService = abcJsService;
+        this.scaleService = scaleService;
     }
 
-    public List<Card> generateCards(CardRequest cardRequest) {
+    public List<Card> generateCards(CardsRequest cardsRequest) {
         List<Card> output = new ArrayList<>();
-        for (Note note : cardRequest.getNotes()) {
-            output.add(generateCard(note));
-        }
+
+        scaleService.generateScale(
+            scaleService.getScalePattern(cardsRequest.getScaleType()),
+            cardsRequest.getStartingNote(),
+            cardsRequest.getOctaves()
+        ).forEach(note -> output.add(generateCard(note)));
+
         return output;
     }
 
