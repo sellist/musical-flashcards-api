@@ -1,10 +1,8 @@
 package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.ApiResponse;
-import com.sellist.flashcards.service.InstrumentService;
-import com.sellist.flashcards.service.NoteService;
-import com.sellist.flashcards.service.ScaleService;
-import com.sellist.flashcards.service.StepService;
+import com.sellist.flashcards.model.FormInformation;
+import com.sellist.flashcards.service.InfoService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +17,20 @@ import java.util.List;
 @RequestMapping("/info")
 public class InformationController {
 
-    private final NoteService noteService;
-    private final InstrumentService instrumentService;
-    private final ScaleService scaleService;
-    private final StepService stepService;
+    private final InfoService infoService;
 
-    public InformationController(NoteService noteService, InstrumentService instrumentService, ScaleService scaleService, StepService stepService) {
-        this.noteService = noteService;
-        this.instrumentService = instrumentService;
-        this.scaleService = scaleService;
-        this.stepService = stepService;
+    public InformationController(InfoService infoService) {
+        this.infoService = infoService;
+    }
+
+    @GetMapping("/form")
+    public ApiResponse<FormInformation> getFormInfo() {
+        return ApiResponse.<FormInformation>builder()
+                .status("success")
+                .code(200)
+                .message("Info fetched successfully")
+                .data(infoService.getInfo())
+                .build();
     }
 
     @GetMapping("/scales")
@@ -37,7 +39,7 @@ public class InformationController {
                 .status("success")
                 .code(200)
                 .message("Scales fetched successfully")
-                .data(scaleService.getAvailable())
+                .data(infoService.getScales())
                 .build();
     }
 
@@ -47,7 +49,7 @@ public class InformationController {
                 .status("success")
                 .code(200)
                 .message("Instruments fetched successfully")
-                .data(instrumentService.getAvailable())
+                .data(infoService.getInstruments())
                 .build();
     }
 
@@ -57,7 +59,7 @@ public class InformationController {
                 .status("success")
                 .code(200)
                 .message("Notes fetched successfully")
-                .data(noteService.getAvailable())
+                .data(infoService.getNotes())
                 .build();
     }
 
@@ -67,7 +69,7 @@ public class InformationController {
                 .status("success")
                 .code(200)
                 .message("Steps fetched successfully")
-                .data(stepService.getAvailable())
+                .data(infoService.getSteps())
                 .build();
     }
 }
