@@ -1,4 +1,4 @@
-package com.sellist.flashcards.model;
+package com.sellist.flashcards.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class ApiResponse<T> {
-    private String status;
-    private int code;
-    private String message;
+
     private T data;
+
+    private ResponseMetadata metadata;
+
 }

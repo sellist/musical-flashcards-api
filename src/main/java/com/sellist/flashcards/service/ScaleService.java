@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Service
-public class ScaleService implements ProvideInfo {
+public class ScaleService implements ProvideApiInfo {
 
     @Autowired
     private NoteService noteService;
@@ -51,7 +51,7 @@ public class ScaleService implements ProvideInfo {
     }
 
     @Override
-    public List<String> getAvailable() {
+    public List<String> listAvailable() {
         return memoryCacheProvider.noteCache.scaleNameToPattern.keySet().stream().toList();
     }
 

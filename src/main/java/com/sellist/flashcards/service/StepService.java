@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class StepService implements ProvideInfo {
+public class StepService implements ProvideApiInfo {
 
     private final NoteService noteService;
 
@@ -66,9 +66,7 @@ public class StepService implements ProvideInfo {
 
         Note baseDegreeNote = noteService.generateNote(targetNote + targetOctave);
 
-
         int difference = (note.getMidiValue() + step.getSize()) - baseDegreeNote.getMidiValue();
-
         int octaveDiff = (targetOctave - note.getOctave()) * 12;
 
         // handles octave differences when calculating scale degree difference
@@ -111,7 +109,7 @@ public class StepService implements ProvideInfo {
 
 
     @Override
-    public List<String> getAvailable() {
+    public List<String> listAvailable() {
         // Get full name of step
         return cacheProvider.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class NoteService implements ProvideInfo {
+public class NoteService implements ProvideApiInfo {
 
     private final MemoryCacheProvider cache;
 
@@ -95,7 +95,7 @@ public class NoteService implements ProvideInfo {
     }
 
     @Override
-    public List<String> getAvailable() {
+    public List<String> listAvailable() {
         return cache.noteCache.naturalNameToMidi.keySet().stream().toList();
     }
 }

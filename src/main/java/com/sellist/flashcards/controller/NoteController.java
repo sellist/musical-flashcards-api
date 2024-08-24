@@ -1,6 +1,6 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.ApiResponse;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.NotesNameRequest;
 import com.sellist.flashcards.service.NoteService;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/note")
-public class NoteController {
+public class NoteController extends BaseController {
 
     private final NoteService noteService;
 
@@ -33,10 +33,8 @@ public class NoteController {
             notesList.add(noteService.generateNote(note));
         }
         return ApiResponse.<List<Note>>builder()
-                .status("success")
-                .code(200)
-                .message("Notes generated successfully")
                 .data(notesList)
+                .metadata(generateMetadata())
                 .build();
     }
 }

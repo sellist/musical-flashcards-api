@@ -65,7 +65,7 @@ public class StepsConstants {
             try {
                 steps.add((Step) field.get(this));
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         return steps;

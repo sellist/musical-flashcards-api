@@ -1,6 +1,6 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.ApiResponse;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.ScaleRequest;
 import com.sellist.flashcards.service.ScaleService;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/scale")
-public class ScaleController {
+public class ScaleController extends BaseController {
 
     ScaleService scaleService;
     MemoryCacheProvider memoryCacheProvider;
@@ -31,12 +31,10 @@ public class ScaleController {
     @PostMapping("/scale")
     public ApiResponse<List<Note>> getScale(@RequestBody ScaleRequest req) {
         return ApiResponse.<List<Note>>builder()
-                .status("success")
-                .code(200)
-                .message("Scale fetched successfully")
                 .data(scaleService.generateScale(scaleService.getScalePattern(req.getScaleType()),
                         req.getTonic(),
                         req.getOctave()))
+                .metadata(generateMetadata())
                 .build();
     }
 }

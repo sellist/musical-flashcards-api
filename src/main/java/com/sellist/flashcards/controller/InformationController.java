@@ -1,6 +1,6 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.ApiResponse;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.FormInformation;
 import com.sellist.flashcards.service.InfoService;
 import lombok.extern.log4j.Log4j2;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/info")
-public class InformationController {
+public class InformationController extends BaseController {
 
     private final InfoService infoService;
 
@@ -26,50 +26,40 @@ public class InformationController {
     @GetMapping("/form")
     public ApiResponse<FormInformation> getFormInfo() {
         return ApiResponse.<FormInformation>builder()
-                .status("success")
-                .code(200)
-                .message("Info fetched successfully")
                 .data(infoService.getInfo())
+                .metadata(generateMetadata())
                 .build();
     }
 
     @GetMapping("/scales")
-    public ApiResponse<List<String>> getScales() {
+    public ApiResponse<List<String>> listScales() {
         return ApiResponse.<List<String>>builder()
-                .status("success")
-                .code(200)
-                .message("Scales fetched successfully")
-                .data(infoService.getScales())
+                .data(infoService.listScales())
+                .metadata(generateMetadata())
                 .build();
     }
 
     @GetMapping("/instruments")
-    public ApiResponse<List<String>> getInstruments() {
+    public ApiResponse<List<String>> listInstruments() {
         return ApiResponse.<List<String>>builder()
-                .status("success")
-                .code(200)
-                .message("Instruments fetched successfully")
-                .data(infoService.getInstruments())
+                .data(infoService.listInstruments())
+                .metadata(generateMetadata())
                 .build();
     }
 
     @GetMapping("/notes")
-    public ApiResponse<List<String>> getNotes() {
+    public ApiResponse<List<String>> listNotes() {
         return ApiResponse.<List<String>>builder()
-                .status("success")
-                .code(200)
-                .message("Notes fetched successfully")
-                .data(infoService.getNotes())
+                .data(infoService.listNotes())
+                .metadata(generateMetadata())
                 .build();
     }
 
     @GetMapping("/steps")
-    public ApiResponse<List<String>> getSteps() {
+    public ApiResponse<List<String>> listSteps() {
         return ApiResponse.<List<String>>builder()
-                .status("success")
-                .code(200)
-                .message("Steps fetched successfully")
-                .data(infoService.getSteps())
+                .data(infoService.listSteps())
+                .metadata(generateMetadata())
                 .build();
     }
 }

@@ -1,6 +1,6 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.ApiResponse;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Instrument;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.AdjustedNotesRequest;
@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/instrument")
-public class InstrumentsController {
+public class InstrumentsController extends BaseController {
 
     private final InstrumentService instrumentService;
 
@@ -30,20 +30,16 @@ public class InstrumentsController {
     @GetMapping("/{name}")
     public ApiResponse<Instrument> getInstrument(@PathVariable String name) {
         return ApiResponse.<Instrument>builder()
-                .status("success")
-                .code(200)
-                .message("Instrument fetched successfully")
                 .data(instrumentService.getInstrument(name))
+                .metadata(generateMetadata())
                 .build();
     }
 
     @PostMapping("/adjust")
     public ApiResponse<List<Note>> getAdjustedNotes(AdjustedNotesRequest notes) {
         return ApiResponse.<List<Note>>builder()
-                .status("success")
-                .code(200)
-                .message("Notes adjusted successfully")
                 .data(instrumentService.applyTranspositionToNotes(notes.getInstrument(), notes.getNotes()))
+                .metadata(generateMetadata())
                 .build();
     }
 }

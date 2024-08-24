@@ -21,26 +21,26 @@ public class InfoService {
 
     public FormInformation getInfo() {
         FormInformation output = new FormInformation();
-        output.setNotes(noteService.getAvailable());
-        output.setScales(scaleService.getAvailable());
-        output.setSteps(stepService.getAvailable());
-        output.setInstruments(instrumentService.getAvailable());
+        output.setNotes(noteService.listAvailable());
+        output.setScales(scaleService.listAvailable());
+        output.setSteps(stepService.listAvailable());
+        output.setInstruments(instrumentService.listAvailable());
         return output;
     }
 
-    public List<String> getScales() {
-        return scaleService.getAvailable();
+    public List<String> listScales() {
+        return scaleService.listAvailable();
     }
 
-    public List<String> getNotes() {
-        return noteService.getAvailable();
+    public List<String> listNotes() {
+        return noteService.listAvailable();
     }
 
-    public List<String> getSteps() {
-        return stepService.getAvailable();
+    public List<String> listSteps() {
+        return stepService.listAvailable();
     }
 
-    public List<String> getInstruments() {
-        return instrumentService.getAvailable();
+    public List<String> listInstruments() {
+        return instrumentService.listAvailable();
     }
 }
