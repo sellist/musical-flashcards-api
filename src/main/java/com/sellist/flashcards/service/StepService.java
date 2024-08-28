@@ -107,6 +107,15 @@ public class StepService implements ProvideApiInfo {
         return steps;
     }
 
+    public List<Step> getStepsFromPattern(String pattern) {
+        List<String> patternList = Arrays.asList(pattern.split(","));
+        List<Step> steps = new ArrayList<>();
+        for (String stepName : patternList) {
+            steps.add(getStep(stepName));
+        }
+        return steps;
+    }
+
 
     @Override
     public List<String> listAvailable() {

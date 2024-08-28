@@ -2,6 +2,7 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.Note;
+import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.request.CardsRequest;
 import com.sellist.flashcards.model.request.NotesNameRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +14,33 @@ import java.util.List;
 @Service
 public class CardService {
 
-    private final NoteService noteService;
     private final AbcJsService abcJsService;
     private final ScaleService scaleService;
 
     @Autowired
-    public CardService(NoteService noteService, AbcJsService abcJsService, ScaleService scaleService) {
-        this.noteService = noteService;
+    public CardService(AbcJsService abcJsService, ScaleService scaleService) {
         this.abcJsService = abcJsService;
         this.scaleService = scaleService;
     }
 
-    public List<Card> generateCards(CardsRequest cardsRequest) {
+    public List<Card> generateCards(CardsRequest requests) {
         List<Card> output = new ArrayList<>();
 
-        scaleService.generateScale(
-            scaleService.getScalePattern(cardsRequest.getScaleType()),
-            cardsRequest.getStartingNote(),
-            cardsRequest.getOctaves()
-        ).forEach(note -> output.add(generateCard(note)));
+        Scale s = scaleService.generateScale(
+            scaleService.getScalePattern(requests.getScaleType()),
+                requests.getStartingNote(),
+                requests.getOctaves()
+        );
+
+        s.getNotes().forEach(n -> output.add(generateCard(n)));
 
         return output;
     }
 
-    public List<Card> generateCards(NotesNameRequest notes) {
+    public List<Card> generateCards(List<CardsRequest> requests) {
         List<Card> output = new ArrayList<>();
-        for (String note : notes.getNotes()) {
-            output.add(generateCard(noteService.generateNote(note)));
+        for (CardsRequest request : requests) {
+            output.addAll(generateCards(request));
         }
         return output;
     }

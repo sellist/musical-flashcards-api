@@ -27,6 +27,18 @@ public class NoteService implements ProvideApiInfo {
         }
     }
 
+    public Note getFlatEnharmonic(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()-1);
+    }
+
+    public Note getSharpEnharmonic(Note note) {
+        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()+1);
+    }
+
+    public Note getEnharmonic(Note note, int modifier) {
+        return generateNoteByMidiValue(note.getMidiValue(), modifier);
+    }
+
     public int getOctaveFromMidi(int midi) {
         return (midi / 12) - 1;
     }
@@ -72,6 +84,10 @@ public class NoteService implements ProvideApiInfo {
         }
 
         return output;
+    }
+
+    public String getDegreeOfScale(String note, String scale) {
+        return cache.noteCache.scaleNameToPattern.get(scale).split(",")[getMidiValue(note) % 12];
     }
 
     public String midiToNaturalNoteName(int midiValue) {

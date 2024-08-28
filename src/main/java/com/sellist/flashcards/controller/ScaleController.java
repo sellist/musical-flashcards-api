@@ -1,5 +1,6 @@
 package com.sellist.flashcards.controller;
 
+import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.ScaleRequest;
@@ -29,8 +30,8 @@ public class ScaleController extends BaseController {
     }
 
     @PostMapping("/scale")
-    public ApiResponse<List<Note>> getScale(@RequestBody ScaleRequest req) {
-        return ApiResponse.<List<Note>>builder()
+    public ApiResponse<Scale> getScale(@RequestBody ScaleRequest req) {
+        return ApiResponse.<Scale>builder()
                 .data(scaleService.generateScale(scaleService.getScalePattern(req.getScaleType()),
                         req.getTonic(),
                         req.getOctave()))

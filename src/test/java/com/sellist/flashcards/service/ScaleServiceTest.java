@@ -1,6 +1,7 @@
 package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Note;
+import com.sellist.flashcards.model.Scale;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ScaleServiceTest {
 
     @Test
     void generateCMajScale() {
-        List<Note> scale = sut.generateScale("W,W,H,W,W,W,H", "C4", 1);
+        Scale scale = sut.generateScale("W,W,H,W,W,W,H", "C4", 1);
         Assertions.assertEquals(8, scale.size());
         Assertions.assertEquals("C4", scale.get(0).toString());
         Assertions.assertEquals("D4", scale.get(1).toString());
@@ -30,7 +31,7 @@ public class ScaleServiceTest {
 
     @Test
     void generateDMajScale() {
-        List<Note> scale = sut.generateScale("W,W,H,W,W,W,H", "D4", 1);
+        Scale scale = sut.generateScale("W,W,H,W,W,W,H", "D4", 1);
         Assertions.assertEquals(8, scale.size());
         Assertions.assertEquals("D4", scale.get(0).toString());
         Assertions.assertEquals("E4", scale.get(1).toString());
@@ -44,7 +45,7 @@ public class ScaleServiceTest {
 
     @Test
     void generateEMajScale() {
-        List<Note> scale = sut.generateScale("W,W,H,W,W,W,H", "E4", 1);
+        Scale scale = sut.generateScale("W,W,H,W,W,W,H", "E4", 1);
         Assertions.assertEquals(8, scale.size());
         Assertions.assertEquals("E4", scale.get(0).toString());
         Assertions.assertEquals("F#4", scale.get(1).toString());
@@ -58,7 +59,7 @@ public class ScaleServiceTest {
 
     @Test
     void generateFMajScale() {
-        List<Note> scale = sut.generateScale("W,W,H,W,W,W,H", "F4", 1);
+        Scale scale = sut.generateScale("W,W,H,W,W,W,H", "F4", 1);
         Assertions.assertEquals(8, scale.size());
         Assertions.assertEquals("F4", scale.get(0).toString());
         Assertions.assertEquals("G4", scale.get(1).toString());
@@ -72,7 +73,7 @@ public class ScaleServiceTest {
 
     @Test
     void generateBbMajScale() {
-        List<Note> scale = sut.generateScale("W,W,H,W,W,W,H", "Bb4", 1);
+        Scale scale = sut.generateScale("W,W,H,W,W,W,H", "Bb4", 1);
         Assertions.assertEquals(8, scale.size());
         Assertions.assertEquals("Bb4", scale.get(0).toString());
         Assertions.assertEquals("C5", scale.get(1).toString());
@@ -82,6 +83,64 @@ public class ScaleServiceTest {
         Assertions.assertEquals("G5", scale.get(5).toString());
         Assertions.assertEquals("A5", scale.get(6).toString());
         Assertions.assertEquals("Bb5", scale.get(7).toString());
+    }
+
+    @Test
+    void generateRangeBetweenNotesNinth() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","C4", "D5");
+        Assertions.assertEquals(9, scale.size());
+        Assertions.assertEquals("C4", scale.get(0).toString());
+        Assertions.assertEquals("D5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void generateLargeRangeBetweenNotes() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","C4", "C8");
+        Assertions.assertEquals(29, scale.size());
+        Assertions.assertEquals("C4", scale.get(0).toString());
+        Assertions.assertEquals("D5", scale.get(8).toString());
+        Assertions.assertEquals("C8", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void generateRangeBetweenTwoNonScalarNotes() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","C4", "D#5");
+        Assertions.assertEquals(10, scale.size());
+        Assertions.assertEquals("C4", scale.get(0).toString());
+        Assertions.assertEquals("D#5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void generateRangeChromatic() {
+        List<Note> scale = sut.generateRangeBetweenNotes("chromatic","C4", "C5");
+        Assertions.assertEquals(13, scale.size());
+        Assertions.assertEquals("C4", scale.get(0).toString());
+        Assertions.assertEquals("C5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void genRangeSharps() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","C#4", "D#5");
+        Assertions.assertEquals(9, scale.size());
+        Assertions.assertEquals("C#4", scale.get(0).toString());
+        Assertions.assertEquals("D#5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void genRangeFlats() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","Db4", "Eb5");
+        Assertions.assertEquals(9, scale.size());
+        Assertions.assertEquals("Db4", scale.get(0).toString());
+        Assertions.assertEquals("Eb5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void genRangeFlatsEdgeCase() {
+        List<Note> scale = sut.generateRangeBetweenNotes("major","Fb3", "Cb5");
+        Assertions.assertEquals(12, scale.size());
+        Assertions.assertEquals("Fb3", scale.get(0).toString());
+        Assertions.assertEquals("Db5", scale.get(5).toString());
+        Assertions.assertEquals("Cb5", scale.get(scale.size()-1).toString());
     }
 
 }
