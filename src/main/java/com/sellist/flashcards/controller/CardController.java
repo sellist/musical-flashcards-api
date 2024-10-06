@@ -1,8 +1,9 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.request.CardsRequest;
+import com.sellist.flashcards.model.request.NotesRequest;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.service.CardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class CardController extends BaseController {
     public ApiResponse<List<Card>> getCards(@RequestBody List<CardsRequest> request) {
         return ApiResponse.<List<Card>>builder()
                 .data(cardService.generateCards(request))
+                .metadata(generateMetadata())
+                .build();
+    }
+
+    @PostMapping("/notes")
+    public ApiResponse<List<Card>> getNotes(@RequestBody NotesRequest request) {
+        return ApiResponse.<List<Card>>builder()
+                .data(cardService.generateCardsFromNotes(request))
                 .metadata(generateMetadata())
                 .build();
     }

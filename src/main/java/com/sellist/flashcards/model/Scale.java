@@ -2,10 +2,11 @@ package com.sellist.flashcards.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Scale {
+public class Scale implements Serializable {
     private List<Note> notes;
     private ScaleInfo scaleInfo;
 

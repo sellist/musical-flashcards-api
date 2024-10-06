@@ -7,5 +7,4 @@ public class CardsRequest {
     private String startingNote;
     private String scaleType;
     private int octaves;
-    private String instrument;
 }

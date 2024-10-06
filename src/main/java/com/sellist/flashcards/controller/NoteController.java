@@ -2,7 +2,7 @@ package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.model.request.NotesNameRequest;
+import com.sellist.flashcards.model.request.NotesRequest;
 import com.sellist.flashcards.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +27,7 @@ public class NoteController extends BaseController {
     }
 
     @PostMapping(path = "/notes", consumes = "application/json", produces = "application/json")
-    public ApiResponse<List<Note>> getNotes(@RequestBody NotesNameRequest notes) {
+    public ApiResponse<List<Note>> getNotes(@RequestBody NotesRequest notes) {
         List<Note> notesList = new ArrayList<>();
         for (String note : notes.getNotes()) {
             notesList.add(noteService.generateNote(note));
