@@ -139,6 +139,10 @@ public class ScaleServiceTest {
         List<Note> scale = sut.generateRangeBetweenNotes("major","Fb3", "Cb5");
         Assertions.assertEquals(12, scale.size());
         Assertions.assertEquals("Fb3", scale.get(0).toString());
+        Assertions.assertEquals("Gb3", scale.get(1).toString());
+        Assertions.assertEquals("Ab3", scale.get(2).toString());
+        Assertions.assertEquals("Bbb3", scale.get(3).toString());
+        Assertions.assertEquals("Cb4", scale.get(4).toString());
         Assertions.assertEquals("Db5", scale.get(5).toString());
         Assertions.assertEquals("Cb5", scale.get(scale.size()-1).toString());
     }

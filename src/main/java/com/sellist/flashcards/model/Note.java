@@ -18,8 +18,12 @@ public class Note {
         String[] startingNoteSplit = note.split("(?<=^.)|(?=\\d)");
 
         this.noteName = startingNoteSplit[0];
-        if (note.contains("#")) {
+        if (note.contains("##")) {
+            this.modifier = 2;
+        } else if (note.contains("#")) {
             this.modifier = 1;
+        } else if (note.contains("bb")) {
+            this.modifier = -2;
         } else if (note.contains("b")) {
             this.modifier = -1;
         } else {
@@ -43,10 +47,14 @@ public class Note {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(noteName);
-        if (modifier > 0) {
+        if (modifier == 1) {
             sb.append("#");
-        } else if (modifier < 0) {
+        } else if (modifier == -1) {
             sb.append("b");
+        } else if (modifier == 2) {
+            sb.append("##");
+        } else if (modifier == -2) {
+            sb.append("bb");
         }
         sb.append(octave);
         return sb.toString();

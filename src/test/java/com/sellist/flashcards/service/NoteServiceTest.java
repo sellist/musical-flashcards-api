@@ -88,4 +88,19 @@ public class NoteServiceTest {
         assertEquals("W,W,H,W,W,W,H",sut.scaleNameToPattern("major"));
         assertEquals("W,H,W,W,H,A,H",sut.scaleNameToPattern("harmonic_minor"));
     }
+
+    @Test
+    void testGenerateFlats() {
+        assertEquals("Bb3",sut.generateNoteByMidiValue(58,-1).toString());
+
+    }
+
+    @Test
+    void testGenerateDoubleFlats() {
+        assertEquals("Bbb3",sut.generateNoteByMidiValue(57,-2).toString());
+        assertEquals("Cbb4",sut.generateNoteByMidiValue(58,-2).toString());
+        assertEquals("Dbb4",sut.generateNoteByMidiValue(60,-2).toString());
+        assertEquals("Ebb4",sut.generateNoteByMidiValue(62,-2).toString());
+        assertEquals("Fbb4",sut.generateNoteByMidiValue(63,-2).toString());
+    }
 }

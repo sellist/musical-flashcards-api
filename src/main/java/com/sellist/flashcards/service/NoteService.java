@@ -48,13 +48,16 @@ public class NoteService implements ProvideApiInfo {
     }
 
     public Note generateNoteByMidiValue(int midiValue, int modifier) {
-        //        Currently does not support double sharps or flats
-        if (modifier >= 1) {
-            return new Note(midiToSharpNoteName(midiValue),midiValue);
-        } else if (modifier <= -1) {
-            return new Note(midiToFlatNoteName(midiValue),midiValue);
+        if (modifier == 2) {
+            return new Note(midiToDoubleSharpNoteName(midiValue), midiValue);
+        } else if (modifier == -2) {
+            return new Note(midiToDoubleFlatNoteName(midiValue), midiValue);
+        } else if (modifier == 1) {
+            return new Note(midiToSharpNoteName(midiValue), midiValue);
+        } else if (modifier == -1) {
+            return new Note(midiToFlatNoteName(midiValue), midiValue);
         } else {
-            return new Note(midiToNaturalNoteName(midiValue),midiValue);
+            return new Note(midiToNaturalNoteName(midiValue), midiValue);
         }
     }
 
@@ -83,6 +86,24 @@ public class NoteService implements ProvideApiInfo {
             output = midiToNaturalNoteName(midiValue);
         }
 
+        return output;
+    }
+
+    public String midiToDoubleSharpNoteName(int midiValue) {
+        String output;
+        output = cache.noteCache.midiToDoubleSharpName.get(midiValue);
+        if (output == null) {
+            output = midiToNaturalNoteName(midiValue);
+        }
+        return output;
+    }
+
+    public String midiToDoubleFlatNoteName(int midiValue) {
+        String output;
+        output = cache.noteCache.midiToDoubleFlatName.get(midiValue);
+        if (output == null) {
+            output = midiToNaturalNoteName(midiValue);
+        }
         return output;
     }
 

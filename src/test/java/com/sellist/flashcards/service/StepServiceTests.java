@@ -169,6 +169,5 @@ class StepServiceTests {
                 stepService.stepUp(noteService.generateNote("G4"), "M7"));
         Assertions.assertEquals(noteService.generateNote("F5"),
                 stepService.stepUp(noteService.generateNote("G4"), "m7"));
-
     }
 }
