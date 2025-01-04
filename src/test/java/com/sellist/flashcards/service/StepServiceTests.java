@@ -11,17 +11,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class StepServiceTests {
-    @Autowired
-    private StepService stepService;
+
+    private final StepService stepService;
+
+    private final NoteService noteService;
+
+    private final StepsConstants stepsConstants;
 
     @Autowired
-    private NoteService noteService;
-
-    @Autowired
-    private StepsConstants stepsConstants;
-
-    @Autowired
-    private MemoryCacheProvider cacheProvider;
+    public StepServiceTests(StepService stepService, NoteService noteService, StepsConstants stepsConstants) {
+        this.stepService = stepService;
+        this.noteService = noteService;
+        this.stepsConstants = stepsConstants;
+    }
 
     @Test
     void standardSteps() {
@@ -170,4 +172,27 @@ class StepServiceTests {
         Assertions.assertEquals(noteService.generateNote("F5"),
                 stepService.stepUp(noteService.generateNote("G4"), "m7"));
     }
+
+    @Test
+    void testDoubleFlatStepUp() {
+        Assertions.assertEquals(noteService.generateNote("Cb5"),
+                stepService.stepUp(noteService.generateNote("Bbb4"), "W"));
+    }
+
+    @Test
+    void testDoubleFlatStepDown() {
+        Assertions.assertEquals(noteService.generateNote("Bbb4"),
+                stepService.stepDown(noteService.generateNote("Cb5"), "W"));
+    }
+
+    @Test
+    void testDoubleSharpStepUp() {
+        Assertions.assertEquals(noteService.generateNote("D##4"),
+                stepService.stepUp(noteService.generateNote("C##4"), "M2"));
+        Assertions.assertEquals(noteService.generateNote("C##5"),
+                stepService.stepUp(noteService.generateNote("B##4"), "H"));
+        Assertions.assertEquals(noteService.generateNote("C##5"),
+                stepService.stepUp(noteService.generateNote("B##4"), "m2"));
+    }
+
 }

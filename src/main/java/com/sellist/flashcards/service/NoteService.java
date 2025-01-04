@@ -18,7 +18,11 @@ public class NoteService implements ProvideApiInfo {
     }
 
     public int getMidiValue(String note) {
-        if (note.contains("#")) {
+        if (note.contains("##")) {
+            return doubleSharpNoteToMidi(note);
+        } else if (note.contains("bb")) {
+            return doubleFlatNoteToMidi(note);
+        } else if (note.contains("#")) {
             return sharpNoteToMidi(note);
         } else if (note.contains("b")) {
             return flatNoteToMidi(note);
@@ -85,6 +89,14 @@ public class NoteService implements ProvideApiInfo {
 
     private int sharpNoteToMidi(String note) {
         return cache.noteCache.sharpNameToMidi.get(note);
+    }
+
+    private int doubleFlatNoteToMidi(String note) {
+        return cache.noteCache.doubleFlatNameToMidi.get(note);
+    }
+
+    private int doubleSharpNoteToMidi(String note) {
+        return cache.noteCache.doubleSharpNameToMidi.get(note);
     }
 
     private int naturalNoteToMidi(String note) {

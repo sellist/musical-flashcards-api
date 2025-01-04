@@ -62,7 +62,7 @@ public class StepService implements ProvideApiInfo {
 
         int targetNoteIndex = (inputNoteIndex + step.getDegree()) % baseNotes.length;
         String targetNote = baseNotes[targetNoteIndex];
-        int targetOctave = noteService.getOctaveFromMidi(note.getMidiValue() + step.getSize());
+        int targetOctave = noteService.getOctaveFromMidi(note.getMidiValue() + step.getSize() - note.getModifier());
 
         Note baseDegreeNote = noteService.generateNote(targetNote + targetOctave);
 

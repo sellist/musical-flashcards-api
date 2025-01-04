@@ -35,9 +35,7 @@ public class ScaleService implements ProvideApiInfo {
         }
 
         List<Step> steps = stepService.getStepsFromPattern(modifiedScalePattern);
-        System.out.println(modifiedScalePattern);
 
-        System.out.println(steps);
         Note lastNote = startNote;
 
         for (Step step : steps) {

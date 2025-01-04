@@ -237,6 +237,68 @@ public class CacheInitializer {
         return midiNoteMap;
     }
 
+    @Bean(name = "doubleSharpNameToMidi")
+    public static Map<String, Integer> doubleSharpNameToMidi() {
+        String[] noteNames = {"C##", "D##", "E##","F##", "G##","A##","B##"};
+        Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        StepsConstants sc = new StepsConstants();
+
+        int noteIndex = 0;
+        int i = 14;
+        while (i < 120) {
+            String noteName = noteNames[noteIndex % 7];
+            int octave = (i / 12) - 1;
+
+            switch (noteName) {
+                case "C##","D##","F##","G##","A##" -> {
+                    midiNoteMap.put(noteName + octave, i);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "E##" -> {
+                    midiNoteMap.put(noteName + octave, i);
+                    i += sc.HALF_STEP.getSize();
+                }
+                case "B##" -> {
+                    midiNoteMap.put(noteName + octave, i+sc.PERFECT_OCTAVE.getSize());
+                    i += sc.HALF_STEP.getSize();
+                }
+            }
+            noteIndex++;
+        }
+        return midiNoteMap;
+    }
+
+    @Bean(name = "doubleFlatNameToMidi")
+    public static Map<String, Integer> doubleFlatNameToMidi() {
+        String[] noteNames = {"Cbb", "Dbb", "Ebb","Fbb", "Gbb","Abb","Bbb"};
+        Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        StepsConstants sc = new StepsConstants();
+
+        int noteIndex = 0;
+        int i = 10;
+        while (i < 120) {
+            String noteName = noteNames[noteIndex % 7];
+            int octave = (i / 12) - 1;
+
+            switch (noteName) {
+                case "Cbb" -> {
+                    midiNoteMap.put(noteName + octave, i-12);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "Abb","Gbb","Fbb","Dbb" -> {
+                    midiNoteMap.put(noteName + octave, i);
+                    i += sc.WHOLE_STEP.getSize();
+                }
+                case "Ebb","Bbb" -> {
+                    midiNoteMap.put(noteName + octave, i);
+                    i += sc.HALF_STEP.getSize();
+                }
+            }
+            noteIndex++;
+        }
+        return midiNoteMap;
+    }
+
     @Bean(name = "naturalNameToMidi")
     public static Map<String, Integer> naturalsNameToMidi() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};

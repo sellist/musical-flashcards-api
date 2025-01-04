@@ -17,4 +17,6 @@ public class NoteCache {
     public final Map<String, String> scaleNameToPattern;
     public final Map<Integer, String> midiToDoubleFlatName;
     public final Map<Integer, String> midiToDoubleSharpName;
+    public final Map<String, Integer> doubleFlatNameToMidi;
+    public final Map<String, Integer> doubleSharpNameToMidi;
 }

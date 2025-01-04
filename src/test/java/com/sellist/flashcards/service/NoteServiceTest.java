@@ -4,13 +4,19 @@ import com.sellist.flashcards.service.NoteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class NoteServiceTest {
+
+    private final NoteService sut;
+
     @Autowired
-    private NoteService sut;
+    NoteServiceTest(NoteService noteService) {
+        this.sut = noteService;
+    }
 
     @Test
     void testMidiToSharpNoteName() {
@@ -110,5 +116,10 @@ public class NoteServiceTest {
         assertEquals("Gbb4",sut.generateNoteByMidiValue(65,-2).toString());
         assertEquals("Abb4",sut.generateNoteByMidiValue(67,-2).toString());
         assertEquals("Bbb4",sut.generateNoteByMidiValue(69,-2).toString());
+    }
+
+    @Test
+    void testGenerateDoubleFlatsFromName() {
+        assertEquals("Cbb2",sut.generateNote("Cbb2").toString());
     }
 }
