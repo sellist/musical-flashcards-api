@@ -86,21 +86,29 @@ public class NoteServiceTest {
     @Test
     void testGetScalePattern() {
         assertEquals("W,W,H,W,W,W,H",sut.scaleNameToPattern("major"));
-        assertEquals("W,H,W,W,H,A,H",sut.scaleNameToPattern("harmonic_minor"));
     }
 
     @Test
     void testGenerateFlats() {
         assertEquals("Bb3",sut.generateNoteByMidiValue(58,-1).toString());
+        assertEquals("Ab1",sut.generateNoteByMidiValue(32,-1).toString());
+        assertEquals("Eb4",sut.generateNoteByMidiValue(63,-1).toString());
+        assertEquals("Fb4",sut.generateNoteByMidiValue(64,-1).toString());
+        assertEquals("Gb4",sut.generateNoteByMidiValue(66,-1).toString());
+        assertEquals("Ab4",sut.generateNoteByMidiValue(68,-1).toString());
+        assertEquals("Bb4",sut.generateNoteByMidiValue(70,-1).toString());
 
     }
 
     @Test
     void testGenerateDoubleFlats() {
-        assertEquals("Bbb3",sut.generateNoteByMidiValue(57,-2).toString());
+        assertEquals("Cbb2",sut.generateNoteByMidiValue(34,-2).toString());
         assertEquals("Cbb4",sut.generateNoteByMidiValue(58,-2).toString());
         assertEquals("Dbb4",sut.generateNoteByMidiValue(60,-2).toString());
         assertEquals("Ebb4",sut.generateNoteByMidiValue(62,-2).toString());
         assertEquals("Fbb4",sut.generateNoteByMidiValue(63,-2).toString());
+        assertEquals("Gbb4",sut.generateNoteByMidiValue(65,-2).toString());
+        assertEquals("Abb4",sut.generateNoteByMidiValue(67,-2).toString());
+        assertEquals("Bbb4",sut.generateNoteByMidiValue(69,-2).toString());
     }
 }

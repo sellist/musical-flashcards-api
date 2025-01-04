@@ -339,14 +339,14 @@ public class CacheInitializer {
         return augmentedStepsMap;
     }
 
-    @Bean(name = "scaleNameToPattern")
-    public Map<String, String> scaleNameToPattern() {
+    @Bean(name = "sequentialScaleNameToPattern")
+    public Map<String, String> sequentialScaleNameToPattern() {
         Map<String,String> rawMap;
         Map<String, String> outputMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/scales.yaml");
+            InputStream inputStream = this.getClass().getResourceAsStream("/sequentialScales.yaml");
             rawMap = mapper.readValue(inputStream, Map.class);
         } catch (Exception ignored) {
             return outputMap;
