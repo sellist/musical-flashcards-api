@@ -2,16 +2,14 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Scale;
-import com.sellist.flashcards.model.ScaleInfo;
+import com.sellist.flashcards.model.ScaleOptions;
 import com.sellist.flashcards.model.Step;
 import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 
 @Service
 public class ScaleService implements ProvideApiInfo {
@@ -27,7 +25,7 @@ public class ScaleService implements ProvideApiInfo {
 
     public Scale generateScale(String scalePattern, String startingNote, int numOctaves) {
         Note startNote = noteService.generateNote(startingNote);
-        ScaleInfo scaleInfo = new ScaleInfo(scalePattern, startNote, numOctaves);
+        ScaleOptions scaleOptions = new ScaleOptions(scalePattern, startNote, numOctaves);
         List<Note> scale = new ArrayList<>();
 
         List<String> scalePatternList = List.of(scalePattern.split(","));
@@ -47,10 +45,10 @@ public class ScaleService implements ProvideApiInfo {
             lastNote = stepService.stepUp(lastNote, step);
         }
         scale.add(lastNote);
-        return new Scale(scale, scaleInfo);
+        return new Scale(scale, scaleOptions);
     }
 
-    public List<Note> generateRangeBetweenNotes(String scaleType, String startingNote, String endingNote) {
+    public List<Note> generateSequentialRangeBetweenNotes(String scaleType, String startingNote, String endingNote) {
         Note startNote = noteService.generateNote(startingNote);
         Note endNote = noteService.generateNote(endingNote);
 
@@ -73,9 +71,24 @@ public class ScaleService implements ProvideApiInfo {
         } else {
             scale.add(endNote);
         }
-        System.out.println(scale);
 
         return scale;
+    }
+
+    public Scale generateNonSequentialScale(String scalePattern, String startingNote) {
+        Note startNote = noteService.generateNote(startingNote);
+        ScaleOptions scaleOptions = new ScaleOptions(scalePattern, startNote, 1);
+        List<Note> scale = new ArrayList<>();
+
+        List<Step> steps = stepService.getStepsFromPattern(List.of(scalePattern.split(",")));
+        Note lastNote = startNote;
+
+        for (Step step : steps) {
+            scale.add(lastNote);
+            lastNote = stepService.stepUp(lastNote, step);
+        }
+        scale.add(lastNote);
+        return new Scale(scale, scaleOptions);
     }
 
     public String getScalePattern(String scaleName) {
@@ -86,6 +99,4 @@ public class ScaleService implements ProvideApiInfo {
     public List<String> listAvailable() {
         return memoryCacheProvider.noteCache.scaleNameToPattern.keySet().stream().toList();
     }
-
-
 }

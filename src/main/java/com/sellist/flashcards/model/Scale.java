@@ -8,11 +8,11 @@ import java.util.List;
 @Data
 public class Scale implements Serializable {
     private List<Note> notes;
-    private ScaleInfo scaleInfo;
+    private ScaleOptions scaleOptions;
 
-    public Scale(List<Note> scale, ScaleInfo scaleInfo) {
+    public Scale(List<Note> scale, ScaleOptions scaleOptions) {
         this.notes = scale;
-        this.scaleInfo = scaleInfo;
+        this.scaleOptions = scaleOptions;
     }
 
     public Note get(int index) {

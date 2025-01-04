@@ -56,8 +56,10 @@ public class NoteService implements ProvideApiInfo {
             return new Note(midiToSharpNoteName(midiValue), midiValue);
         } else if (modifier == -1) {
             return new Note(midiToFlatNoteName(midiValue), midiValue);
-        } else {
+        } else if (modifier == 0) {
             return new Note(midiToNaturalNoteName(midiValue), midiValue);
+        } else {
+            throw new IllegalArgumentException("Invalid modifier");
         }
     }
 

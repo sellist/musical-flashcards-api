@@ -3,13 +3,11 @@ package com.sellist.flashcards.service.cache.src;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sellist.flashcards.constants.StepsConstants;
-import com.sellist.flashcards.model.Instrument;
 import com.sellist.flashcards.model.Step;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -24,24 +22,6 @@ public class CacheInitializer {
     @PostConstruct
     public void loadCaches() {
         objectMapper.findAndRegisterModules();
-    }
-
-    @Bean(name = "nameToInstrument")
-    public Map<String, Instrument> nameToInstrument() {
-        Map<String,Instrument> instrumentMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-
-        File directory = new File("src/main/resources/static/instruments");
-        File[] files = directory.listFiles((pathname) -> pathname.getName().endsWith(".yaml"));
-        assert files != null;
-        for (File file : files) {
-            try {
-                Instrument instrument = objectMapper.readValue(file, Instrument.class);
-                instrumentMap.put(instrument.getName(), instrument);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return instrumentMap;
     }
 
     @Bean(name = "midiToNaturalName")
