@@ -346,7 +346,7 @@ public class CacheInitializer {
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/static/scales.yaml");
+            InputStream inputStream = this.getClass().getResourceAsStream("/scales.yaml");
             rawMap = mapper.readValue(inputStream, Map.class);
         } catch (Exception ignored) {
             return outputMap;

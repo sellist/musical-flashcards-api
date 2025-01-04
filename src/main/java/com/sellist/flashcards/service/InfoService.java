@@ -9,13 +9,11 @@ import java.util.List;
 public class InfoService {
     private final NoteService noteService;
     private final ScaleService scaleService;
-    private final InstrumentService instrumentService;
     private final StepService stepService;
 
-    public InfoService(NoteService noteService, ScaleService scaleService, InstrumentService instrumentService, StepService stepService) {
+    public InfoService(NoteService noteService, ScaleService scaleService, StepService stepService) {
         this.noteService = noteService;
         this.scaleService = scaleService;
-        this.instrumentService = instrumentService;
         this.stepService = stepService;
     }
 
@@ -24,7 +22,6 @@ public class InfoService {
         output.setNotes(noteService.listAvailable());
         output.setScales(scaleService.listAvailable());
         output.setSteps(stepService.listAvailable());
-        output.setInstruments(instrumentService.listAvailable());
         return output;
     }
 
@@ -40,7 +37,4 @@ public class InfoService {
         return stepService.listAvailable();
     }
 
-    public List<String> listInstruments() {
-        return instrumentService.listAvailable();
-    }
 }

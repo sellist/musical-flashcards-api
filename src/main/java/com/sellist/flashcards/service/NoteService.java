@@ -27,18 +27,6 @@ public class NoteService implements ProvideApiInfo {
         }
     }
 
-    public Note getFlatEnharmonic(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()-1);
-    }
-
-    public Note getSharpEnharmonic(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()+1);
-    }
-
-    public Note getEnharmonic(Note note, int modifier) {
-        return generateNoteByMidiValue(note.getMidiValue(), modifier);
-    }
-
     public int getOctaveFromMidi(int midi) {
         return (midi / 12) - 1;
     }
@@ -47,7 +35,7 @@ public class NoteService implements ProvideApiInfo {
         return new Note(noteName, getMidiValue(noteName));
     }
 
-    public Note generateNoteByMidiValue(int midiValue, int modifier) {
+    public Note generateNoteByMidiValue(int midiValue, int modifier, boolean enharmonic) {
         if (modifier == 2) {
             return new Note(midiToDoubleSharpNoteName(midiValue), midiValue);
         } else if (modifier == -2) {
@@ -59,58 +47,28 @@ public class NoteService implements ProvideApiInfo {
         } else if (modifier == 0) {
             return new Note(midiToNaturalNoteName(midiValue), midiValue);
         } else {
-            throw new IllegalArgumentException("Invalid modifier");
+            throw new NullPointerException("Note not found for midi value: " + midiValue + ", modifier: " + modifier + ", enharmonic: " + enharmonic);
         }
     }
 
-    public Note flattenNote(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()-1);
-    }
-
-    public Note sharpenNote(Note note) {
-        return generateNoteByMidiValue(note.getMidiValue(), note.getModifier()+1);
+    public Note generateNoteByMidiValue(int midiValue, int modifier) {
+        return generateNoteByMidiValue(midiValue, modifier, false);
     }
 
     public String midiToSharpNoteName(int midiValue) {
-        String output;
-        output = cache.noteCache.midiToSharpName.get(midiValue);
-        if (output == null) {
-            output = midiToNaturalNoteName(midiValue);
-        }
-
-        return output;
+        return cache.noteCache.midiToSharpName.get(midiValue);
     }
 
     public String midiToFlatNoteName(int midiValue) {
-        String output;
-        output = cache.noteCache.midiToFlatName.get(midiValue);
-        if (output == null) {
-            output = midiToNaturalNoteName(midiValue);
-        }
-
-        return output;
+        return cache.noteCache.midiToFlatName.get(midiValue);
     }
 
     public String midiToDoubleSharpNoteName(int midiValue) {
-        String output;
-        output = cache.noteCache.midiToDoubleSharpName.get(midiValue);
-        if (output == null) {
-            output = midiToNaturalNoteName(midiValue);
-        }
-        return output;
+        return cache.noteCache.midiToDoubleSharpName.get(midiValue);
     }
 
     public String midiToDoubleFlatNoteName(int midiValue) {
-        String output;
-        output = cache.noteCache.midiToDoubleFlatName.get(midiValue);
-        if (output == null) {
-            output = midiToNaturalNoteName(midiValue);
-        }
-        return output;
-    }
-
-    public String getDegreeOfScale(String note, String scale) {
-        return cache.noteCache.scaleNameToPattern.get(scale).split(",")[getMidiValue(note) % 12];
+        return cache.noteCache.midiToDoubleFlatName.get(midiValue);
     }
 
     public String midiToNaturalNoteName(int midiValue) {

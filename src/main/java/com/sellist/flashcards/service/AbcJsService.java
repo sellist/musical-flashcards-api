@@ -23,16 +23,16 @@ public class AbcJsService {
         } else if (note.getModifier() > 0) {
             modifier = new String(new char[note.getModifier()]).replace("\0", constants.SHARP_MARKER);
         } else {
-            modifier = "";
+            modifier = constants.EMPTY;
         }
 
         String octavePart;
         if (note.getOctave() > 4) {
-            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", "'");
+            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", constants.OCTAVE_UP_MARKER);
         } else if (note.getOctave() < 4) {
-            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", ",");
+            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", constants.OCTAVE_DOWN_MARKER);
         } else {
-            octavePart = "";
+            octavePart = constants.EMPTY;
         }
 
         return modifier + note.getNoteName().toUpperCase(Locale.ROOT) + octavePart;

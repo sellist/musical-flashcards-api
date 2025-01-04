@@ -8,6 +8,5 @@ import java.util.List;
 public class FormInformation {
     private List<String> notes;
     private List<String> scales;
-    private List<String> instruments;
     private List<String> steps;
 }

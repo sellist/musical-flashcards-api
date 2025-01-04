@@ -12,7 +12,7 @@ public class SwaggerConfig {
     public GroupedOpenApi controllerApi() {
         return GroupedOpenApi.builder()
                 .group("controller-api")
-                .packagesToScan("com.sellist.flashcards.controller") // Specify the package to scan
+                .packagesToScan("com.sellist.flashcards.controller")
                 .build();
     }
 }
