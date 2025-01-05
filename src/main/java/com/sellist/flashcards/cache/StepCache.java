@@ -1,4 +1,4 @@
-package com.sellist.flashcards.service.cache;
+package com.sellist.flashcards.cache;
 
 import com.sellist.flashcards.model.Step;
 import lombok.AllArgsConstructor;

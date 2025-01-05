@@ -1,8 +1,9 @@
 package com.sellist.flashcards.service;
 
+import com.sellist.flashcards.cache.MusiCache;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Step;
-import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
+import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,19 +16,19 @@ public class StepService implements ProvideApiInfo {
 
     private final NoteService noteService;
 
-    private final MemoryCacheProvider cacheProvider;
+    private final MusiCache musiCache;
 
     @Autowired
-    public StepService(NoteService noteService, MemoryCacheProvider cacheProvider) {
+    public StepService(MusiCache musiCache, NoteService noteService) {
         this.noteService = noteService;
-        this.cacheProvider = cacheProvider;
+        this.musiCache = musiCache;
     }
 
     public Step getDifference(Note note1, Note note2) {
         int midiValue1 = note1.getMidiValue();
         int midiValue2 = note2.getMidiValue();
         int difference = midiValue2 - midiValue1;
-        return cacheProvider.stepCache.intervalSizeToStep.get(difference);
+        return musiCache.intervalSizeToStep(difference);
     }
 
     private Note handleStepDown(Note note, Step step) {
@@ -96,7 +97,7 @@ public class StepService implements ProvideApiInfo {
     }
 
     public Step getStep(String stepName) {
-        return cacheProvider.stepCache.stepNameToStep.get(stepName);
+        return musiCache.stepNameToStep(stepName);
     }
 
     public List<Step> getStepsFromPattern(List<String> pattern) {
@@ -119,7 +120,6 @@ public class StepService implements ProvideApiInfo {
 
     @Override
     public List<String> listAvailable() {
-        // Get full name of step
-        return cacheProvider.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();
+        return musiCache.availableSteps();
     }
 }

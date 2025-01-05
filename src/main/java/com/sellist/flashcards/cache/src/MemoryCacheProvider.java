@@ -1,7 +1,7 @@
-package com.sellist.flashcards.service.cache.src;
+package com.sellist.flashcards.cache.src;
 
-import com.sellist.flashcards.service.cache.NoteCache;
-import com.sellist.flashcards.service.cache.StepCache;
+import com.sellist.flashcards.cache.NoteCache;
+import com.sellist.flashcards.cache.StepCache;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

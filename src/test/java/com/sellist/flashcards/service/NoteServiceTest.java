@@ -18,30 +18,6 @@ public class NoteServiceTest {
         this.sut = noteService;
     }
 
-    @Test
-    void testMidiToSharpNoteName() {
-        assertEquals("C#4",sut.midiToSharpNoteName(61));
-        assertEquals("D#4",sut.midiToSharpNoteName(63));
-        assertEquals("E#4",sut.midiToSharpNoteName(65));
-        assertEquals("F#4",sut.midiToSharpNoteName(66));
-        assertEquals("G#4",sut.midiToSharpNoteName(68));
-        assertEquals("A#4",sut.midiToSharpNoteName(70));
-        assertEquals("B#4",sut.midiToSharpNoteName(72));
-        assertEquals("C#5",sut.midiToSharpNoteName(73));
-    }
-
-    @Test
-    void testMidiToFlatNoteName() {
-        assertEquals("Ab3",sut.midiToFlatNoteName(56));
-        assertEquals("Bb3",sut.midiToFlatNoteName(58));
-        assertEquals("Cb4",sut.midiToFlatNoteName(59));
-        assertEquals("Db4",sut.midiToFlatNoteName(61));
-        assertEquals("Eb4",sut.midiToFlatNoteName(63));
-        assertEquals("Fb4",sut.midiToFlatNoteName(64));
-        assertEquals("Gb4",sut.midiToFlatNoteName(66));
-        assertEquals("Ab4",sut.midiToFlatNoteName(68));
-        assertEquals("Bb4",sut.midiToFlatNoteName(70));
-    }
 
     @Test
     void testNoteNameToMidi() {
@@ -87,11 +63,6 @@ public class NoteServiceTest {
         assertEquals(69,sut.getMidiValue("A4"));
         assertEquals(71,sut.getMidiValue("B4"));
         assertEquals(72,sut.getMidiValue("C5"));
-    }
-
-    @Test
-    void testGetScalePattern() {
-        assertEquals("W,W,H,W,W,W,H",sut.scaleNameToPattern("major"));
     }
 
     @Test

@@ -1,9 +1,6 @@
 package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.constants.StepsConstants;
-import com.sellist.flashcards.service.NoteService;
-import com.sellist.flashcards.service.StepService;
-import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,6 @@ public class InfoService {
 
     public FormInformation getInfo() {
         FormInformation output = new FormInformation();
-        output.setNotes(noteService.listAvailable());
         output.setScales(scaleService.listAvailable());
         output.setSteps(stepService.listAvailable());
         return output;
@@ -27,10 +26,6 @@ public class InfoService {
 
     public List<String> listScales() {
         return scaleService.listAvailable();
-    }
-
-    public List<String> listNotes() {
-        return noteService.listAvailable();
     }
 
     public List<String> listSteps() {

@@ -1,10 +1,11 @@
 package com.sellist.flashcards.service;
 
+import com.sellist.flashcards.cache.MusiCache;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.ScaleOptions;
 import com.sellist.flashcards.model.Step;
-import com.sellist.flashcards.service.cache.src.MemoryCacheProvider;
+import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,16 @@ import java.util.List;
 @Service
 public class ScaleService implements ProvideApiInfo {
 
-    @Autowired
-    private NoteService noteService;
+    private final NoteService noteService;
+    private final StepService stepService;
+    private final MusiCache musiCache;
 
     @Autowired
-    private StepService stepService;
-
-    @Autowired
-    MemoryCacheProvider memoryCacheProvider;
+    public ScaleService(NoteService noteService, StepService stepService, MusiCache musiCache) {
+        this.noteService = noteService;
+        this.stepService = stepService;
+        this.musiCache = musiCache;
+    }
 
     public Scale generateScale(String scalePattern, String startingNote, int numOctaves) {
         Note startNote = noteService.generateNote(startingNote);
@@ -46,13 +49,23 @@ public class ScaleService implements ProvideApiInfo {
         return new Scale(scale, scaleOptions);
     }
 
+    public List<Note> buildScaleFromDegrees(String scalePattern, String startingNote, int numOctaves) {
+        Note startNote = noteService.generateNote(startingNote);
+        List<Note> scale = new ArrayList<>();
+        List<Step> steps = stepService.getStepsFromPattern(scalePattern);
+        Note lastNote = startNote;
+
+        scale.add(lastNote);
+        return scale;
+    }
+
     public List<Note> generateSequentialRangeBetweenNotes(String scaleType, String startingNote, String endingNote) {
         Note startNote = noteService.generateNote(startingNote);
         Note endNote = noteService.generateNote(endingNote);
 
         List<Note> scale = new ArrayList<>();
 
-        List<Step> steps = stepService.getStepsFromPattern(getScalePattern(scaleType));
+        List<Step> steps = stepService.getStepsFromPattern(musiCache.sequentialScaleNameToPattern(scaleType));
         Note prevNote = startNote;
 
         int stepCounter = 0;
@@ -73,28 +86,31 @@ public class ScaleService implements ProvideApiInfo {
         return scale;
     }
 
-    public Scale generateNonSequentialScale(String scalePattern, String startingNote) {
-        Note startNote = noteService.generateNote(startingNote);
-        ScaleOptions scaleOptions = new ScaleOptions(scalePattern, startNote, 1);
-        List<Note> scale = new ArrayList<>();
-
-        List<Step> steps = stepService.getStepsFromPattern(List.of(scalePattern.split(",")));
-        Note lastNote = startNote;
-
-        for (Step step : steps) {
-            scale.add(lastNote);
-            lastNote = stepService.stepUp(lastNote, step);
-        }
-        scale.add(lastNote);
-        return new Scale(scale, scaleOptions);
+    public Scale generateScaleFromDegrees(String scalePattern, String startingNote, int numOctaves) {
+        return generateScale(scalePattern, startingNote, numOctaves);
     }
 
+    public Note getNoteFromScalarDegree(String tonic, String degree) {
+        Scale baseScale = generateScale("W,W,H,W,W,W,H", tonic, 1);
+
+        int degreeValue = Integer.parseInt(degree.charAt(0) + "");
+        int degreeModifier = switch (degree.split("")[degree.length() - 1]) {
+            case "#" -> 1;
+            case "b" -> -1;
+            default -> 0;
+        };
+
+        return null;
+
+    }
+
+
     public String getScalePattern(String scaleName) {
-        return memoryCacheProvider.noteCache.scaleNameToPattern.get(scaleName.toLowerCase());
+        return musiCache.sequentialScaleNameToPattern(scaleName.toLowerCase());
     }
 
     @Override
     public List<String> listAvailable() {
-        return memoryCacheProvider.noteCache.scaleNameToPattern.keySet().stream().toList();
+        return musiCache.availableScales().stream().toList();
     }
 }

@@ -39,14 +39,6 @@ public class InformationController extends BaseController {
                 .build();
     }
 
-    @GetMapping("/notes")
-    public ApiResponse<List<String>> listNotes() {
-        return ApiResponse.<List<String>>builder()
-                .data(infoService.listNotes())
-                .metadata(generateMetadata())
-                .build();
-    }
-
     @GetMapping("/steps")
     public ApiResponse<List<String>> listSteps() {
         return ApiResponse.<List<String>>builder()

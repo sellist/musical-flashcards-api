@@ -1,4 +1,4 @@
-package com.sellist.flashcards.service.cache.src;
+package com.sellist.flashcards.cache.src;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -409,6 +409,25 @@ public class CacheInitializer {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
             InputStream inputStream = this.getClass().getResourceAsStream("/sequentialScales.yaml");
+            rawMap = mapper.readValue(inputStream, Map.class);
+        } catch (Exception ignored) {
+            return outputMap;
+        }
+
+        for (Map.Entry<String, String> entry : rawMap.entrySet()) {
+            outputMap.put(entry.getKey().toLowerCase(), entry.getValue().trim());
+        }
+        return outputMap;
+    }
+
+    @Bean(name = "scaleNameToScaleDegrees")
+    public Map<String, String> scaleNameToScaleDegrees() {
+        Map<String,String> rawMap;
+        Map<String, String> outputMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("/scaleDegrees.yaml");
             rawMap = mapper.readValue(inputStream, Map.class);
         } catch (Exception ignored) {
             return outputMap;

@@ -1,0 +1,5 @@
+generateNoteByMidiValue works with the first argument as the midi value of the note, and the second argument is the modifier
+of the base note, can think of it as a cache signifier (generateNoteByMidiValue(60,0) would return C4, generateNoteByMidiValue(61,1) would return C#4)
+*/
+
+ASPN = American Standard Pitch Notation
