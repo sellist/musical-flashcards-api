@@ -5,7 +5,6 @@ import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.ScaleOptions;
 import com.sellist.flashcards.model.Step;
-import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

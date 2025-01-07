@@ -2,11 +2,8 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.cache.MusiCache;
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class NoteService {

@@ -1,10 +1,10 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.Scale;
-import com.sellist.flashcards.model.response.ApiResponse;
-import com.sellist.flashcards.model.request.ScaleRequest;
-import com.sellist.flashcards.service.ScaleService;
 import com.sellist.flashcards.cache.src.MemoryCacheProvider;
+import com.sellist.flashcards.model.Scale;
+import com.sellist.flashcards.model.request.ScaleRequest;
+import com.sellist.flashcards.model.response.ApiResponse;
+import com.sellist.flashcards.service.ScaleService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;

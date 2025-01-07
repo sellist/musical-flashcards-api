@@ -3,7 +3,6 @@ package com.sellist.flashcards.service;
 import com.sellist.flashcards.cache.MusiCache;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Step;
-import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -81,38 +80,30 @@ public class StepService implements ProvideApiInfo {
     }
 
     public Note stepDown(Note note, String step) {
-        return handleStepDown(note, getStep(step));
-    }
-
-    public Note stepDown(Note note, Step step) {
-        return handleStepDown(note, step);
+        return handleStepDown(note, musiCache.stepNameToStep(step));
     }
 
     public Note stepUp(Note note, String step) {
-        return handleStepUp(note, getStep(step));
+        return handleStepUp(note, musiCache.stepNameToStep(step));
     }
 
     public Note stepUp(Note note, Step step) {
         return handleStepUp(note, step);
     }
 
-    public Step getStep(String stepName) {
-        return musiCache.stepNameToStep(stepName);
-    }
-
     public List<Step> getStepsFromPattern(List<String> pattern) {
         List<Step> steps = new ArrayList<>();
         for (String stepName : pattern) {
-            steps.add(getStep(stepName));
+            steps.add(musiCache.stepNameToStep(stepName));
         }
         return steps;
     }
 
     public List<Step> getStepsFromPattern(String pattern) {
-        List<String> patternList = Arrays.asList(pattern.split(","));
+        String[] patternList = pattern.split(",");
         List<Step> steps = new ArrayList<>();
         for (String stepName : patternList) {
-            steps.add(getStep(stepName));
+            steps.add(musiCache.stepNameToStep(stepName));
         }
         return steps;
     }

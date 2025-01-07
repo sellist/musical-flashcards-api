@@ -1,7 +1,7 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.model.FormInformation;
+import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.service.InfoService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
