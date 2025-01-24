@@ -438,4 +438,28 @@ public class CacheInitializer {
         }
         return outputMap;
     }
+
+    @Bean(name = "scaleDegreeToStepFromTonic")
+    public Map<String, Step> scaleDegreeToStepFromTonic() {
+        Map<String, Step> rawMap;
+        Map<String, Step> outputMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("/scaleDegreeSteps.yaml");
+            rawMap = mapper.readValue(inputStream, Map.class);
+        } catch (Exception ignored) {
+            return outputMap;
+        }
+
+        for (Map.Entry<String, Step> entry : rawMap.entrySet()) {
+            outputMap.put(entry.getKey().toLowerCase(), entry.getValue());
+        }
+
+        System.out.println(outputMap);
+        for (Map.Entry<String, Step> entry : outputMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        return outputMap;
+    }
 }

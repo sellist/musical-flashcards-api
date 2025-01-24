@@ -16,4 +16,5 @@ public class StepCache {
     public final Map<Integer, Step> majorSizeToStep;
     public final Map<Integer, Step> minorSizeToStep;
     public final Map<String, Step> stepNameToStep;
+    public final Map<String, Step> scaleDegreeToStepFromTonic;
 }

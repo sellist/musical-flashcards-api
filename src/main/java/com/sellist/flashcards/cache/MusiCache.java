@@ -32,6 +32,8 @@ public interface MusiCache {
 
     Step intervalSizeToStep(int size);
 
+    Step scaleDegreeToStepFromTonic(String scaleDegree);
+
     List<String> availableSteps();
 
     List<String> availableScales();

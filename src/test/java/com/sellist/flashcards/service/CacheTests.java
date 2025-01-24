@@ -11,6 +11,8 @@ public class CacheTests {
 
     @Autowired
     MemoryCacheProvider cacheProvider;
+    @Autowired
+    private StepService stepService;
 
     @Test
     void testCacheProvider() {
@@ -51,5 +53,16 @@ public class CacheTests {
         Assertions.assertEquals(67, cacheProvider.noteCache.naturalNameToMidi.get("G4"));
         Assertions.assertEquals(79, cacheProvider.noteCache.naturalNameToMidi.get("G5"));
         Assertions.assertEquals(48, cacheProvider.noteCache.naturalNameToMidi.get("C3"));
+    }
+
+    @Test
+    void testGetScaleStepFromDegreeFromTonic() {
+
+        System.out.println(cacheProvider.stepCache.scaleDegreeToStepFromTonic);
+
+        Assertions.assertEquals(
+                cacheProvider.stepCache.stepNameToStep.get("M2"),
+                cacheProvider.stepCache.scaleDegreeToStepFromTonic.get("2"));
+
     }
 }

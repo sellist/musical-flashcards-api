@@ -3,7 +3,6 @@ package com.sellist.flashcards.service;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Scale;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -116,7 +115,6 @@ public class ScaleServiceTest {
     }
 
     @Test
-    @Disabled
     void generateRangeChromatic() {
         List<Note> scale = sut.generateSequentialRangeBetweenNotes("chromatic","C4", "C5");
         Assertions.assertEquals(13, scale.size());
@@ -151,6 +149,22 @@ public class ScaleServiceTest {
         Assertions.assertEquals("Cb4", scale.get(4).toString());
         Assertions.assertEquals("Db4", scale.get(5).toString());
         Assertions.assertEquals("Cb5", scale.get(scale.size()-1).toString());
+    }
+
+    @Test
+    void testScalesFromDegrees() {
+        List<Note> scale = sut.buildScaleFromDegrees("flat_chromatic", "C4", 1);
+        System.out.println(scale);
+
+        Assertions.assertEquals(8, scale.size());
+        Assertions.assertEquals("C4", scale.get(0).toString());
+        Assertions.assertEquals("D4", scale.get(1).toString());
+        Assertions.assertEquals("E4", scale.get(2).toString());
+        Assertions.assertEquals("F4", scale.get(3).toString());
+        Assertions.assertEquals("G4", scale.get(4).toString());
+        Assertions.assertEquals("A4", scale.get(5).toString());
+        Assertions.assertEquals("B4", scale.get(6).toString());
+        Assertions.assertEquals("C5", scale.get(7).toString());
     }
 
 }
