@@ -441,25 +441,28 @@ public class CacheInitializer {
 
     @Bean(name = "scaleDegreeToStepFromTonic")
     public Map<String, Step> scaleDegreeToStepFromTonic() {
-        Map<String, Step> rawMap;
-        Map<String, Step> outputMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/scaleDegreeSteps.yaml");
-            rawMap = mapper.readValue(inputStream, Map.class);
-        } catch (Exception ignored) {
-            return outputMap;
-        }
-
-        for (Map.Entry<String, Step> entry : rawMap.entrySet()) {
-            outputMap.put(entry.getKey().toLowerCase(), entry.getValue());
-        }
-
-        System.out.println(outputMap);
-        for (Map.Entry<String, Step> entry : outputMap.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-        return outputMap;
+        // whatever
+        Map<String, Step> scaleDegreeToStepMap = new HashMap<>();
+        StepsConstants sc = new StepsConstants();
+        scaleDegreeToStepMap.put("1", sc.PERFECT_UNISON);
+        scaleDegreeToStepMap.put("2", sc.MAJOR_SECOND);
+        scaleDegreeToStepMap.put("3", sc.MAJOR_THIRD);
+        scaleDegreeToStepMap.put("4", sc.PERFECT_FOURTH);
+        scaleDegreeToStepMap.put("5", sc.PERFECT_FIFTH);
+        scaleDegreeToStepMap.put("6", sc.MAJOR_SIXTH);
+        scaleDegreeToStepMap.put("7", sc.MAJOR_SEVENTH);
+        scaleDegreeToStepMap.put("b2", sc.MINOR_SECOND);
+        scaleDegreeToStepMap.put("b3", sc.MINOR_THIRD);
+        scaleDegreeToStepMap.put("b4", sc.DIMINISHED_FOURTH);
+        scaleDegreeToStepMap.put("b5", sc.DIMINISHED_FIFTH);
+        scaleDegreeToStepMap.put("b6", sc.MINOR_SIXTH);
+        scaleDegreeToStepMap.put("b7", sc.MINOR_SEVENTH);
+        scaleDegreeToStepMap.put("#2", sc.AUGMENTED_SECOND);
+        scaleDegreeToStepMap.put("#3", sc.AUGMENTED_THIRD);
+        scaleDegreeToStepMap.put("#4", sc.AUGMENTED_FOURTH);
+        scaleDegreeToStepMap.put("#5", sc.AUGMENTED_FIFTH);
+        scaleDegreeToStepMap.put("#6", sc.AUGMENTED_SIXTH);
+        scaleDegreeToStepMap.put("#7", sc.AUGMENTED_SEVENTH);
+        return scaleDegreeToStepMap;
     }
 }
