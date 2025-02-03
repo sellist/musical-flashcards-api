@@ -108,6 +108,14 @@ public class StepService implements ProvideApiInfo {
         return steps;
     }
 
+    public Note getNoteFromScalarDegree(String tonic, String degree) {
+        return stepUp(noteService.generateNote(tonic), musiCache.scaleDegreeToStepFromTonic(degree));
+    }
+
+    public Note getNoteFromScalarDegree(Note tonic, String degree) {
+        return stepUp(tonic, musiCache.scaleDegreeToStepFromTonic(degree));
+    }
+
 
     @Override
     public List<String> listAvailable() {

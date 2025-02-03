@@ -1,6 +1,7 @@
 package com.sellist.flashcards.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sellist.flashcards.exception.UnavailableNoteException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,12 @@ public class Note {
     private String accidental;
 
     public Note(String note, int midiValue) {
-        String[] startingNoteSplit = note.split("(?<=^.)|(?=\\d)");
+        String[] startingNoteSplit = new String[0];
+        try {
+            startingNoteSplit = note.split("(?<=^.)|(?=\\d)");
+        } catch (NullPointerException e) {
+            throw new UnavailableNoteException("Note not found for midi value: " + midiValue + ", modifier: " + modifier);
+        }
         this.noteName = startingNoteSplit[0];
         if (startingNoteSplit.length > 2) {
             this.modifier = accidentalToModifier(startingNoteSplit[1]);

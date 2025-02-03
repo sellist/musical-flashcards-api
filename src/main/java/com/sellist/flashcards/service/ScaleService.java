@@ -89,21 +89,6 @@ public class ScaleService implements ProvideApiInfo {
         return generateScale(scalePattern, startingNote, numOctaves);
     }
 
-    public Note getNoteFromScalarDegree(String tonic, String degree) {
-        Scale baseScale = generateScale("W,W,H,W,W,W,H", tonic, 1);
-
-        int degreeValue = Integer.parseInt(degree.charAt(0) + "");
-        int degreeModifier = switch (degree.split("")[degree.length() - 1]) {
-            case "#" -> 1;
-            case "b" -> -1;
-            default -> 0;
-        };
-
-        return null;
-
-    }
-
-
     public String getScalePattern(String scaleName) {
         return musiCache.sequentialScaleNameToPattern(scaleName.toLowerCase());
     }

@@ -1,6 +1,7 @@
 package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.constants.StepsConstants;
+import com.sellist.flashcards.model.Note;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,5 +192,54 @@ class StepServiceTests {
         Assertions.assertEquals(noteService.generateNote("C##5"),
                 stepService.stepUp(noteService.generateNote("B##4"), "m2"));
     }
+
+    @Test
+    void getNoteFromScalarDegreeHappy() {
+        Note bFlat = noteService.generateNoteByMidiValue(71, 0);
+        Assertions.assertEquals(bFlat, stepService.getNoteFromScalarDegree("C4","7"));
+
+        Note a = noteService.generateNoteByMidiValue(69, 0);
+        Assertions.assertEquals(a, stepService.getNoteFromScalarDegree("C4","6"));
+
+        Note g = noteService.generateNoteByMidiValue(67, 0);
+        Assertions.assertEquals(g, stepService.getNoteFromScalarDegree("C4","5"));
+
+        Note f = noteService.generateNoteByMidiValue(65, 0);
+        Assertions.assertEquals(f, stepService.getNoteFromScalarDegree("C4","4"));
+
+        Note e = noteService.generateNoteByMidiValue(76, 0);
+        Assertions.assertEquals(e, stepService.getNoteFromScalarDegree("A4","5"));
+
+    }
+
+    @Test
+    void testGetNoteFromScalarDegreeFlat() {
+        Assertions.assertEquals(noteService.generateNote("Ab4"),
+                stepService.getNoteFromScalarDegree("C4", "b6"));
+        Assertions.assertEquals(noteService.generateNote("Gb4"),
+                stepService.getNoteFromScalarDegree("C4", "b5"));
+        Assertions.assertEquals(noteService.generateNote("Db5"),
+                stepService.getNoteFromScalarDegree("G4", "b5"));
+        Assertions.assertEquals(noteService.generateNote("Eb5"),
+                stepService.getNoteFromScalarDegree("G4", "b6"));
+        Assertions.assertEquals(noteService.generateNote("Bb4"),
+                stepService.getNoteFromScalarDegree("C4", "b7"));
+    }
+
+    @Test
+    void testGetNoteFromScalarDegreeSharp() {
+        Assertions.assertEquals(noteService.generateNote("A#4"),
+                stepService.getNoteFromScalarDegree("C4", "#6"));
+        Assertions.assertEquals(noteService.generateNote("F#4"),
+                stepService.getNoteFromScalarDegree("C4", "#4"));
+        Assertions.assertEquals(noteService.generateNote("C#5"),
+                stepService.getNoteFromScalarDegree("G4", "#5"));
+        Assertions.assertEquals(noteService.generateNote("D#5"),
+                stepService.getNoteFromScalarDegree("G4", "#6"));
+        Assertions.assertEquals(noteService.generateNote("G#4"),
+                stepService.getNoteFromScalarDegree("C4", "#5"));
+    }
+
+
 
 }

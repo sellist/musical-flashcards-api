@@ -441,7 +441,6 @@ public class CacheInitializer {
 
     @Bean(name = "scaleDegreeToStepFromTonic")
     public Map<String, Step> scaleDegreeToStepFromTonic() {
-        // whatever
         Map<String, Step> scaleDegreeToStepMap = new HashMap<>();
         StepsConstants sc = new StepsConstants();
         scaleDegreeToStepMap.put("1", sc.PERFECT_UNISON);

@@ -38,9 +38,7 @@ public class MemoryMusiCacheImpl implements MusiCache {
         return cache.noteCache.midiToNaturalName.get(midiValue);
     }
 
-    public String sequentialScaleNameToPattern(String scaleName) {
-        return cache.noteCache.sequentialScaleNameToPattern.get(scaleName.toLowerCase());
-    }
+    public String sequentialScaleNameToPattern(String scaleName) {return cache.noteCache.sequentialScaleNameToPattern.get(scaleName.toLowerCase());}
 
     public int flatASPNToMidi(String note) {
         return cache.noteCache.flatNameToMidi.get(note);
@@ -66,9 +64,7 @@ public class MemoryMusiCacheImpl implements MusiCache {
         return cache.stepCache.stepNameToStep.get(stepName);
     }
 
-    public List<String> availableSteps() {
-        return cache.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();
-    }
+    public List<String> availableSteps() {return cache.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();}
 
     public Step intervalSizeToStep(int intervalSize) {
         return cache.stepCache.intervalSizeToStep.get(intervalSize);
