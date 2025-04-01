@@ -7,12 +7,10 @@ import java.util.List;
 
 @Service
 public class InfoService {
-    private final NoteService noteService;
     private final ScaleService scaleService;
     private final StepService stepService;
 
-    public InfoService(NoteService noteService, ScaleService scaleService, StepService stepService) {
-        this.noteService = noteService;
+    public InfoService(ScaleService scaleService, StepService stepService) {
         this.scaleService = scaleService;
         this.stepService = stepService;
     }

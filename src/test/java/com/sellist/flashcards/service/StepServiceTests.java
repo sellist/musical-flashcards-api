@@ -1,6 +1,6 @@
 package com.sellist.flashcards.service;
 
-import com.sellist.flashcards.constants.StepsConstants;
+import com.sellist.flashcards.constants.Steps;
 import com.sellist.flashcards.model.Note;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,51 +14,51 @@ class StepServiceTests {
 
     private final NoteService noteService;
 
-    private final StepsConstants stepsConstants;
+    private final Steps steps;
 
     @Autowired
-    public StepServiceTests(StepService stepService, NoteService noteService, StepsConstants stepsConstants) {
+    public StepServiceTests(StepService stepService, NoteService noteService, Steps steps) {
         this.stepService = stepService;
         this.noteService = noteService;
-        this.stepsConstants = stepsConstants;
+        this.steps = steps;
     }
 
     @Test
     void standardSteps() {
-        Assertions.assertEquals(stepsConstants.MINOR_SECOND,
+        Assertions.assertEquals(Steps.MINOR_SECOND,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("C#4")));
-        Assertions.assertEquals(stepsConstants.MAJOR_SECOND,
+        Assertions.assertEquals(Steps.MAJOR_SECOND,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("D4")));
-        Assertions.assertEquals(stepsConstants.MINOR_THIRD,
+        Assertions.assertEquals(Steps.MINOR_THIRD,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("Eb4")));
-        Assertions.assertEquals(stepsConstants.MAJOR_THIRD,
+        Assertions.assertEquals(Steps.MAJOR_THIRD,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("E4")));
-        Assertions.assertEquals(stepsConstants.PERFECT_FOURTH,
+        Assertions.assertEquals(Steps.PERFECT_FOURTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("F4")));
-        Assertions.assertEquals(stepsConstants.TRITONE,
+        Assertions.assertEquals(Steps.TRITONE,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("Gb4")));
-        Assertions.assertEquals(stepsConstants.PERFECT_FIFTH,
+        Assertions.assertEquals(Steps.PERFECT_FIFTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("G4")));
-        Assertions.assertEquals(stepsConstants.MINOR_SIXTH,
+        Assertions.assertEquals(Steps.MINOR_SIXTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("Ab4")));
-        Assertions.assertEquals(stepsConstants.MAJOR_SIXTH,
+        Assertions.assertEquals(Steps.MAJOR_SIXTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("A4")));
-        Assertions.assertEquals(stepsConstants.MINOR_SEVENTH,
+        Assertions.assertEquals(Steps.MINOR_SEVENTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("Bb4")));
-        Assertions.assertEquals(stepsConstants.MAJOR_SEVENTH,
+        Assertions.assertEquals(Steps.MAJOR_SEVENTH,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("B4")));
-        Assertions.assertEquals(stepsConstants.PERFECT_OCTAVE,
+        Assertions.assertEquals(Steps.PERFECT_OCTAVE,
                 stepService.getDifference( noteService.generateNote("C4"),
                                         noteService.generateNote("C5")));
     }

@@ -1,6 +1,5 @@
 package com.sellist.flashcards.controller;
 
-import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.request.ScaleRequest;
 import com.sellist.flashcards.model.response.ApiResponse;
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/scale")
 public class ScaleController extends BaseController {
 
-    ScaleService scaleService;
-    MemoryCacheProvider memoryCacheProvider;
+    final ScaleService scaleService;
 
-    public ScaleController(ScaleService scaleService, MemoryCacheProvider memoryCacheProvider) {
+    public ScaleController(ScaleService scaleService) {
         this.scaleService = scaleService;
-        this.memoryCacheProvider = memoryCacheProvider;
     }
 
     @RequestMapping(value = "/scale", method = RequestMethod.POST,consumes = "application/json", produces = "application/json")

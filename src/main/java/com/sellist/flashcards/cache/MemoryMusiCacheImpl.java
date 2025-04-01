@@ -72,6 +72,17 @@ public class MemoryMusiCacheImpl implements MusiCache {
 
     public Step scaleDegreeToStepFromTonic(String scaleDegree) {return cache.stepCache.scaleDegreeToStepFromTonic.get(scaleDegree);}
 
+    public List<Step> scaleNameToScaleDegrees(String scaleName) {
+
+        List<String> degreeNotes = cache.noteCache.scaleNameToScaleDegrees.get(scaleName);
+        List<Step> steps = new ArrayList<>();
+        for (String degree : degreeNotes) {
+            steps.add(cache.stepCache.scaleDegreeToStepFromTonic.get(degree));
+        }
+
+        return steps;
+    }
+
     public List<String> availableScales() {
         List<String> availableScales = new ArrayList<>();
         availableScales.addAll(cache.noteCache.sequentialScaleNameToPattern.keySet().stream().toList());

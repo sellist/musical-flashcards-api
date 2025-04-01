@@ -48,13 +48,23 @@ public class ScaleService implements ProvideApiInfo {
         return new Scale(scale, scaleOptions);
     }
 
-    public List<Note> buildScaleFromDegrees(String scalePattern, String startingNote, int numOctaves) {
+    public List<Note> buildScale(String pattern, String startingNote, int numOctaves) {
         Note startNote = noteService.generateNote(startingNote);
+        List<Step> steps = musiCache.scaleNameToScaleDegrees(pattern);
+        Note currentNote = startNote;
         List<Note> scale = new ArrayList<>();
-        List<Step> steps = stepService.getStepsFromPattern(scalePattern);
-        Note lastNote = startNote;
 
-        scale.add(lastNote);
+        // TODO - implement this method
+        // from scale name, string/Note starting note, and number of octaves, generate a scale
+        // then extrapolate that logic into a new range method that takes a start and end note
+
+        // TODO
+        // reason this is failing is `steps` variable generated from musicache has nulls in it
+        for (Step step : steps) {
+            currentNote = stepService.stepUp(currentNote, step);
+            scale.add(currentNote);
+        }
+
         return scale;
     }
 

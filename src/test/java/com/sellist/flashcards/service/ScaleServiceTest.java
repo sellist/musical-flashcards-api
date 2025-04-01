@@ -153,7 +153,7 @@ public class ScaleServiceTest {
 
     @Test
     void testScalesFromDegrees() {
-        List<Note> scale = sut.buildScaleFromDegrees("flat_chromatic", "C4", 1);
+        List<Note> scale = sut.buildScale("sharp_chromatic", "C4", 1);
         System.out.println(scale);
 
         Assertions.assertEquals(8, scale.size());
