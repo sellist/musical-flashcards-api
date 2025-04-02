@@ -448,6 +448,7 @@ public class CacheInitializer {
         scaleDegreeToStepMap.put("b5", Steps.DIMINISHED_FIFTH);
         scaleDegreeToStepMap.put("b6", Steps.MINOR_SIXTH);
         scaleDegreeToStepMap.put("b7", Steps.MINOR_SEVENTH);
+        scaleDegreeToStepMap.put("#1", Steps.AUGMENTED_UNISON);
         scaleDegreeToStepMap.put("#2", Steps.AUGMENTED_SECOND);
         scaleDegreeToStepMap.put("#3", Steps.AUGMENTED_THIRD);
         scaleDegreeToStepMap.put("#4", Steps.AUGMENTED_FOURTH);
