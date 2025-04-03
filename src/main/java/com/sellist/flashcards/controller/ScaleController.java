@@ -26,9 +26,7 @@ public class ScaleController extends BaseController {
     @RequestMapping(value = "/scale", method = RequestMethod.POST,consumes = "application/json", produces = "application/json")
     public ApiResponse<Scale> getScale(@RequestBody ScaleRequest req) {
         return ApiResponse.<Scale>builder()
-                .data(scaleService.generateScale(scaleService.getScalePattern(req.getScaleType()),
-                        req.getScaleTonic(),
-                        req.getOctave()))
+                .data(scaleService.generateScale(req))
                 .metadata(generateMetadata())
                 .build();
     }

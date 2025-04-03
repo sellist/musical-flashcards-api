@@ -8,9 +8,9 @@ public class ScaleRequest {
     @JsonProperty("scaleTonic")
     private String scaleTonic;
 
-    @JsonProperty("scaleType")
-    private String scaleType;
+    @JsonProperty("scaleName")
+    private String scaleName;
 
-    @JsonProperty("octave")
-    private int octave;
+    @JsonProperty("octaves")
+    private int octaves;
 }

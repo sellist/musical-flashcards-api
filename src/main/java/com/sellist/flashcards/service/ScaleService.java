@@ -1,10 +1,12 @@
 package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.cache.MusiCache;
+import com.sellist.flashcards.constants.Steps;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.ScaleOptions;
 import com.sellist.flashcards.model.Step;
+import com.sellist.flashcards.model.request.ScaleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,18 @@ public class ScaleService implements ProvideApiInfo {
         this.noteService = noteService;
         this.stepService = stepService;
         this.musiCache = musiCache;
+    }
+
+    public Scale generateScale(ScaleRequest req) {
+        String scalePattern = req.getScaleName();
+        String startingNote = req.getScaleTonic();
+        int numOctaves = req.getOctaves();
+
+        List<Note> notes = buildScale(scalePattern, startingNote, numOctaves);
+        Scale scale = new Scale();
+        scale.setNotes(notes);
+        scale.setScaleOptions(new ScaleOptions(scalePattern, noteService.generateNote(startingNote), numOctaves));
+        return scale;
     }
 
     public Scale generateScale(String scalePattern, String startingNote, int numOctaves) {
@@ -53,9 +67,15 @@ public class ScaleService implements ProvideApiInfo {
         List<Step> steps = musiCache.scaleNameToScaleDegrees(pattern);
         List<Note> scale = new ArrayList<>();
 
-        for (Step step : steps) {
-            scale.add(stepService.stepUp(startNote, step));
+        for (int octave = 0; octave < numOctaves; octave++) {
+            for (Step step : steps) {
+                scale.add(stepService.stepUp(startNote, step));
+            }
+            if (octave < numOctaves - 1) {
+                startNote = stepService.stepUp(startNote, Steps.PERFECT_OCTAVE);
+            }
         }
+        scale.add(stepService.stepUp(startNote, Steps.PERFECT_OCTAVE));
 
         return scale;
     }
