@@ -53,7 +53,7 @@ public class Steps {
     public static final Step DIMINISHED_FIFTH = new Step("Diminished Fifth", "d5", 6, -1,4);
     public static final Step AUGMENTED_FIFTH = new Step("Augmented Fifth", "A5", 8, 1,4);
     public static final Step DIMINISHED_SIXTH = new Step("Diminished Sixth", "d6", 7, -2,5);
-    public static final Step AUGMENTED_SIXTH = new Step("Augmented Sixth", "A6", 9, 1,5);
+    public static final Step AUGMENTED_SIXTH = new Step("Augmented Sixth", "A6", 10, 1,5);
     public static final Step DIMINISHED_SEVENTH = new Step("Diminished Seventh", "d7", 9, -2,6);
     public static final Step AUGMENTED_SEVENTH = new Step("Augmented Seventh", "A7", 12, 1,6);
     public static final Step DIMINISHED_OCTAVE = new Step("Diminished Octave", "d8", 11, -1,7);
