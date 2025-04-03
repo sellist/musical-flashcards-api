@@ -233,8 +233,8 @@ class StepServiceTests {
         Assertions.assertEquals(noteService.generateNote("F#4"),
                 stepService.getNoteFromScalarDegree("C4", "#4"));
         Assertions.assertEquals(noteService.generateNote("C#5"),
-                stepService.getNoteFromScalarDegree("G4", "#5"));
-        Assertions.assertEquals(noteService.generateNote("D#5"),
+                stepService.getNoteFromScalarDegree("G4", "#4"));
+        Assertions.assertEquals(noteService.generateNote("E#5"),
                 stepService.getNoteFromScalarDegree("G4", "#6"));
         Assertions.assertEquals(noteService.generateNote("G#4"),
                 stepService.getNoteFromScalarDegree("C4", "#5"));
