@@ -6,16 +6,6 @@ import java.util.List;
 
 public interface MusiCache {
 
-    String midiToSharpASPN(int midiValue);
-
-    String midiToFlatASPN(int midiValue);
-
-    String midiToDoubleSharpASPN(int midiValue);
-
-    String midiToDoubleFlatASPN(int midiValue);
-
-    String midiToNaturalASPN(int midiValue);
-
     int flatASPNToMidi(String note);
 
     int sharpASPNToMidi(String note);
@@ -26,7 +16,21 @@ public interface MusiCache {
 
     int naturalASPNToMidi(String note);
 
+    String midiToSharpASPN(int midiValue);
+
+    String midiToFlatASPN(int midiValue);
+
+    String midiToDoubleSharpASPN(int midiValue);
+
+    String midiToDoubleFlatASPN(int midiValue);
+
+    String midiToNaturalASPN(int midiValue);
+
     String sequentialScaleNameToPattern(String scaleName);
+
+    List<String> availableSteps();
+
+    List<String> availableScales();
 
     Step stepNameToStep(String stepName);
 
@@ -36,7 +40,4 @@ public interface MusiCache {
 
     List<Step> scaleNameToScaleDegrees(String scaleName);
 
-    List<String> availableSteps();
-
-    List<String> availableScales();
 }

@@ -2,14 +2,12 @@ package com.sellist.flashcards.cache;
 
 import com.sellist.flashcards.cache.src.MemoryCacheProvider;
 import com.sellist.flashcards.model.Step;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(name = "flashcards.cache.memory.enabled", havingValue = "true")
 public class MemoryMusiCacheImpl implements MusiCache {
 
     private final MemoryCacheProvider cache;
@@ -18,76 +16,96 @@ public class MemoryMusiCacheImpl implements MusiCache {
         this.cache = cache;
     }
 
+    @Override
     public String midiToSharpASPN(int midiValue) {
-        return cache.noteCache.midiToSharpName.get(midiValue);
+        return cache.midiToSharpName.get(midiValue);
     }
 
+    @Override
     public String midiToFlatASPN(int midiValue) {
-        return cache.noteCache.midiToFlatName.get(midiValue);
+        return cache.midiToFlatName.get(midiValue);
     }
 
+    @Override
     public String midiToDoubleSharpASPN(int midiValue) {
-        return cache.noteCache.midiToDoubleSharpName.get(midiValue);
+        return cache.midiToDoubleSharpName.get(midiValue);
     }
 
+    @Override
     public String midiToDoubleFlatASPN(int midiValue) {
-        return cache.noteCache.midiToDoubleFlatName.get(midiValue);
+        return cache.midiToDoubleFlatName.get(midiValue);
     }
 
+    @Override
     public String midiToNaturalASPN(int midiValue) {
-        return cache.noteCache.midiToNaturalName.get(midiValue);
+        return cache.midiToNaturalName.get(midiValue);
     }
 
-    public String sequentialScaleNameToPattern(String scaleName) {return cache.noteCache.sequentialScaleNameToPattern.get(scaleName.toLowerCase());}
+    @Override
+    public String sequentialScaleNameToPattern(String scaleName) {
+        return cache.sequentialScaleNameToPattern.get(scaleName.toLowerCase());
+    }
 
+    @Override
     public int flatASPNToMidi(String note) {
-        return cache.noteCache.flatNameToMidi.get(note);
+        return cache.flatNameToMidi.get(note);
     }
 
+    @Override
     public int sharpASPNToMidi(String note) {
-        return cache.noteCache.sharpNameToMidi.get(note);
+        return cache.sharpNameToMidi.get(note);
     }
 
+    @Override
     public int doubleFlatASPNToMidi(String note) {
-        return cache.noteCache.doubleFlatNameToMidi.get(note);
+        return cache.doubleFlatNameToMidi.get(note);
     }
 
+    @Override
     public int doubleSharpASPNToMidi(String note) {
-        return cache.noteCache.doubleSharpNameToMidi.get(note);
+        return cache.doubleSharpNameToMidi.get(note);
     }
 
+    @Override
     public int naturalASPNToMidi(String note) {
-        return cache.noteCache.naturalNameToMidi.get(note);
+        return cache.naturalNameToMidi.get(note);
     }
 
+    @Override
     public Step stepNameToStep(String stepName) {
-        return cache.stepCache.stepNameToStep.get(stepName);
+        return cache.stepNameToStep.get(stepName);
     }
 
-    public List<String> availableSteps() {return cache.stepCache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();}
+    @Override
+    public List<String> availableSteps() {
+        return cache.stepNameToStep.keySet().stream().filter(x -> x.length() > 2).toList();
+    }
 
+    @Override
     public Step intervalSizeToStep(int intervalSize) {
-        return cache.stepCache.intervalSizeToStep.get(intervalSize);
+        return cache.intervalSizeToStep.get(intervalSize);
     }
 
-    public Step scaleDegreeToStepFromTonic(String scaleDegree) {return cache.stepCache.scaleDegreeToStepFromTonic.get(scaleDegree);}
+    @Override
+    public Step scaleDegreeToStepFromTonic(String scaleDegree) {
+        return cache.scaleDegreeToStepFromTonic.get(scaleDegree);
+    }
 
+    @Override
     public List<Step> scaleNameToScaleDegrees(String scaleName) {
-
-        List<String> degreeNotes = cache.noteCache.scaleNameToScaleDegrees.get(scaleName);
+        List<String> degreeNotes = cache.scaleNameToScaleDegrees.get(scaleName);
         List<Step> steps = new ArrayList<>();
         for (String degree : degreeNotes) {
-            steps.add(cache.stepCache.scaleDegreeToStepFromTonic.get(degree));
+            steps.add(cache.scaleDegreeToStepFromTonic.get(degree));
         }
-
         return steps;
     }
 
+    @Override
     public List<String> availableScales() {
         List<String> availableScales = new ArrayList<>();
-        availableScales.addAll(cache.noteCache.sequentialScaleNameToPattern.keySet().stream().toList());
-        availableScales.addAll(cache.noteCache.scaleNameToScaleDegrees.keySet().stream().toList());
-
+        availableScales.addAll(cache.sequentialScaleNameToPattern.keySet().stream().toList());
+        availableScales.addAll(cache.scaleNameToScaleDegrees.keySet().stream().toList());
         return availableScales;
     }
 }

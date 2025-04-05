@@ -21,48 +21,48 @@ public class CacheTests {
 
     @Test
     void testGetFlatMidiValue() {
-        Assertions.assertEquals(58, cacheProvider.noteCache.flatNameToMidi.get("Bb3"));
-        Assertions.assertEquals(56, cacheProvider.noteCache.flatNameToMidi.get("Ab3"));
-        Assertions.assertEquals(59, cacheProvider.noteCache.flatNameToMidi.get("Cb4"));
-        Assertions.assertEquals(61, cacheProvider.noteCache.flatNameToMidi.get("Db4"));
-        Assertions.assertEquals(63, cacheProvider.noteCache.flatNameToMidi.get("Eb4"));
-        Assertions.assertEquals(64, cacheProvider.noteCache.flatNameToMidi.get("Fb4"));
-        Assertions.assertEquals(66, cacheProvider.noteCache.flatNameToMidi.get("Gb4"));
-        Assertions.assertEquals(68, cacheProvider.noteCache.flatNameToMidi.get("Ab4"));
-        Assertions.assertEquals(70, cacheProvider.noteCache.flatNameToMidi.get("Bb4"));
+        Assertions.assertEquals(58, cacheProvider.flatNameToMidi.get("Bb3"));
+        Assertions.assertEquals(56, cacheProvider.flatNameToMidi.get("Ab3"));
+        Assertions.assertEquals(59, cacheProvider.flatNameToMidi.get("Cb4"));
+        Assertions.assertEquals(61, cacheProvider.flatNameToMidi.get("Db4"));
+        Assertions.assertEquals(63, cacheProvider.flatNameToMidi.get("Eb4"));
+        Assertions.assertEquals(64, cacheProvider.flatNameToMidi.get("Fb4"));
+        Assertions.assertEquals(66, cacheProvider.flatNameToMidi.get("Gb4"));
+        Assertions.assertEquals(68, cacheProvider.flatNameToMidi.get("Ab4"));
+        Assertions.assertEquals(70, cacheProvider.flatNameToMidi.get("Bb4"));
     }
 
     @Test
     void testGetSharpMidiValue() {
-        Assertions.assertEquals(61, cacheProvider.noteCache.sharpNameToMidi.get("C#4"));
-        Assertions.assertEquals(63, cacheProvider.noteCache.sharpNameToMidi.get("D#4"));
-        Assertions.assertEquals(65, cacheProvider.noteCache.sharpNameToMidi.get("E#4"));
-        Assertions.assertEquals(66, cacheProvider.noteCache.sharpNameToMidi.get("F#4"));
-        Assertions.assertEquals(68, cacheProvider.noteCache.sharpNameToMidi.get("G#4"));
-        Assertions.assertEquals(70, cacheProvider.noteCache.sharpNameToMidi.get("A#4"));
-        Assertions.assertEquals(72, cacheProvider.noteCache.sharpNameToMidi.get("B#4"));
-        Assertions.assertEquals(73, cacheProvider.noteCache.sharpNameToMidi.get("C#5"));
+        Assertions.assertEquals(61, cacheProvider.sharpNameToMidi.get("C#4"));
+        Assertions.assertEquals(63, cacheProvider.sharpNameToMidi.get("D#4"));
+        Assertions.assertEquals(65, cacheProvider.sharpNameToMidi.get("E#4"));
+        Assertions.assertEquals(66, cacheProvider.sharpNameToMidi.get("F#4"));
+        Assertions.assertEquals(68, cacheProvider.sharpNameToMidi.get("G#4"));
+        Assertions.assertEquals(70, cacheProvider.sharpNameToMidi.get("A#4"));
+        Assertions.assertEquals(72, cacheProvider.sharpNameToMidi.get("B#4"));
+        Assertions.assertEquals(73, cacheProvider.sharpNameToMidi.get("C#5"));
     }
 
     @Test
     void testGetNaturalMidiValue() {
-        Assertions.assertEquals(60, cacheProvider.noteCache.naturalNameToMidi.get("C4"));
-        Assertions.assertEquals(72, cacheProvider.noteCache.naturalNameToMidi.get("C5"));
-        Assertions.assertEquals(24, cacheProvider.noteCache.naturalNameToMidi.get("C1"));
-        Assertions.assertEquals(55, cacheProvider.noteCache.naturalNameToMidi.get("G3"));
-        Assertions.assertEquals(67, cacheProvider.noteCache.naturalNameToMidi.get("G4"));
-        Assertions.assertEquals(79, cacheProvider.noteCache.naturalNameToMidi.get("G5"));
-        Assertions.assertEquals(48, cacheProvider.noteCache.naturalNameToMidi.get("C3"));
+        Assertions.assertEquals(60, cacheProvider.naturalNameToMidi.get("C4"));
+        Assertions.assertEquals(72, cacheProvider.naturalNameToMidi.get("C5"));
+        Assertions.assertEquals(24, cacheProvider.naturalNameToMidi.get("C1"));
+        Assertions.assertEquals(55, cacheProvider.naturalNameToMidi.get("G3"));
+        Assertions.assertEquals(67, cacheProvider.naturalNameToMidi.get("G4"));
+        Assertions.assertEquals(79, cacheProvider.naturalNameToMidi.get("G5"));
+        Assertions.assertEquals(48, cacheProvider.naturalNameToMidi.get("C3"));
     }
 
     @Test
     void testGetScaleStepFromDegreeFromTonic() {
 
-        System.out.println(cacheProvider.stepCache.scaleDegreeToStepFromTonic);
+        System.out.println(cacheProvider.scaleDegreeToStepFromTonic);
 
         Assertions.assertEquals(
-                cacheProvider.stepCache.stepNameToStep.get("M2"),
-                cacheProvider.stepCache.scaleDegreeToStepFromTonic.get("2"));
+                cacheProvider.stepNameToStep.get("M2"),
+                cacheProvider.scaleDegreeToStepFromTonic.get("2"));
 
     }
 }
