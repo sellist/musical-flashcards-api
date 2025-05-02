@@ -2,7 +2,6 @@ package com.sellist.flashcards.service;
 
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.model.Scale;
 import com.sellist.flashcards.model.request.CardsRequest;
 import com.sellist.flashcards.model.request.NotesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +27,13 @@ public class CardService {
     public List<Card> generateCards(CardsRequest requests) {
         List<Card> output = new ArrayList<>();
 
-        Scale s = scaleService.generateScale(
-            scaleService.getScalePattern(requests.getScaleType()),
+        List<Note> s = scaleService.buildScale(
+                requests.getScaleType(),
                 requests.getStartingNote(),
                 requests.getOctaves()
         );
 
-        s.getNotes().forEach(n -> output.add(generateCard(n)));
+        s.forEach(n -> output.add(generateCard(n)));
 
         return output;
     }

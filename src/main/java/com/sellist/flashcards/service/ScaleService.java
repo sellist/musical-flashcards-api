@@ -107,10 +107,6 @@ public class ScaleService implements ProvideApiInfo {
         return scale;
     }
 
-    public String getScalePattern(String scaleName) {
-        return musiCache.sequentialScaleNameToPattern(scaleName.toLowerCase());
-    }
-
     @Override
     public List<String> listAvailable() {
         return musiCache.availableScales().stream().toList();
