@@ -12,6 +12,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Steps {
 
+    private Steps() {}
+
     public static final Step HALF_STEP = new Step( "Half Step", "H", 1, 0,1);
     public static final Step WHOLE_STEP = new Step( "Whole Step", "W", 2, 0,1);
 

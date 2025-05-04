@@ -2,8 +2,15 @@ package com.sellist.flashcards.model;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
-public class ScaleOptions {
+public class ScaleOptions implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private Note root;
     private String scaleType;
     private int numOctaves;
@@ -13,4 +20,6 @@ public class ScaleOptions {
         this.scaleType = scalePattern;
         this.numOctaves = numOctaves;
     }
+
+
 }

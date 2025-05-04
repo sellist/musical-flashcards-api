@@ -3,7 +3,7 @@ package com.sellist.flashcards.constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ScalesTest {
+class ScalesTest {
 
     @Test
     void testGetScaleField() {

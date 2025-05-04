@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 
 @SuppressWarnings("unused")
 public class Scales {
+
+    private Scales() {}
+
     public static final String MAJOR = "1,2,3,4,5,6,7";
     public static final String MINOR = "1,2,b3,4,5,b6,b7";
     public static final String ACOUSTIC = "1,2,3,#4,5,6,b7";
@@ -40,12 +43,11 @@ public class Scales {
     public static final String WHOLE_TONE = "1,2,3,#4,#5,#6";
 
     public static String getScale(String scaleKey) {
-        Field field;
         try {
-            field = Scales.class.getField(scaleKey.toUpperCase());
+            Field field = Scales.class.getField(scaleKey.toUpperCase());
             return (String) field.get(null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("Error retrieving scale: " + scaleKey, e);
+            return null;
         }
     }
 }

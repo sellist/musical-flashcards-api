@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Card {
-    public String front;
-    public String back;
+    private String front;
+    private String back;
 }

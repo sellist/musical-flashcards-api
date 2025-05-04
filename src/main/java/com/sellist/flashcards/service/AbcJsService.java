@@ -19,20 +19,20 @@ public class AbcJsService {
 
         String modifier;
         if (note.getModifier() < 0) {
-            modifier = new String(new char[Math.abs(note.getModifier())]).replace("\0", constants.FLAT_MARKER);
+            modifier = new String(new char[Math.abs(note.getModifier())]).replace("\0", AbcJsConstants.FLAT_MARKER);
         } else if (note.getModifier() > 0) {
-            modifier = new String(new char[note.getModifier()]).replace("\0", constants.SHARP_MARKER);
+            modifier = new String(new char[note.getModifier()]).replace("\0", AbcJsConstants.SHARP_MARKER);
         } else {
-            modifier = constants.EMPTY;
+            modifier = AbcJsConstants.EMPTY;
         }
 
         String octavePart;
         if (note.getOctave() > 4) {
-            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", constants.OCTAVE_UP_MARKER);
+            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", AbcJsConstants.OCTAVE_UP_MARKER);
         } else if (note.getOctave() < 4) {
-            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", constants.OCTAVE_DOWN_MARKER);
+            octavePart = new String(new char[Math.abs(4 - note.getOctave())]).replace("\0", AbcJsConstants.OCTAVE_DOWN_MARKER);
         } else {
-            octavePart = constants.EMPTY;
+            octavePart = AbcJsConstants.EMPTY;
         }
 
         return modifier + note.getNoteName().toUpperCase(Locale.ROOT) + octavePart;

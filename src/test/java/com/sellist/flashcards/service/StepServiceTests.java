@@ -14,13 +14,10 @@ class StepServiceTests {
 
     private final NoteService noteService;
 
-    private final Steps steps;
-
     @Autowired
     public StepServiceTests(StepService stepService, NoteService noteService, Steps steps) {
         this.stepService = stepService;
         this.noteService = noteService;
-        this.steps = steps;
     }
 
     @Test

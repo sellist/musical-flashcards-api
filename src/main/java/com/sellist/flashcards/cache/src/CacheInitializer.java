@@ -1,8 +1,10 @@
 package com.sellist.flashcards.cache.src;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sellist.flashcards.constants.Steps;
+import com.sellist.flashcards.exception.CacheInitializationException;
 import com.sellist.flashcards.model.Step;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +46,7 @@ public class CacheInitializer {
                     midiNoteMap.put(i, noteName + octave);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -74,6 +77,7 @@ public class CacheInitializer {
                     midiNoteMap.put(i, noteName + octave);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -104,6 +108,7 @@ public class CacheInitializer {
                     midiNoteMap.put(i+Steps.PERFECT_OCTAVE.getSize(), noteName + octave);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -134,6 +139,7 @@ public class CacheInitializer {
                     midiNoteMap.put(i, noteName + octave);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -164,6 +170,7 @@ public class CacheInitializer {
                     midiNoteMap.put(i+Steps.PERFECT_OCTAVE.getSize(), noteName + octave);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -194,6 +201,7 @@ public class CacheInitializer {
                     midiNoteMap.put(noteName + octave, i+Steps.PERFECT_OCTAVE.getSize());
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -224,6 +232,7 @@ public class CacheInitializer {
                     midiNoteMap.put(noteName + octave, i);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -254,6 +263,7 @@ public class CacheInitializer {
                     midiNoteMap.put(noteName + octave, i+Steps.PERFECT_OCTAVE.getSize());
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new IllegalArgumentException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -284,6 +294,7 @@ public class CacheInitializer {
                     midiNoteMap.put(noteName + octave, i);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -310,6 +321,7 @@ public class CacheInitializer {
                     midiNoteMap.put(noteName + octave, i);
                     i += Steps.HALF_STEP.getSize();
                 }
+                default -> throw new CacheInitializationException("Unexpected value: " + noteName);
             }
             noteIndex++;
         }
@@ -399,7 +411,7 @@ public class CacheInitializer {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
             InputStream inputStream = this.getClass().getResourceAsStream("/sequentialScales.yaml");
-            rawMap = mapper.readValue(inputStream, Map.class);
+            rawMap = mapper.readValue(inputStream, new TypeReference<>() {});
         } catch (Exception ignored) {
             return outputMap;
         }
@@ -418,7 +430,7 @@ public class CacheInitializer {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
             InputStream inputStream = this.getClass().getResourceAsStream("/scaleDegrees.yaml");
-            rawMap = mapper.readValue(inputStream, Map.class);
+            rawMap = mapper.readValue(inputStream, new TypeReference<>() {});
         } catch (Exception ignored) {
             return outputMap;
         }

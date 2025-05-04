@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Scale implements Serializable {
     private List<Note> notes;
+
     private ScaleOptions scaleOptions;
 
     public Note get(int index) {

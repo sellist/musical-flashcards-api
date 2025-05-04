@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class CacheTests {
+class CacheTests {
 
     @Autowired
     MemoryCacheProvider cacheProvider;
@@ -16,7 +16,7 @@ public class CacheTests {
 
     @Test
     void testCacheProvider() {
-        assert cacheProvider != null;
+        Assertions.assertNotNull(cacheProvider);
     }
 
     @Test
