@@ -10,15 +10,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class StepServiceTests {
 
-    private final StepService stepService;
-
-    private final NoteService noteService;
+    @Autowired
+    private StepService stepService;
 
     @Autowired
-    public StepServiceTests(StepService stepService, NoteService noteService, Steps steps) {
-        this.stepService = stepService;
-        this.noteService = noteService;
-    }
+    private NoteService noteService;
+
+    //@Autowired
+    //public StepServiceTests(StepService stepService, NoteService noteService) {
+    //    this.stepService = stepService;
+    //    this.noteService = noteService;
+    //}
 
     @Test
     void standardSteps() {

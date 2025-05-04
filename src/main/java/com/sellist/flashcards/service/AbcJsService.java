@@ -9,12 +9,6 @@ import java.util.Locale;
 @Service
 public class AbcJsService {
 
-    private final AbcJsConstants constants;
-
-    public AbcJsService(AbcJsConstants abcJsConstants) {
-        this.constants = abcJsConstants;
-    }
-
     public String generateAbcJs(Note note) {
 
         String modifier;
