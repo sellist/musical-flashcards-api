@@ -4,16 +4,9 @@ import com.sellist.flashcards.cache.MusiCache;
 import com.sellist.flashcards.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class NoteService {
-
-    private static final Logger logger = LoggerFactory.getLogger(NoteService.class);
 
     private final MusiCache musiCache;
 
@@ -63,24 +56,9 @@ public class NoteService {
         }
     }
 
-    public Note modifyNote(Note note, int modifier) {
-        return generateNoteByMidiValue(note.getMidiValue() + modifier, modifier);
-    }
 
     public Note generateNoteByMidiValue(int midiValue, int modifier) {
         return generateNoteByMidiValue(midiValue, modifier, false);
-    }
-
-    public List<Note> generateNotes(List<String> noteNames) {
-        List<Note> notes = new ArrayList<>();
-        for (String noteName : noteNames) {
-            try {
-                notes.add(generateNote(noteName));
-            } catch (IllegalArgumentException e) {
-                logger.warn("Invalid note name: {} - {}", noteName, e.getMessage());
-            }
-        }
-        return notes;
     }
 
 }

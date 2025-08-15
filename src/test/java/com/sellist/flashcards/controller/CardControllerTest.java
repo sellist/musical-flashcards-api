@@ -25,6 +25,7 @@ class CardControllerTest {
     @InjectMocks
     private CardController cardController;
 
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

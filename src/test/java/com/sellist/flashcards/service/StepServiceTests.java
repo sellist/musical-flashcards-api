@@ -16,12 +16,6 @@ class StepServiceTests {
     @Autowired
     private NoteService noteService;
 
-    //@Autowired
-    //public StepServiceTests(StepService stepService, NoteService noteService) {
-    //    this.stepService = stepService;
-    //    this.noteService = noteService;
-    //}
-
     @Test
     void standardSteps() {
         Assertions.assertEquals(Steps.MINOR_SECOND,

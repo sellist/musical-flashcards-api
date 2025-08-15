@@ -3,7 +3,6 @@ package com.sellist.flashcards.service;
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.Note;
 import com.sellist.flashcards.model.request.CardsRequest;
-import com.sellist.flashcards.model.request.NotesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,22 +41,6 @@ public class CardService {
         List<Card> output = new ArrayList<>();
         for (CardsRequest request : requests) {
             output.addAll(generateCards(request));
-        }
-        return output;
-    }
-
-    public List<Card> generateCardsFromNotes(NotesRequest noteNames) {
-        List<Card> output = new ArrayList<>();
-        List<String> errors = new ArrayList<>();
-        for (String noteName : noteNames.getNotes()) {
-            try {
-                output.add(generateCard((noteService.generateNote(noteName))));
-            } catch (Exception e) {
-                errors.add(noteName);
-            }
-        }
-        if (!errors.isEmpty()) {
-            System.out.println("Errors: " + errors);
         }
         return output;
     }
