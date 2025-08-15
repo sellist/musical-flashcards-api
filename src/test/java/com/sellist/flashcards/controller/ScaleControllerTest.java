@@ -1,7 +1,6 @@
 package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.Scale;
-import com.sellist.flashcards.model.request.ScaleRequest;
 import com.sellist.flashcards.model.response.ApiResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,7 @@ class ScaleControllerTest {
 
     @Test
     void testGetMajorScaleFromRequest() {
-        ScaleRequest scaleRequest = new ScaleRequest();
-        scaleRequest.setScaleTonic("C4");
-        scaleRequest.setScaleName("Major");
-        scaleRequest.setOctaves(2);
-
-        ApiResponse<Scale> response = scaleController.getScale(scaleRequest);
+        ApiResponse<Scale> response = scaleController.getScale("C4", "Major", 2);
 
         assertNotNull(response);
         assertNotNull(response.getData());
@@ -33,12 +27,8 @@ class ScaleControllerTest {
 
     @Test
     void testGetMinorScaleFromRequest() {
-        ScaleRequest scaleRequest = new ScaleRequest();
-        scaleRequest.setScaleTonic("A4");
-        scaleRequest.setScaleName("Minor");
-        scaleRequest.setOctaves(2);
 
-        ApiResponse<Scale> response = scaleController.getScale(scaleRequest);
+        ApiResponse<Scale> response = scaleController.getScale("A4","Minor",2);
 
         assertNotNull(response);
         assertNotNull(response.getData());
@@ -49,12 +39,7 @@ class ScaleControllerTest {
 
     @Test
     void testGetSharpChromaticScaleFromRequest() {
-        ScaleRequest scaleRequest = new ScaleRequest();
-        scaleRequest.setScaleTonic("C4");
-        scaleRequest.setScaleName("flat_chromatic");
-        scaleRequest.setOctaves(1);
-
-        ApiResponse<Scale> response = scaleController.getScale(scaleRequest);
+        ApiResponse<Scale> response = scaleController.getScale("C4","flat_chromatic",1);
 
         assertNotNull(response);
         assertNotNull(response.getData());

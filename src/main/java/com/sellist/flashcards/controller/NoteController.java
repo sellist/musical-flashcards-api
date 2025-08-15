@@ -1,13 +1,13 @@
 package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.model.request.NotesRequest;
 import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.service.NoteService;
+import com.sellist.flashcards.utils.ControllerUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,11 +26,16 @@ public class NoteController extends BaseController {
         this.noteService = noteService;
     }
 
-    @PostMapping(path = "/notes", consumes = "application/json", produces = "application/json")
-    public ApiResponse<List<Note>> getNotes(@RequestBody NotesRequest notes) {
+    @GetMapping("/notes")
+    public ApiResponse<List<Note>> getNotes(@RequestParam String notes) {
+        List<String> noteNames = ControllerUtils.deserialize(notes);
         List<Note> notesList = new ArrayList<>();
-        for (String note : notes.getNotes()) {
-            notesList.add(noteService.generateNote(note));
+        for (String note : noteNames) {
+            try {
+                notesList.add(noteService.generateNote(note));
+            } catch (Exception e) {
+                log.warn("Invalid note input: {} - {}", note, e.getMessage());
+            }
         }
         return ApiResponse.<List<Note>>builder()
                 .data(notesList)

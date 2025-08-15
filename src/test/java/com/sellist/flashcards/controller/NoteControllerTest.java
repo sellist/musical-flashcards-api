@@ -1,7 +1,6 @@
 package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.Note;
-import com.sellist.flashcards.model.request.NotesRequest;
 import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.service.NoteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,8 +28,6 @@ class NoteControllerTest {
 
     @Test
     void testGetNotes() {
-        NotesRequest request = new NotesRequest();
-        request.setNotes(List.of("C", "D", "E"));
         Note noteC = new Note();
         Note noteD = new Note();
         Note noteE = new Note();
@@ -38,9 +35,10 @@ class NoteControllerTest {
         when(noteService.generateNote("D")).thenReturn(noteD);
         when(noteService.generateNote("E")).thenReturn(noteE);
 
-        ApiResponse<List<Note>> response = noteController.getNotes(request);
+        ApiResponse<List<Note>> response = noteController.getNotes("C,D,E");
 
         assertEquals(List.of(noteC, noteD, noteE), response.getData());
         assertEquals("OK", response.getMetadata().getStatus());
     }
+
 }

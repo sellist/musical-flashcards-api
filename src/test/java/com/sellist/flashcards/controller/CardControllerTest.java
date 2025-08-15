@@ -2,7 +2,6 @@ package com.sellist.flashcards.controller;
 
 import com.sellist.flashcards.model.Card;
 import com.sellist.flashcards.model.request.CardsRequest;
-import com.sellist.flashcards.model.request.NotesRequest;
 import com.sellist.flashcards.model.response.ApiResponse;
 import com.sellist.flashcards.service.CardService;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,15 +42,4 @@ class CardControllerTest {
         assertEquals(HttpStatus.OK.value(), response.getMetadata().getCode());
     }
 
-    @Test
-    void testGetNotes() {
-        NotesRequest request = new NotesRequest();
-        List<Card> cards = Collections.singletonList(new Card());
-        when(cardService.generateCardsFromNotes(request)).thenReturn(cards);
-
-        ApiResponse<List<Card>> response = cardController.getNotes(request);
-
-        assertEquals(cards, response.getData());
-        assertEquals(HttpStatus.OK.value(), response.getMetadata().getCode());
-    }
 }
