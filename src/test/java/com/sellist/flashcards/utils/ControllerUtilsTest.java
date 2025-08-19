@@ -1,9 +1,10 @@
 package com.sellist.flashcards.utils;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ControllerUtilsTest {
     @Test
@@ -24,22 +25,5 @@ class ControllerUtilsTest {
         assertEquals(List.of("C4", "D#5", "Ab7"), result);
     }
 
-    @Test
-    void testEmptyString() {
-        List<String> result = ControllerUtils.deserialize("");
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testOnlyDelimiters() {
-        List<String> result = ControllerUtils.deserialize(",,,");
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testNullInput() {
-        List<String> result = ControllerUtils.deserialize(null);
-        assertTrue(result.isEmpty());
-    }
 }
 

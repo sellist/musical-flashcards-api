@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Log4j2
 @RestController
 @CrossOrigin
@@ -23,27 +21,12 @@ public class InformationController extends BaseController {
         this.infoService = infoService;
     }
 
-    @GetMapping("/form")
-    public ApiResponse<FormInformation> getFormInfo() {
+    @GetMapping("/")
+    public ApiResponse<FormInformation> getInfo() {
         return ApiResponse.<FormInformation>builder()
                 .data(infoService.getInfo())
                 .metadata(generateMetadata())
                 .build();
     }
 
-    @GetMapping("/scales")
-    public ApiResponse<List<String>> listScales() {
-        return ApiResponse.<List<String>>builder()
-                .data(infoService.listScales())
-                .metadata(generateMetadata())
-                .build();
-    }
-
-    @GetMapping("/steps")
-    public ApiResponse<List<String>> listSteps() {
-        return ApiResponse.<List<String>>builder()
-                .data(infoService.listSteps())
-                .metadata(generateMetadata())
-                .build();
-    }
 }

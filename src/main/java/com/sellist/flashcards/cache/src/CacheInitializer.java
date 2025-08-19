@@ -54,7 +54,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "midiToFlatName")
-    public static Map<Integer, String> midiToFlatName() {
+    public Map<Integer, String> midiToFlatName() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
 
@@ -85,7 +85,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "midiToDoubleSharpName")
-    public static Map<Integer, String> midiToDoubleSharpName() {
+    public Map<Integer, String> midiToDoubleSharpName() {
         String[] noteNames = {"C##", "D##", "E##","F##", "G##","A##","B##"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
 
@@ -116,7 +116,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "midiToDoubleFlatName")
-    public static Map<Integer, String> midiToDoubleFlatName() {
+    public Map<Integer, String> midiToDoubleFlatName() {
         String[] noteNames = {"Cbb", "Dbb", "Ebb","Fbb", "Gbb","Abb","Bbb"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
 
@@ -147,7 +147,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "midiToSharpName")
-    public static Map<Integer, String> midiToSharpName() {
+    public Map<Integer, String> midiToSharpName() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<Integer, String> midiNoteMap = new HashMap<>();
 
@@ -178,7 +178,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "sharpNameToMidi")
-    public static Map<String, Integer> sharpNameToMidi() {
+    public Map<String, Integer> sharpNameToMidi() {
         String[] noteNames = {"C#", "D#", "E#","F#", "G#","A#","B#"};
         Map<String, Integer> midiNoteMap =  new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -209,7 +209,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "flatNameToMidi")
-    public static Map<String, Integer> flatNameToMidi() {
+    public Map<String, Integer> flatNameToMidi() {
         String[] noteNames = {"Cb", "Db", "Eb","Fb", "Gb","Ab","Bb"};
         Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -240,7 +240,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "doubleSharpNameToMidi")
-    public static Map<String, Integer> doubleSharpNameToMidi() {
+    public Map<String, Integer> doubleSharpNameToMidi() {
         String[] noteNames = {"C##", "D##", "E##","F##", "G##","A##","B##"};
         Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -271,7 +271,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "doubleFlatNameToMidi")
-    public static Map<String, Integer> doubleFlatNameToMidi() {
+    public Map<String, Integer> doubleFlatNameToMidi() {
         String[] noteNames = {"Cbb", "Dbb", "Ebb","Fbb", "Gbb","Abb","Bbb"};
         Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -302,7 +302,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "naturalNameToMidi")
-    public static Map<String, Integer> naturalsNameToMidi() {
+    public Map<String, Integer> naturalsNameToMidi() {
         String[] noteNames = {"C", "D", "E","F", "G","A","B"};
         Map<String, Integer> midiNoteMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -329,7 +329,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "intervalNameToSize")
-    public static Map<String, Integer> intervalNameToSize() {
+    public Map<String, Integer> intervalNameToSize() {
         List<Step> steps = Steps.getAllSteps();
         Map<String, Integer> stepNameToSizeMap = new HashMap<>();
         for (Step step : steps) {
@@ -340,7 +340,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "intervalSizeToStep")
-    public static Map<Integer, Step> intervalSizeToStep() {
+    public Map<Integer, Step> intervalSizeToStep() {
         List<Step> steps = Steps.getStandardSteps();
         Map<Integer, Step> stepSizeToNameMap = new HashMap<>();
         for (Step step : steps) {
@@ -350,7 +350,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "stepNameToStep")
-    public static Map<String, Step> stepNameToStep() {
+    public Map<String, Step> stepNameToStep() {
         Map<String, Step> stepNameToStepMap = new HashMap<>();
         for (Step step : Steps.getAllSteps()) {
             stepNameToStepMap.put(step.getStepName(), step);
@@ -360,7 +360,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "majorSizeToStep")
-    public static Map<Integer, Step> majorSizeToStep() {
+    public Map<Integer, Step> majorSizeToStep() {
         Map<Integer, Step> majorStepsMap = new HashMap<>();
         for (Step step : Steps.getAllSteps()) {
             if (step.getQuality().equals("M") || step.getQuality().equals("P")) {
@@ -371,7 +371,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "minorSizeToStep")
-    public static Map<Integer, Step> minorSizeToStep() {
+    public Map<Integer, Step> minorSizeToStep() {
         Map<Integer, Step> minorStepsMap = new HashMap<>();
         for (Step step : Steps.getAllSteps()) {
             if (step.getQuality().equals("m")) {
@@ -382,7 +382,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "diminishedSizeToStep")
-    public static Map<Integer, Step> diminishedSizeToStep() {
+    public Map<Integer, Step> diminishedSizeToStep() {
         Map<Integer, Step> diminishedStepsMap = new HashMap<>();
         for (Step step : Steps.getAllSteps()) {
             if (step.getQuality().equals("d")) {
@@ -393,7 +393,7 @@ public class CacheInitializer {
     }
 
     @Bean(name = "augmentedSizeToStep")
-    public static Map<Integer, Step> augmentedSizeToStep() {
+    public Map<Integer, Step> augmentedSizeToStep() {
         Map<Integer, Step> augmentedStepsMap = new HashMap<>();
         for (Step step : Steps.getAllSteps()) {
             if (step.getQuality().equals("A")) {
