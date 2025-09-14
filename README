@@ -15,15 +15,6 @@ A small Spring Boot service that provides musical note and scale utilities and s
   `/notes?notes=C%234,Ab5,F3`
 - Other endpoints provide scale and card utilities. See source for details.
 
-## Configuration
-- `application.properties` contains runtime configuration (e.g., datasource). Edit `src/main/resources/application.properties` as needed.
-
-## Tests
-- Run tests: `mvn test`
-
-## License
-- MIT
-
 /*
 generateNoteByMidiValue works with the first argument as the midi value of the note, and the second argument is the modifier
 of the base note, can think of it as a cache signifier (generateNoteByMidiValue(60,0) would return C4, generateNoteByMidiValue(61,1) would return C#4)
